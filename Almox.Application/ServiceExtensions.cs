@@ -1,13 +1,12 @@
 using System.Reflection;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+using Almox.Application.Common.Behaviors;
 using Almox.Application.Services;
 using Almox.Domain.Common;
 using Almox.Domain.Contracts;
-using Almox.Domain.Entities;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Almox.Application;
 

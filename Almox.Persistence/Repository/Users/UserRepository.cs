@@ -17,24 +17,4 @@ public class UserRepository(AlmoxContext AlmoxContext) : BaseRepository<User>(Al
             .Set<User>()
             .FirstOrDefaultAsync(user => user.Username == username, cancellationToken);
 
-    public Task<User?> GetWithAlmox(Guid id, CancellationToken cancellationToken)
-        => context
-            .Set<User>()
-            .Include(user => user.Almox.Where(skill => skill.DeletedAt == null))
-            .FirstOrDefaultAsync(user => user.Id == id, cancellationToken);
-
-    public Task<List<User>> GetAllWithAlmox(CancellationToken cancellationToken)
-        => context
-            .Set<User>()
-            .Include(user => user.Almox.Where(skill => skill.DeletedAt == null))
-            .ToListAsync(cancellationToken);
-
-    public Task<List<User>> GetBySkillName(string skillName, CancellationToken cancellationToken)
-        => context
-            .Set<User>()
-            .Where(user => user.Almox.Any(skill => 
-                skill.Name.ToLower().Contains(skillName.ToLower()) && 
-                skill.DeletedAt == null))
-            .Include(user => user.Almox)
-            .ToListAsync(cancellationToken);
 }

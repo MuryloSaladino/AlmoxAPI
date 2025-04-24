@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.Find;
-using Almox.Application.Features.Users.FindBySkill;
 using Almox.API.Middlewares.Authorize;
 using Almox.Application.Features.Users.Promote;
 
@@ -29,15 +28,6 @@ public class UsersController(IMediator mediator) : ControllerBase
         [FromRoute] string id, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new FindUserRequest(id), cancellationToken);
-        return Ok(response);
-    }
-
-    [HttpGet]
-    [Authenticate, Authorize]
-    public async Task<ActionResult<List<FindUsersBySkillResponse>>> FindUsersBySkill(
-        [FromQuery] string? skillname, CancellationToken cancellationToken)
-    {
-        var response = await mediator.Send(new FindUsersBySkillRequest(skillname ?? ""), cancellationToken);
         return Ok(response);
     }
 

@@ -6,7 +6,6 @@ namespace Almox.Persistence.Context;
 public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Skill> Almox { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -14,8 +13,5 @@ public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(op
 
         modelBuilder.Entity<User>()
             .HasKey(u => u.Id);
-        
-        modelBuilder.Entity<Skill>()
-            .HasKey(s => s.Id);
     }
 }
