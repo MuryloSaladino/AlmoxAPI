@@ -1,4 +1,4 @@
-namespace Almox.Domain.Repository;
+namespace Almox.Application.Repository;
 
 public interface IUnitOfWork
 {

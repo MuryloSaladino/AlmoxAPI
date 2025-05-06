@@ -3,8 +3,8 @@ using MediatR;
 using Almox.Application.Common.Exceptions;
 using Almox.Domain.Contracts;
 using Almox.Domain.Entities;
-using Almox.Domain.Repository;
-using Almox.Domain.Repository.UsersRepository;
+using Almox.Application.Repository;
+using Almox.Application.Repository.UsersRepository;
 
 namespace Almox.Application.Features.Users.Register;
 

@@ -1,6 +1,6 @@
 using Almox.Domain.Common;
 
-namespace Almox.Domain.Repository;
+namespace Almox.Application.Repository;
 
 public interface IBaseRepository<TEntity>
     where TEntity : BaseEntity
