@@ -69,7 +69,7 @@ public class AuthenticationService : IAuthenticator
         }
         catch
         {
-            throw new AppException("Invalid token", 401);
+            throw new AppException("Invalid token", AppExceptionCode.Unauthorized);
         }
     }
 }

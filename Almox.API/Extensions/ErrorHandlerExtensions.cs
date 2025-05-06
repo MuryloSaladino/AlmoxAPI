@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Almox.Application.Common.Exceptions;
+using Microsoft.OpenApi.Extensions;
 
 namespace Almox.API.Extensions;
 
@@ -17,7 +18,7 @@ public static class ErrorHandlerExtensions
                 var statusCode = contextFeature.Error switch
                 {
                     AppException appError => appError.StatusCode,
-                    _ => 500
+                    _ => AppExceptionCode.InternalServerError
                 };
                 var message = contextFeature.Error switch
                 {
@@ -27,7 +28,7 @@ public static class ErrorHandlerExtensions
 
                 context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
+                context.Response.StatusCode = (int) statusCode;
 
                 var errorResponse = new { statusCode, message };
 
