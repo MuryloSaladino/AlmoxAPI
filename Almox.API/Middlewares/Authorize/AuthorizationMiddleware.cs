@@ -1,5 +1,4 @@
 using Almox.Domain.Common;
-using Almox.Domain.Contracts;
 
 namespace Almox.API.Middlewares.Authorize;
 
