@@ -25,7 +25,7 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
             .ToArray();
 
         if (errors.Length != 0)
-            throw new AppException(string.Join("\n", errors), 400);
+            throw new AppException(string.Join("\n", errors), AppExceptionCode.BadRequest);
 
         return await next();
     }
