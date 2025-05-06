@@ -1,3 +1,4 @@
+using Almox.Application.Common.Exceptions;
 using Almox.Domain.Repository.UsersRepository;
 using AutoMapper;
 using MediatR;
@@ -14,6 +15,9 @@ public sealed class FindUserHandler(
 
     public async Task<FindUserResponse> Handle(FindUserRequest request, CancellationToken cancellationToken)
     {
-        throw new Exception("not implemented");
+        var user = await userRepository.Get(Guid.Parse(request.Id), cancellationToken)
+            ?? throw new AppException("User not found", AppExceptionCode.NotFound);
+    
+        return mapper.Map<FindUserResponse>(user);
     }
 }

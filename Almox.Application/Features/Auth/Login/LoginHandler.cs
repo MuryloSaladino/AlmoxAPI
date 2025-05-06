@@ -19,10 +19,10 @@ public sealed class LoginHandler(
         LoginRequest request, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByUsername(request.Username, cancellationToken)
-            ?? throw new AppException("User not found", 404);
+            ?? throw new AppException("User not found", AppExceptionCode.NotFound);
         
         if(!encrypter.Matches(user, request.Password)) 
-            throw new AppException("Credentials do not match", 401);
+            throw new AppException("Credentials do not match", AppExceptionCode.Forbidden);
         
         var token = authentication.GenerateUserToken(user);
 

@@ -22,7 +22,7 @@ public sealed class PromoteUserHandler(
         CancellationToken cancellationToken)
     {
         var user = await userRepository.Get(Guid.Parse(request.Id), cancellationToken)
-            ?? throw new AppException("User not found", 404);
+            ?? throw new AppException("User not found", AppExceptionCode.NotFound);
 
         user.IsAdmin = true;
         await unitOfWork.Save(cancellationToken);

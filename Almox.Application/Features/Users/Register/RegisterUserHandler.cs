@@ -26,7 +26,7 @@ public sealed class RegisterUserHandler(
         CancellationToken cancellationToken)
     {
         bool exists = await userRepository.ExistsByUsername(request.Username, cancellationToken);
-        if(exists) throw new AppException("Username already taken", 400);
+        if(exists) throw new AppException("Username already taken", AppExceptionCode.BadRequest);
 
         var user = mapper.Map<User>(request);
         user.Password = encrypter.Hash(user);
