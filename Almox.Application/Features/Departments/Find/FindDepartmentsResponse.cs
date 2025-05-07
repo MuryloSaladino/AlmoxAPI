@@ -1,6 +1,6 @@
 namespace Almox.Application.Features.Departments.Find;
 
-public sealed record FindDepartmentResponse(
+public sealed record FindDepartmentsResponse(
     string Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
