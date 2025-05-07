@@ -1,8 +1,8 @@
 using AutoMapper;
 using MediatR;
 using Almox.Application.Common.Exceptions;
-using Almox.Domain.Repository;
-using Almox.Domain.Repository.UsersRepository;
+using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository;
 
 namespace Almox.Application.Features.Users.Promote;
 

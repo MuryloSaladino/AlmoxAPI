@@ -1,5 +1,5 @@
 using Almox.Application.Common.Exceptions;
-using Almox.Domain.Repository.UsersRepository;
+using Almox.Application.Repository.UsersRepository;
 using AutoMapper;
 using MediatR;
 
