@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Users.Register;
-using Almox.Application.Features.Users.Find;
+using Almox.Application.Features.Users.FindById;
 using Almox.API.Middlewares.Authorize;
 using Almox.Application.Features.Users.Promote;
 
@@ -24,10 +24,10 @@ public class UsersController(IMediator mediator) : ControllerBase
 
     [HttpGet, Route("{id}")]
     [Authenticate]
-    public async Task<ActionResult<FindUserResponse>> FindUser(
+    public async Task<ActionResult<FindUserByIdResponse>> FindUser(
         [FromRoute] string id, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindUserRequest(id), cancellationToken);
+        var response = await mediator.Send(new FindUserByIdRequest(id), cancellationToken);
         return Ok(response);
     }
 
