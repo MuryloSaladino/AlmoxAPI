@@ -3,21 +3,21 @@ using Almox.Application.Repository.UsersRepository;
 using AutoMapper;
 using MediatR;
 
-namespace Almox.Application.Features.Users.Find;
+namespace Almox.Application.Features.Users.FindById;
 
-public sealed class FindUserHandler(
+public sealed class FindUserByIdHandler(
     IUsersRepository userRepository,
     IMapper mapper
-) : IRequestHandler<FindUserRequest, FindUserResponse>
+) : IRequestHandler<FindUserByIdRequest, FindUserByIdResponse>
 {
     private readonly IUsersRepository userRepository = userRepository;
     private readonly IMapper mapper = mapper;
 
-    public async Task<FindUserResponse> Handle(FindUserRequest request, CancellationToken cancellationToken)
+    public async Task<FindUserByIdResponse> Handle(FindUserByIdRequest request, CancellationToken cancellationToken)
     {
         var user = await userRepository.Get(Guid.Parse(request.Id), cancellationToken)
             ?? throw new AppException("User not found", AppExceptionCode.NotFound);
     
-        return mapper.Map<FindUserResponse>(user);
+        return mapper.Map<FindUserByIdResponse>(user);
     }
 }

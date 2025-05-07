@@ -1,6 +1,6 @@
-namespace Almox.Application.Features.Users.Find;
+namespace Almox.Application.Features.Users.FindById;
 
-public sealed record FindUserResponse(
+public sealed record FindUserByIdResponse(
     string Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
