@@ -29,17 +29,19 @@ public class CreateRequestHandler(
         if(userSession.Id is Guid userId)
         {
             var user = await usersRepository.Get(userId, cancellationToken)
-                ?? throw new AppException("User credentials not found", AppExceptionCode.Unauthorized);
+                ?? throw new AppException("User does not exist in database anymore", AppExceptionCode.Unauthorized);
 
             Request requestCreation = new()
             {
                 Status = Status.DRAFT,
                 User = user
             };
+            requestsRepository.Create(requestCreation);
 
             await unitOfWork.Save(cancellationToken);   
 
-            
+            return mapper.Map<CreateRequestResponse>(requestCreation);
         }
+        throw new AppException("Unauthorized", AppExceptionCode.Unauthorized);
     }
 }
