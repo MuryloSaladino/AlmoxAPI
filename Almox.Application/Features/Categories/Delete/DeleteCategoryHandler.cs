@@ -15,7 +15,7 @@ public class DeleteCategoryHandler(
 
     public async Task<DeleteCategoryResponse> Handle(DeleteCategoryRequest request, CancellationToken cancellationToken)
     {
-        var category = await categoriesRepository.Get(Guid.Parse(request.Id), cancellationToken)
+        var category = await categoriesRepository.Get(request.Id, cancellationToken)
             ?? throw new AppException("Category Not Found", AppExceptionCode.NotFound);
         
         categoriesRepository.Delete(category);

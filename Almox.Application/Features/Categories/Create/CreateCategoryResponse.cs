@@ -1,7 +1,7 @@
 namespace Almox.Application.Features.Categories.Create;
 
 public sealed record CreateCategoryResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,

@@ -1,7 +1,7 @@
 namespace Almox.Application.Features.Items.Create;
 
 public sealed record CreateItemResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,

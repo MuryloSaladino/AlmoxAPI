@@ -15,7 +15,7 @@ public sealed class FindUserByIdHandler(
 
     public async Task<FindUserByIdResponse> Handle(FindUserByIdRequest request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.Get(Guid.Parse(request.Id), cancellationToken)
+        var user = await userRepository.Get(request.Id, cancellationToken)
             ?? throw new AppException("User not found", AppExceptionCode.NotFound);
     
         return mapper.Map<FindUserByIdResponse>(user);

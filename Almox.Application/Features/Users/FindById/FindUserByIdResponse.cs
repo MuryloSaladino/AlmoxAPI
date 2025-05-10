@@ -1,7 +1,7 @@
 namespace Almox.Application.Features.Users.FindById;
 
 public sealed record FindUserByIdResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,

@@ -16,7 +16,7 @@ public class FindDepartmentByIdHandler(
     public async Task<FindDepartmentByIdResponse> Handle(
         FindDepartmentByIdRequest request, CancellationToken cancellationToken)
     {
-        var department = await departmentRepository.GetWithUsers(Guid.Parse(request.Id), cancellationToken)
+        var department = await departmentRepository.GetWithUsers(request.Id, cancellationToken)
             ?? throw new AppException("Department not found", AppExceptionCode.NotFound);
 
         return mapper.Map<FindDepartmentByIdResponse>(department);

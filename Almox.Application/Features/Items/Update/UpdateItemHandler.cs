@@ -18,7 +18,7 @@ public class UpdateItemHandler(
 
     public async Task<UpdateItemResponse> Handle(UpdateItemRequest request, CancellationToken cancellationToken)
     {
-        var item = await itemsRepository.Get(Guid.Parse(request.Id), cancellationToken)
+        var item = await itemsRepository.Get(request.Id, cancellationToken)
             ?? throw new AppException("Item not found", AppExceptionCode.NotFound);
 
         if(!string.IsNullOrEmpty(request.Name))

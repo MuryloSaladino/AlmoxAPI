@@ -1,7 +1,7 @@
 namespace Almox.Application.Features.Departments.Create;
 
 public sealed record CreateDepartmentResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
