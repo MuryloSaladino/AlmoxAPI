@@ -1,11 +1,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Auth.Login;
+using Almox.API.Enums;
 
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route("/auth")]
+[Route(RouteConstants.Auth)]
 public class AuthController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;
