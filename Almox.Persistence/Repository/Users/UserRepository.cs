@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Almox.Domain.Entities;
-using Almox.Domain.Repository.UsersRepository;
 using Almox.Persistence.Context;
+using Almox.Application.Repository.UsersRepository;
 
 namespace Almox.Persistence.Repository.Users;
 
-public class UserRepository(AlmoxContext AlmoxContext) : BaseRepository<User>(AlmoxContext), IUsersRepository
+public class UserRepository(
+    AlmoxContext almoxContext
+) : BaseRepository<User>(almoxContext), 
+    IUsersRepository
 {
     public Task<bool> ExistsByUsername(string username, CancellationToken cancellationToken)
         => context

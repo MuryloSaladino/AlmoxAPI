@@ -1,4 +1,4 @@
-using Almox.Domain.Repository;
+using Almox.Application.Repository;
 using Almox.Persistence.Context;
 
 namespace Almox.Persistence.Repository;
