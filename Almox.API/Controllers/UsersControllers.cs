@@ -8,6 +8,7 @@ using Almox.Application.Features.Users.Promote;
 using Almox.API.Enums;
 using Almox.Application.Features.Users.Find;
 using Almox.Application.Repository.UsersRepository;
+using Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
 
 namespace Almox.API.Controllers;
 
@@ -28,6 +29,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet, Route("{id}")]
+    [AuthorizeOwnUserOrAdmin]
     public async Task<ActionResult<FindUserByIdResponse>> FindById(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {
@@ -49,7 +51,7 @@ public class UsersController(IMediator mediator) : ControllerBase
 
     [HttpPatch, Route("promote/{id}")]
     [AuthorizeAdmin]
-    public async Task<ActionResult<PromoteUserResponse>> PromoteUser(
+    public async Task<ActionResult<PromoteUserResponse>> Promote(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new PromoteUserRequest(id), cancellationToken);
