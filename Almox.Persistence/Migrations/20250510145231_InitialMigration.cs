@@ -18,9 +18,9 @@ namespace Almox.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(35)", nullable: false),
                     Description = table.Column<string>(type: "VARCHAR(255)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,9 +33,9 @@ namespace Almox.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,9 @@ namespace Almox.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     Quantity = table.Column<int>(type: "INT", nullable: false, defaultValue: 0),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,9 +68,9 @@ namespace Almox.Persistence.Migrations
                     Email = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     Password = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     IsAdmin = table.Column<bool>(type: "BOOLEAN", nullable: false, defaultValue: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,9 +114,9 @@ namespace Almox.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Description = table.Column<string>(type: "VARCHAR(255)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,11 +136,11 @@ namespace Almox.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Observations = table.Column<string>(type: "TEXT", nullable: true),
-                    Date = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
+                    Date = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -162,9 +162,9 @@ namespace Almox.Persistence.Migrations
                     Priority = table.Column<short>(type: "SMALLINT", nullable: false, defaultValue: (short)1),
                     Observations = table.Column<string>(type: "VARCHAR(255)", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
-                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -234,6 +234,12 @@ namespace Almox.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Category_Name",
+                table: "Category",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CategoryItem_ItemsId",
                 table: "CategoryItem",
                 column: "ItemsId");
@@ -249,6 +255,18 @@ namespace Almox.Persistence.Migrations
                 column: "DeliveryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Department_Name",
+                table: "Department",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_Name",
+                table: "Item",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Request_UserId",
                 table: "Request",
                 column: "UserId");
@@ -262,6 +280,18 @@ namespace Almox.Persistence.Migrations
                 name: "IX_Users_DepartmentId",
                 table: "Users",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />

@@ -17,7 +17,7 @@ namespace Almox.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -29,17 +29,17 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("VARCHAR(255)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -58,10 +58,10 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -72,9 +72,12 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("VARCHAR(35)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Category");
                 });
@@ -86,13 +89,13 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Observations")
                         .HasColumnType("TEXT");
@@ -103,7 +106,7 @@ namespace Almox.Persistence.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -140,19 +143,22 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Department");
                 });
@@ -164,10 +170,10 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -179,9 +185,12 @@ namespace Almox.Persistence.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Item");
                 });
@@ -193,10 +202,10 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Observations")
                         .HasColumnType("VARCHAR(255)");
@@ -212,7 +221,7 @@ namespace Almox.Persistence.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -252,10 +261,10 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uuid");
@@ -274,7 +283,7 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("VARCHAR(255)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMP");
+                        .HasColumnType("TIMESTAMPTZ");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -283,6 +292,12 @@ namespace Almox.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
