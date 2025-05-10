@@ -1,6 +1,6 @@
 namespace Almox.Application.Repository.ItemsRepository;
 
-public record IItemsQueryFilters(
+public record ItemsQueryFilters(
     string? Name,
     string? CategoryName
 );

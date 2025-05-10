@@ -9,9 +9,11 @@ public class DepartmentsRepository(
     AlmoxContext almoxContext
 ) : BaseRepository<Department>(almoxContext), IDepartmentRepository
 {
-    public async Task<List<Department>> GetByName(string? name, CancellationToken cancellationToken)
-        => await dbSet
-            .Where(d => name == null || EF.Functions.ILike(d.Name, $"%{name}%"))
+    public async Task<List<Department>> GetWithFilters(
+        DepartmentsQueryFilters filters, 
+        CancellationToken cancellationToken
+    ) => await dbSet
+            .Where(d => filters.Name == null || EF.Functions.ILike(d.Name, $"%{filters.Name}%"))
             .ToListAsync(cancellationToken);
 
     public async Task<Department?> GetWithUsers(Guid id, CancellationToken cancellationToken)

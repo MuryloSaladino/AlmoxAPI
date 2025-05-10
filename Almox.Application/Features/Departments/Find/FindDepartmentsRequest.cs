@@ -1,7 +1,8 @@
+using Almox.Application.Repository.DepartmentsRepository;
 using MediatR;
 
 namespace Almox.Application.Features.Departments.Find;
 
 public sealed record FindDepartmentsRequest(
-    string? Name
+    DepartmentsQueryFilters Filters
 ) : IRequest<List<FindDepartmentsResponse>>;

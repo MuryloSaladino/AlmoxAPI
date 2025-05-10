@@ -6,6 +6,8 @@ using Almox.Application.Features.Users.FindById;
 using Almox.API.Middlewares.AuthorizeAdmin;
 using Almox.Application.Features.Users.Promote;
 using Almox.API.Enums;
+using Almox.Application.Features.Users.Find;
+using Almox.Application.Repository.UsersRepository;
 
 namespace Almox.API.Controllers;
 
@@ -17,7 +19,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     private readonly IMediator mediator = mediator;
 
     [HttpPost]
-
+    [AuthorizeAdmin]
     public async Task<ActionResult<RegisterUserResponse>> Register(
         RegisterUserRequest request, CancellationToken cancellationToken)
     {
@@ -26,11 +28,22 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet, Route("{id}")]
-    [Authenticate]
     public async Task<ActionResult<FindUserByIdResponse>> FindById(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new FindUserByIdRequest(id), cancellationToken);
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [AuthorizeAdmin]
+    public async Task<ActionResult<List<FindUsersResponse>>> Find(
+        [FromQuery] string? username,
+        [FromQuery] string? email,
+        CancellationToken cancellationToken)
+    {
+        var filters = new UsersQueryFilters(username, email);
+        var response = await mediator.Send(new FindUsersRequest(filters), cancellationToken);
         return Ok(response);
     }
 

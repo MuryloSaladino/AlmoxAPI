@@ -9,7 +9,7 @@ public class ItemsRepository(
     AlmoxContext almoxContext
 ) : BaseRepository<Item>(almoxContext), IItemsRepository
 {
-    public async Task<List<Item>> GetWithFilters(IItemsQueryFilters filters, CancellationToken cancellationToken)
+    public async Task<List<Item>> GetWithFilters(ItemsQueryFilters filters, CancellationToken cancellationToken)
     {
         var query = dbSet
             .Include(i => i.Categories)

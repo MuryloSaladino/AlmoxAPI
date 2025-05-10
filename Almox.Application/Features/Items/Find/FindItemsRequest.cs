@@ -4,5 +4,5 @@ using MediatR;
 namespace Almox.Application.Features.Items.Find;
 
 public sealed record FindItemsRequest(
-    IItemsQueryFilters Filters
+    ItemsQueryFilters Filters
 ) : IRequest<List<FindItemsResponse>>;

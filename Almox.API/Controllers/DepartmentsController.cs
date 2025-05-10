@@ -5,6 +5,7 @@ using Almox.Application.Features.Departments.Create;
 using Almox.Application.Features.Departments.Delete;
 using Almox.Application.Features.Departments.Find;
 using Almox.Application.Features.Departments.FindById;
+using Almox.Application.Repository.DepartmentsRepository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,8 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<FindDepartmentsResponse>> Find(
         [FromQuery] string? name, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindDepartmentsRequest(name), cancellationToken);
+        var filters = new DepartmentsQueryFilters(name);
+        var response = await mediator.Send(new FindDepartmentsRequest(filters), cancellationToken);
         return Ok(response);
     }
 

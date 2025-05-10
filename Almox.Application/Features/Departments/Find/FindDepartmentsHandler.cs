@@ -15,7 +15,7 @@ public class FindDepartmentsHandler(
     public async Task<List<FindDepartmentsResponse>> Handle(
         FindDepartmentsRequest request, CancellationToken cancellationToken)
     {
-        var departments = await departmentRepository.GetByName(request.Name, cancellationToken);
+        var departments = await departmentRepository.GetWithFilters(request.Filters, cancellationToken);
 
         return mapper.Map<List<FindDepartmentsResponse>>(departments);
     }
