@@ -8,5 +8,6 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserRequest>
     {
         RuleFor(u => u.Username).MinimumLength(3);
         RuleFor(u => u.Password).MinimumLength(8);
+        RuleFor(u => u.Email).EmailAddress();
     }
 }

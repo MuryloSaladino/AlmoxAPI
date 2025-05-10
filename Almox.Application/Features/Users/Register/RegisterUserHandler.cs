@@ -1,6 +1,5 @@
 using AutoMapper;
 using MediatR;
-using Almox.Application.Common.Exceptions;
 using Almox.Domain.Contracts;
 using Almox.Domain.Entities;
 using Almox.Application.Repository;
@@ -25,12 +24,10 @@ public sealed class RegisterUserHandler(
         RegisterUserRequest request,
         CancellationToken cancellationToken)
     {
-        bool exists = await userRepository.ExistsByUsername(request.Username, cancellationToken);
-        if(exists) throw new AppException("Username already taken", AppExceptionCode.BadRequest);
-
         var user = mapper.Map<User>(request);
         user.Password = encrypter.Hash(user);
         userRepository.Create(user);
+
         await unitOfWork.Save(cancellationToken);
 
         return mapper.Map<RegisterUserResponse>(user);

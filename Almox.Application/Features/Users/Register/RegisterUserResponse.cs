@@ -1,7 +1,7 @@
 namespace Almox.Application.Features.Users.Register;
 
 public sealed record RegisterUserResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
     DateTime? DeletedAt,
