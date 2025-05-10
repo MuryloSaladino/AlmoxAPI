@@ -19,6 +19,8 @@ public static class UserEntityCreationExtensions
             entity.Property(e => e.Email)
                 .HasColumnType("VARCHAR(255)")
                 .IsRequired();
+            entity.HasIndex(e => e.Email)
+                .IsUnique();
 
             entity.Property(e => e.Password)
                 .HasColumnType("VARCHAR(255)")
@@ -27,6 +29,8 @@ public static class UserEntityCreationExtensions
             entity.Property(e => e.Username)
                 .HasColumnType("VARCHAR(255)")
                 .IsRequired();
+            entity.HasIndex(e => e.Username)
+                .IsUnique();
 
             entity.Property(e => e.IsAdmin)
                 .HasColumnType("BOOLEAN")

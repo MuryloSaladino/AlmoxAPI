@@ -16,6 +16,8 @@ public static class ItemEntityCreationExtensions
             entity.Property(e => e.Name)
                 .HasColumnType("VARCHAR(50)")
                 .IsRequired();
+            entity.HasIndex(e => e.Name)
+                .IsUnique();
             
             entity.Property(e => e.Quantity)
                 .HasColumnType("INT")

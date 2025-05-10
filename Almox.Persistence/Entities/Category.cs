@@ -16,6 +16,8 @@ public static class CategoryEntityCreationExtensions
             entity.Property(e => e.Name)
                 .HasColumnType("VARCHAR(35)")
                 .IsRequired();
+            entity.HasIndex(e => e.Name)
+                .IsUnique();
 
             entity.Property(e => e.Description)
                 .HasColumnType("VARCHAR(255)")

@@ -17,5 +17,7 @@ public static class DepartmentEntityCreationExtensions
             entity.Property(e => e.Name)
                 .HasColumnType("VARCHAR(50)")
                 .IsRequired();
+            entity.HasIndex(e => e.Name)
+                .IsUnique();
         });
 }

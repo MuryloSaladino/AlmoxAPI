@@ -25,7 +25,7 @@ public static class DeliveryEntityCreationExtensions
                 .HasColumnType("TEXT");
 
             entity.Property(e => e.Date)
-                .HasColumnType("TIMESTAMP")
+                .HasColumnType("TIMESTAMPTZ")
                 .IsRequired();
 
             entity.Property(e => e.Status)

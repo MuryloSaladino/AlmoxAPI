@@ -15,13 +15,13 @@ public static class BaseEntityConfigurationExtensions
             .IsRequired();
 
         builder.Property(e => e.CreatedAt)
-            .HasColumnType("TIMESTAMP")
+            .HasColumnType("TIMESTAMPTZ")
             .IsRequired();
 
         builder.Property(e => e.UpdatedAt)
-            .HasColumnType("TIMESTAMP");
+            .HasColumnType("TIMESTAMPTZ");
 
         builder.Property(e => e.DeletedAt)
-            .HasColumnType("TIMESTAMP");
+            .HasColumnType("TIMESTAMPTZ");
     }
 }
