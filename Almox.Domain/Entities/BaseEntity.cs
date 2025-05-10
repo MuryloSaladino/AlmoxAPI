@@ -1,4 +1,4 @@
-namespace Almox.Domain.Common;
+namespace Almox.Domain.Entities;
 
 public class BaseEntity
 {

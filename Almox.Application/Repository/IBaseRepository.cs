@@ -1,4 +1,4 @@
-using Almox.Domain.Common;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Repository;
 

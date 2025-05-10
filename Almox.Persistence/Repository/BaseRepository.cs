@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Almox.Domain.Common;
 using Almox.Persistence.Context;
 using Almox.Application.Repository;
+using Almox.Domain.Entities;
 
 namespace Almox.Persistence.Repository;
 
