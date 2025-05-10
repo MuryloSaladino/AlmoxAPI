@@ -1,8 +1,8 @@
 using Almox.Domain.Common;
 
-namespace Almox.API.Middlewares.AuthorizeAdmin;
+namespace Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
 
-public class AuthorizeAdminMiddleware(RequestDelegate next)
+public class AuthorizeMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
 
@@ -10,9 +10,9 @@ public class AuthorizeAdminMiddleware(RequestDelegate next)
     {
         var endpoint = context.GetEndpoint();
 
-        var requiresAuthorization = endpoint?.Metadata.GetMetadata<AuthorizeAdminAttribute>() != null;
+        var authorizationAttr = endpoint?.Metadata.GetMetadata<AuthorizeOwnUserOrAdminAttribute>();
         
-        if (!requiresAuthorization)
+        if(authorizationAttr is null)
         {
             await _next(context);
             return;
@@ -20,13 +20,13 @@ public class AuthorizeAdminMiddleware(RequestDelegate next)
 
         UserSession session = (UserSession) context.Items["UserSession"]!;
     
-        if(!session.IsAdmin) 
+        if(!session.IsAdmin && session.Id != authorizationAttr.UserId)
         {
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             await context.Response.WriteAsync("{\"message\": \"Unauthorized\"}");
             return;
         }
-
+        
         await _next(context);
     }
 }

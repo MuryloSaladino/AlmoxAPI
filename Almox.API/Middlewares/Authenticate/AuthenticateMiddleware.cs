@@ -10,9 +10,9 @@ public class AuthenticateMiddleware(RequestDelegate next)
     {
         var endpoint = context.GetEndpoint();
 
-        var requiresAuth = endpoint?.Metadata.GetMetadata<AuthenticateAttribute>() != null;
+        var requiresAuthentication = endpoint?.Metadata.GetMetadata<AuthenticateAttribute>() != null;
         
-        if (!requiresAuth)
+        if (!requiresAuthentication)
         {
             await _next(context);
             return;
