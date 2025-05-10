@@ -1,6 +1,7 @@
 using Almox.API.Extensions;
 using Almox.API.Middlewares.Authenticate;
 using Almox.API.Middlewares.AuthorizeAdmin;
+using Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
 using Almox.Application;
 using Almox.Application.Config;
 using Almox.Persistence;
@@ -28,6 +29,7 @@ dataContext?.Database.EnsureCreated();
 
 app.UseMiddleware<AuthenticateMiddleware>();
 app.UseMiddleware<AuthorizeAdminMiddleware>();
+app.UseMiddleware<AuthorizeOwnUserOrAdminMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();
