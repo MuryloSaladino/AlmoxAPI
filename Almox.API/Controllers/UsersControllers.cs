@@ -5,11 +5,12 @@ using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.FindById;
 using Almox.API.Middlewares.Authorize;
 using Almox.Application.Features.Users.Promote;
+using Almox.API.Enums;
 
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route("/users")]
+[Route(RouteConstants.Users)]
 public class UsersController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;
@@ -19,13 +20,13 @@ public class UsersController(IMediator mediator) : ControllerBase
         RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
-        return Created("/users", response);
+        return Created(RouteConstants.Users, response);
     }
 
     [HttpGet, Route("{id}")]
     [Authenticate]
     public async Task<ActionResult<FindUserByIdResponse>> FindUser(
-        [FromRoute] string id, CancellationToken cancellationToken)
+        [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new FindUserByIdRequest(id), cancellationToken);
         return Ok(response);
@@ -34,7 +35,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     [HttpPost, Route("promote/{id}")]
     [Authenticate, Authorize]
     public async Task<ActionResult<PromoteUserResponse>> PromoteUser(
-        [FromRoute] string id, CancellationToken cancellationToken)
+        [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new PromoteUserRequest(id), cancellationToken);
         return Ok(response);
