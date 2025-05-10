@@ -6,5 +6,6 @@ public sealed record FindUserByIdResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Username,
+    string Email,
     bool IsAdmin
 );
