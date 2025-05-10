@@ -4,7 +4,7 @@ using Almox.Domain.Enums;
 namespace Almox.Application.Features.Requests.Create;
 
 public sealed record CreateRequestResponse(
-    string Id,
+    Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,

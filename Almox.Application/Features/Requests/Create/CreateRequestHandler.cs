@@ -4,7 +4,6 @@ using Almox.Application.Repository.RequestsRepository;
 using Almox.Application.Repository.UsersRepository;
 using Almox.Domain.Common;
 using Almox.Domain.Entities;
-using Almox.Domain.Enums;
 using AutoMapper;
 using MediatR;
 
@@ -33,8 +32,8 @@ public class CreateRequestHandler(
 
             Request requestCreation = new()
             {
-                Status = Status.DRAFT,
-                User = user
+                User = user,
+                UserId = user.Id
             };
             requestsRepository.Create(requestCreation);
 
