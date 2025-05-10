@@ -1,4 +1,6 @@
 using Almox.API.Enums;
+using Almox.API.Middlewares.Authenticate;
+using Almox.API.Middlewares.AuthorizeAdmin;
 using Almox.Application.Features.Departments.Create;
 using Almox.Application.Features.Departments.Delete;
 using Almox.Application.Features.Departments.Find;
@@ -10,6 +12,7 @@ namespace Almox.API.Controllers;
 
 [ApiController]
 [Route(RouteConstants.Departments)]
+[Authenticate, AuthorizeAdmin]
 public class DepartmentsController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;

@@ -1,8 +1,8 @@
 using Almox.Domain.Common;
 
-namespace Almox.API.Middlewares.Authorize;
+namespace Almox.API.Middlewares.AuthorizeAdmin;
 
-public class AuthorizationMiddleware(RequestDelegate next)
+public class AuthorizeAdminMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
 
@@ -10,7 +10,7 @@ public class AuthorizationMiddleware(RequestDelegate next)
     {
         var endpoint = context.GetEndpoint();
 
-        var requiresAuth = endpoint?.Metadata.GetMetadata<AuthorizeAttribute>() != null;
+        var requiresAuth = endpoint?.Metadata.GetMetadata<AuthorizeAdminAttribute>() != null;
         
         if (!requiresAuth)
         {

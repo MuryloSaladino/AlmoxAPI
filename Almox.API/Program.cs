@@ -1,6 +1,6 @@
 using Almox.API.Extensions;
 using Almox.API.Middlewares.Authenticate;
-using Almox.API.Middlewares.Authorize;
+using Almox.API.Middlewares.AuthorizeAdmin;
 using Almox.Application;
 using Almox.Application.Config;
 using Almox.Persistence;
@@ -26,8 +26,8 @@ var serviceScope = app.Services.CreateScope();
 var dataContext = serviceScope.ServiceProvider.GetService<AlmoxContext>();
 dataContext?.Database.EnsureCreated();
 
-app.UseMiddleware<AuthenticationMiddleware>();
-app.UseMiddleware<AuthorizationMiddleware>();
+app.UseMiddleware<AuthenticateMiddleware>();
+app.UseMiddleware<AuthorizeAdminMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

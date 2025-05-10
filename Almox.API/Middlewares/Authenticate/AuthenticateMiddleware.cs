@@ -2,7 +2,7 @@ using Almox.Domain.Contracts;
 
 namespace Almox.API.Middlewares.Authenticate;
 
-public class AuthenticationMiddleware(RequestDelegate next)
+public class AuthenticateMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
 
