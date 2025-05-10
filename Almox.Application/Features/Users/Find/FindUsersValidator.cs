@@ -6,7 +6,7 @@ public class FindUsersValidator : AbstractValidator<FindUsersRequest>
 {
     public FindUsersValidator()
     {
-        RuleFor(r => r.Email).MaximumLength(255).When(r => !string.IsNullOrEmpty(r.Email));
-        RuleFor(r => r.Username).MaximumLength(255).When(r => !string.IsNullOrEmpty(r.Username));
+        RuleFor(r => r.Filters.Email).MaximumLength(255).When(r => !string.IsNullOrEmpty(r.Filters.Email));
+        RuleFor(r => r.Filters.Username).MaximumLength(255).When(r => !string.IsNullOrEmpty(r.Filters.Username));
     }
 }
