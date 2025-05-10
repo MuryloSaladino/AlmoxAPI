@@ -2,7 +2,7 @@ using Almox.Domain.Common;
 
 namespace Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
 
-public class AuthorizeMiddleware(RequestDelegate next)
+public class AuthorizeOwnUserOrAdminMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
 
