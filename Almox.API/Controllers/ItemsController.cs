@@ -1,5 +1,6 @@
 using Almox.API.Enums;
 using Almox.API.Middlewares.Authenticate;
+using Almox.Application.Features.Items.Categorize;
 using Almox.Application.Features.Items.Create;
 using Almox.Application.Features.Items.Delete;
 using Almox.Application.Features.Items.Find;
@@ -51,6 +52,17 @@ public class ItemsController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken)
     {
         var request = new UpdateItemRequest(id, body);
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
+
+    [HttpPost, Route("{itemId}/categories/{categoryId}")]
+    public async Task<ActionResult<CategorizeItemResponse>> Categorize(
+        [FromRoute] Guid itemId,
+        [FromRoute] Guid categoryId,
+        CancellationToken cancellationToken)
+    {
+        var request = new CategorizeItemRequest(itemId, categoryId);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
