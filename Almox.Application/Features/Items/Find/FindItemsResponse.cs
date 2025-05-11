@@ -6,5 +6,11 @@ public sealed record FindItemsResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Name, 
-    int Quantity
+    int Quantity,
+    List<FindItemsResponseCategory> Categories
+);
+
+public sealed record FindItemsResponseCategory(
+    Guid Id,
+    string Name
 );
