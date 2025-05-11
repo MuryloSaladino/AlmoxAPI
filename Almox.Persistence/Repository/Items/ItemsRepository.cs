@@ -12,6 +12,7 @@ public class ItemsRepository(
     public async Task<List<Item>> GetWithFilters(ItemsQueryFilters filters, CancellationToken cancellationToken)
     {
         var query = dbSet
+            .Where(i => i.DeletedAt == null)
             .Include(i => i.Categories)
             .AsQueryable();
 
