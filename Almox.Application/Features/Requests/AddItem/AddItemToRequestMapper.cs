@@ -7,7 +7,9 @@ public class AddItemToRequestMapper : Profile
 {
     public AddItemToRequestMapper()
     {
-        CreateMap<AddItemToRequestRequest, RequestItem>();
+        CreateMap<AddItemToRequestRequest, RequestItem>()
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Body.Quantity));
+            
         CreateMap<RequestItem, AddItemToRequestResponse>();
     }
 }

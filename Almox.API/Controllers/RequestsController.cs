@@ -26,10 +26,10 @@ public class RequestsController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<AddItemToRequestResponse>> AddItem(
         [FromRoute] Guid requestId,
         [FromRoute] Guid itemId,
-        [FromBody] int quantity,
+        [FromBody] AddItemToRequestRequestBody body,
         CancellationToken cancellationToken)
     {
-        var request = new AddItemToRequestRequest(requestId, itemId, quantity);
+        var request = new AddItemToRequestRequest(requestId, itemId, body);
         var response = await mediator.Send(request, cancellationToken);
         return Created(APIRoutes.Requests + "/{requestId}/items/{itemId}", response);
     }

@@ -8,7 +8,7 @@ public sealed record CreateRequestResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    User User,
+    Guid UserId,
     int Priority,
     string Observations,
     Status Status,
