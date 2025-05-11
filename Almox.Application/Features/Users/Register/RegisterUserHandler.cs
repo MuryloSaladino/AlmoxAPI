@@ -1,9 +1,9 @@
 using AutoMapper;
 using MediatR;
-using Almox.Domain.Contracts;
 using Almox.Domain.Entities;
 using Almox.Application.Repository;
 using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Contracts;
 
 namespace Almox.Application.Features.Users.Register;
 
