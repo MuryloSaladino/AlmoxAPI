@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route(RouteConstants.Categories)]
+[Route(APIRoutes.Categories)]
 [Authenticate]
 public class CategoriesController(IMediator mediator) : ControllerBase
 {
@@ -20,7 +20,7 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
-        return Created(RouteConstants.Categories, response);
+        return Created(APIRoutes.Categories, response);
     }
 
     [HttpGet]

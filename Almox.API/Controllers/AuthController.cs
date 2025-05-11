@@ -6,7 +6,7 @@ using Almox.API.Enums;
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route(RouteConstants.Auth)]
+[Route(APIRoutes.Auth)]
 public class AuthController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;

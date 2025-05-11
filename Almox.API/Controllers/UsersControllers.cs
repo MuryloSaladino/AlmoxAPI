@@ -11,7 +11,7 @@ using Almox.Application.Repository.UsersRepository;
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route(RouteConstants.Users)]
+[Route(APIRoutes.Users)]
 [Authenticate]
 public class UsersController(IMediator mediator) : ControllerBase
 {
@@ -22,7 +22,7 @@ public class UsersController(IMediator mediator) : ControllerBase
         RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
-        return Created(RouteConstants.Users, response);
+        return Created(APIRoutes.Users, response);
     }
 
     [HttpGet, Route("{id}")]

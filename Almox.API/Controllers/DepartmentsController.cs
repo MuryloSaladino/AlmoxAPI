@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Almox.API.Controllers;
 
 [ApiController]
-[Route(RouteConstants.Departments)]
+[Route(APIRoutes.Departments)]
 [Authenticate]
 public class DepartmentsController(IMediator mediator) : ControllerBase
 {
@@ -22,7 +22,7 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
         CreateDepartmentRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
-        return Created(RouteConstants.Departments, response);
+        return Created(APIRoutes.Departments, response);
     }
 
     [HttpDelete, Route("{id}")]
