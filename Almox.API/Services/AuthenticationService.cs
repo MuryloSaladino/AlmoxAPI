@@ -4,11 +4,12 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Config;
-using Almox.Domain.Common;
-using Almox.Domain.Contracts;
 using Almox.Domain.Entities;
+using Almox.Application.Contracts;
+using Almox.Domain.Objects;
+using Almox.Domain.Common.Messages;
 
-namespace Almox.Application.Services;
+namespace Almox.API.Services;
 
 public class AuthenticationService : IAuthenticator
 {
@@ -39,7 +40,7 @@ public class AuthenticationService : IAuthenticator
         return tokenHandler.WriteToken(token);
     }
 
-    public UserSession ExtractToken(string token)
+    public AuthPayload ExtractToken(string token)
     {
         var key = Encoding.ASCII.GetBytes(SecretKey);
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -65,11 +66,19 @@ public class AuthenticationService : IAuthenticator
             if(userId == null || username == null)
                 throw new SecurityTokenException("Invalid token: missing claims.");
 
-            return new UserSession(username, userId, isAdmin);
+            if(!Guid.TryParse(userId, out Guid parsedId))
+                throw new SecurityTokenException("Invalid token: user id format.");
+
+            return new AuthPayload
+            {
+                UserId = parsedId,
+                Username = username,
+                IsAdmin = isAdmin,
+            };
         }
-        catch
+        catch(Exception e)
         {
-            throw new AppException("Invalid token", AppExceptionCode.Unauthorized);
+            throw new UnauthorizedException(ExceptionMessages.Unauthorized.Token, e.Message);
         }
     }
 }

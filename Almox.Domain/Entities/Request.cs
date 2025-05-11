@@ -1,4 +1,4 @@
-using Almox.Domain.Enums;
+using Almox.Domain.Common.Enums;
 
 namespace Almox.Domain.Entities;
 

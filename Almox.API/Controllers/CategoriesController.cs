@@ -1,6 +1,5 @@
 using Almox.API.Enums;
 using Almox.API.Middlewares.Authenticate;
-using Almox.API.Middlewares.AuthorizeAdmin;
 using Almox.Application.Features.Categories.Create;
 using Almox.Application.Features.Categories.Delete;
 using Almox.Application.Features.Categories.Find;
@@ -17,7 +16,6 @@ public class CategoriesController(IMediator mediator) : ControllerBase
     private readonly IMediator mediator = mediator;
 
     [HttpPost]
-    [AuthorizeAdmin]
     public async Task<ActionResult<CreateCategoryResponse>> Create(
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {
@@ -34,7 +32,6 @@ public class CategoriesController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete, Route("{id}")]
-    [AuthorizeAdmin]
     public async Task<ActionResult> Delete(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {

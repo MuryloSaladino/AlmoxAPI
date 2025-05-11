@@ -1,8 +1,5 @@
 using System.Reflection;
 using Almox.Application.Common.Behaviors;
-using Almox.Application.Services;
-using Almox.Domain.Common;
-using Almox.Domain.Contracts;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -22,18 +19,6 @@ public static class ServiceExtensions
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         services.AddHttpContextAccessor();
-        services.AddScoped(provider =>
-        {
-            var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
-            var context = httpContextAccessor.HttpContext;
 
-            if (context?.Items["UserSession"] is UserSession session)
-                return session;
-
-            return new UserSession("Anonymous", null); 
-        });
-
-        services.AddScoped<IAuthenticator, AuthenticationService>();
-        services.AddScoped<IPasswordEncrypter, PasswordEncrypterService>();
     }
 }

@@ -1,4 +1,4 @@
-using Almox.Domain.Common;
+using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

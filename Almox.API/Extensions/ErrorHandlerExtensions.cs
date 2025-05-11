@@ -1,7 +1,8 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Almox.Application.Common.Exceptions;
-using Microsoft.OpenApi.Extensions;
+using Almox.Domain.Common.Enums;
+using Almox.Domain.Common.Messages;
 
 namespace Almox.API.Extensions;
 
@@ -18,12 +19,12 @@ public static class ErrorHandlerExtensions
                 var statusCode = contextFeature.Error switch
                 {
                     AppException appError => appError.StatusCode,
-                    _ => AppExceptionCode.InternalServerError
+                    _ => StatusCode.InternalServerError
                 };
                 var message = contextFeature.Error switch
                 {
                     AppException appError => appError.Message,
-                    _ => "Internal Server Error"
+                    _ => ExceptionMessages.InternalServerError.Default
                 };
 
                 context.Response.Headers.Append("Access-Control-Allow-Origin", "*");

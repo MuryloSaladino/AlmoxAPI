@@ -1,4 +1,7 @@
-using Almox.Domain.Contracts;
+using System.Text.Json;
+using Almox.Application.Common.Session;
+using Almox.Application.Contracts;
+using Almox.Domain.Common.Messages;
 
 namespace Almox.API.Middlewares.Authenticate;
 
@@ -23,25 +26,28 @@ public class AuthenticateMiddleware(RequestDelegate next)
         if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await context.Response.WriteAsync("{\"message\": \"Missing or invalid Authorization header\"}");
+            string message = JsonSerializer.Serialize(new { message = ExceptionMessages.Unauthorized.MissingToken });
+            await context.Response.WriteAsync(message);
             return;
         }
 
-        var token = authHeader.Split(" ")[1];
+        var token = authHeader["Bearer ".Length..];
 
         try
         {
             var authService = context.RequestServices.GetRequiredService<IAuthenticator>();
-            var userSession = authService.ExtractToken(token);
+            var scopedSession = context.RequestServices.GetRequiredService<IUserSession>();
 
-            context.Items["UserSession"] = userSession;
+            var sessionPayload = authService.ExtractToken(token);
+            scopedSession.SetSession(sessionPayload);
 
             await _next(context);
         }
         catch
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await context.Response.WriteAsync("{\"message\": \"Invalid token\"}");
+            string message = JsonSerializer.Serialize(new { message = ExceptionMessages.Unauthorized.Token });
+            await context.Response.WriteAsync(message);
         }
     }
 }

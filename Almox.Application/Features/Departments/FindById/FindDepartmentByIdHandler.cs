@@ -1,5 +1,6 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Repository.DepartmentsRepository;
+using Almox.Domain.Common.Messages;
 using AutoMapper;
 using MediatR;
 
@@ -17,7 +18,7 @@ public class FindDepartmentByIdHandler(
         FindDepartmentByIdRequest request, CancellationToken cancellationToken)
     {
         var department = await departmentRepository.GetWithUsers(request.Id, cancellationToken)
-            ?? throw new AppException("Department not found", AppExceptionCode.NotFound);
+            ?? throw new NotFoundException(ExceptionMessages.NotFound.Department);
 
         return mapper.Map<FindDepartmentByIdResponse>(department);
     }

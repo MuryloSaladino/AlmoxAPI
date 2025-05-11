@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.FindById;
-using Almox.API.Middlewares.AuthorizeAdmin;
 using Almox.Application.Features.Users.Promote;
 using Almox.API.Enums;
 using Almox.Application.Features.Users.Find;
 using Almox.Application.Repository.UsersRepository;
-using Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
 
 namespace Almox.API.Controllers;
 
@@ -20,7 +18,6 @@ public class UsersController(IMediator mediator) : ControllerBase
     private readonly IMediator mediator = mediator;
 
     [HttpPost]
-    [AuthorizeAdmin]
     public async Task<ActionResult<RegisterUserResponse>> Register(
         RegisterUserRequest request, CancellationToken cancellationToken)
     {
@@ -29,7 +26,6 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet, Route("{id}")]
-    [AuthorizeOwnUserOrAdmin]
     public async Task<ActionResult<FindUserByIdResponse>> FindById(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {
@@ -38,7 +34,6 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
-    [AuthorizeAdmin]
     public async Task<ActionResult<List<FindUsersResponse>>> Find(
         [FromQuery] string? username,
         [FromQuery] string? email,
@@ -50,7 +45,6 @@ public class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpPatch, Route("promote/{id}")]
-    [AuthorizeAdmin]
     public async Task<ActionResult<PromoteUserResponse>> Promote(
         [FromRoute] Guid id, CancellationToken cancellationToken)
     {

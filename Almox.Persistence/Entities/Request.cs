@@ -1,5 +1,5 @@
+using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
-using Almox.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Almox.Persistence.Entities;

@@ -1,4 +1,4 @@
-﻿namespace Almox.Domain.Enums;
+﻿namespace Almox.Domain.Common.Enums;
 
 public enum Status
 {

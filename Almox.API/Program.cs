@@ -1,11 +1,13 @@
 using Almox.API.Extensions;
 using Almox.API.Middlewares.Authenticate;
-using Almox.API.Middlewares.AuthorizeAdmin;
-using Almox.API.Middlewares.AuthorizeOwnUserOrAdmin;
+using Almox.API.Services;
+using Almox.API.Security.Session;
 using Almox.Application;
 using Almox.Application.Config;
+using Almox.Application.Contracts;
 using Almox.Persistence;
 using Almox.Persistence.Context;
+using Almox.Application.Common.Session;
 
 DotEnv.Load();
 
@@ -20,6 +22,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUserSession, UserSession>();
+builder.Services.AddScoped<IAuthenticator, AuthenticationService>();
+builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypterService>();
+
 
 var app = builder.Build();
 
@@ -28,8 +34,6 @@ var dataContext = serviceScope.ServiceProvider.GetService<AlmoxContext>();
 dataContext?.Database.EnsureCreated();
 
 app.UseMiddleware<AuthenticateMiddleware>();
-app.UseMiddleware<AuthorizeAdminMiddleware>();
-app.UseMiddleware<AuthorizeOwnUserOrAdminMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

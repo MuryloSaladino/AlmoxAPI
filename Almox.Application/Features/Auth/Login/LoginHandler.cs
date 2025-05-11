@@ -1,7 +1,8 @@
 using MediatR;
 using Almox.Application.Common.Exceptions;
-using Almox.Domain.Contracts;
 using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Contracts;
+using Almox.Domain.Common.Messages;
 
 namespace Almox.Application.Features.Auth.Login;
 
@@ -19,10 +20,10 @@ public sealed class LoginHandler(
         LoginRequest request, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByUsername(request.Username, cancellationToken)
-            ?? throw new AppException("User not found", AppExceptionCode.NotFound);
+            ?? throw new NotFoundException(ExceptionMessages.NotFound.User);
         
         if(!encrypter.Matches(user, request.Password)) 
-            throw new AppException("Credentials do not match", AppExceptionCode.Forbidden);
+            throw new UnauthorizedException(ExceptionMessages.Unauthorized.Credentials);
         
         var token = authentication.GenerateUserToken(user);
 

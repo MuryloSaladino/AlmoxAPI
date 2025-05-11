@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
-using Almox.Domain.Contracts;
 using Almox.Domain.Entities;
+using Almox.Application.Contracts;
 
-namespace Almox.Application.Services;
+namespace Almox.API.Services;
 
 public class PasswordEncrypterService : IPasswordEncrypter
 {

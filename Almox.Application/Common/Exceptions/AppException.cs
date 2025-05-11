@@ -1,20 +1,13 @@
+using Almox.Domain.Common.Enums;
+
 namespace Almox.Application.Common.Exceptions;
 
 public class AppException(
+    StatusCode statusCode,
     string message,
-    AppExceptionCode statusCode = AppExceptionCode.BadRequest
+    string? details = null
 ) : Exception(message)
 {
-    public AppExceptionCode StatusCode { get; set; } = statusCode;
-}
-
-public enum AppExceptionCode
-{
-    BadRequest = 400,
-    Unauthorized = 401,
-    Forbidden = 403,
-    NotFound = 404,
-    ImATeapot = 418,
-    InternalServerError = 500,
-    NotImplemented = 501,
+    public StatusCode StatusCode { get; } = statusCode;
+    public string? Details { get; } = details;
 }

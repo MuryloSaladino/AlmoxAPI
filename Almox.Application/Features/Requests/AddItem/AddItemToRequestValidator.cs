@@ -6,8 +6,6 @@ public class AddItemToRequestValidator : AbstractValidator<AddItemToRequestReque
 {
     public AddItemToRequestValidator()
     {
-        RuleFor(r => r.ItemId).Must(id => Guid.TryParse(id, out _));
-        RuleFor(r => r.RequestId).Must(id => Guid.TryParse(id, out _));
         RuleFor(r => r.Quantity).GreaterThanOrEqualTo(1);
     }
 }

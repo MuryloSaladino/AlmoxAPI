@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Almox.Application.Common.Exceptions;
+using Almox.Domain.Common.Messages;
 
 namespace Almox.Application.Common.Behaviors;
 
@@ -25,7 +26,7 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
             .ToArray();
 
         if (errors.Length != 0)
-            throw new AppException(string.Join("\n", errors), AppExceptionCode.BadRequest);
+            throw new BadRequestException(ExceptionMessages.BadRequest.Format, string.Join("\n", errors));
 
         return await next();
     }

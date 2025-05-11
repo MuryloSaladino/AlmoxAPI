@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Domain.Contracts;
+namespace Almox.Application.Contracts;
 
 public interface IPasswordEncrypter
 {

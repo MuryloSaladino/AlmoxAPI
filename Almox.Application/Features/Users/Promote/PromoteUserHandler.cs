@@ -3,6 +3,7 @@ using MediatR;
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Repository.UsersRepository;
 using Almox.Application.Repository;
+using Almox.Domain.Common.Messages;
 
 namespace Almox.Application.Features.Users.Promote;
 
@@ -16,13 +17,12 @@ public sealed class PromoteUserHandler(
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
-
     public async Task<PromoteUserResponse> Handle(
         PromoteUserRequest request,
         CancellationToken cancellationToken)
     {
         var user = await userRepository.Get(request.Id, cancellationToken)
-            ?? throw new AppException("User not found", AppExceptionCode.NotFound);
+            ?? throw new NotFoundException(ExceptionMessages.NotFound.User);
 
         user.IsAdmin = true;
         await unitOfWork.Save(cancellationToken);
