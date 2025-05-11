@@ -11,6 +11,6 @@ public sealed record CreateRequestResponse(
     Guid UserId,
     int Priority,
     string Observations,
-    Status Status,
+    RequestStatus Status,
     List<RequestItem> RequestItems
 );

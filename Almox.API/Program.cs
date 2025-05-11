@@ -8,6 +8,7 @@ using Almox.Application.Contracts;
 using Almox.Persistence;
 using Almox.Persistence.Context;
 using Almox.Application.Common.Session;
+using System.Text.Json.Serialization;
 
 DotEnv.Load();
 
@@ -18,7 +19,11 @@ builder.Services.ConfigureApplication();
 
 builder.Services.ConfigureCorsPolicy();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+    );
+    
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

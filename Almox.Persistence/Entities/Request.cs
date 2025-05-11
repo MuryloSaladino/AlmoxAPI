@@ -29,7 +29,7 @@ public static class RequestEntityCreationExtensions
                 .HasColumnType("VARCHAR(255)");
 
             entity.Property(e => e.Status)
-                .HasDefaultValue(Status.DRAFT)
+                .HasDefaultValue(RequestStatus.Draft)
                 .IsRequired();
         });
 }

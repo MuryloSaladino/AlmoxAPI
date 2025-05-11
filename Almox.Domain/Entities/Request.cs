@@ -11,5 +11,5 @@ public class Request : BaseEntity
 
     public int Priority { get; set; }
     public string? Observations { get; set; } = null;
-    public Status Status { get; set; } = Status.DRAFT;
+    public RequestStatus Status { get; set; } = RequestStatus.Draft;
 }

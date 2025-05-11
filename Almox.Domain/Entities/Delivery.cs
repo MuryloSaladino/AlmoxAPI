@@ -11,5 +11,5 @@ public class Delivery : BaseEntity
 
     public string? Observations { get; set; } = null;
     public required DateTime Date { get; set; }
-    public Status Status { get; set; } = Status.DRAFT;
+    public DeliveryStatus Status { get; set; } = DeliveryStatus.Draft;
 }

@@ -29,7 +29,7 @@ public static class DeliveryEntityCreationExtensions
                 .IsRequired();
 
             entity.Property(e => e.Status)
-                .HasDefaultValue(Status.DRAFT)
+                .HasDefaultValue(DeliveryStatus.Draft)
                 .IsRequired();
         });
 }
