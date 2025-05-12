@@ -16,6 +16,13 @@ public class AuthenticationService : IAuthenticator
     public string SecretKey { get; private set; } = DotEnv.Get("SECRET_KEY");
     public int ExpireHours { get; private set; } = int.Parse(DotEnv.Get("EXPIRE_HOURS"));
 
+    private static class PayloadKeys
+    {
+        public const string UserId = "userId";
+        public const string Username = "username";
+        public const string IsAdmin = "isAdmin";
+    }
+
     public string GenerateUserToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -23,9 +30,9 @@ public class AuthenticationService : IAuthenticator
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity([ 
-                new Claim("userId", user.Id.ToString()),
-                new Claim("username", user.Username), 
-                new Claim("isAdmin", user.IsAdmin.ToString())
+                new Claim(PayloadKeys.UserId, user.Id.ToString()),
+                new Claim(PayloadKeys.Username, user.Username), 
+                new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString())
             ]),
             
             Expires = DateTime.UtcNow.AddHours(ExpireHours),
@@ -59,9 +66,9 @@ public class AuthenticationService : IAuthenticator
         {
             var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 
-            var userId = principal.FindFirst("userId")?.Value;
-            var username = principal.FindFirst("username")?.Value;
-            var isAdmin = bool.Parse( principal.FindFirst("isAdmin")?.Value ?? "False" );
+            var userId = principal.FindFirst(PayloadKeys.UserId)?.Value;
+            var username = principal.FindFirst(PayloadKeys.Username)?.Value;
+            var isAdmin = bool.Parse( principal.FindFirst(PayloadKeys.IsAdmin)?.Value ?? "False" );
 
             if(userId == null || username == null)
                 throw new SecurityTokenException("Invalid token: missing claims.");
