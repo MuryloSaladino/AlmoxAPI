@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Repository.RequestItemsRepository;
+namespace Almox.Application.Repository.RequestsRepository;
 
 public interface IRequestItemsRepository
 {

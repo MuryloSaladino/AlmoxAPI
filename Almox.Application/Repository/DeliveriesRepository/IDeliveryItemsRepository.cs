@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Repository.DeliveryItemsRepository;
+namespace Almox.Application.Repository.DeliveriesRepository;
 
 public interface IDeliveryItemsRepository 
 {

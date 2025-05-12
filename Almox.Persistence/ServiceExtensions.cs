@@ -12,14 +12,12 @@ using Almox.Application.Repository.CategoriesRepository;
 using Almox.Persistence.Repository.Categories;
 using Almox.Persistence.Repository.Deliveries;
 using Almox.Application.Repository.DeliveriesRepository;
-using Almox.Application.Repository.DeliveryItemsRepository;
 using Almox.Application.Repository.DepartmentsRepository;
 using Almox.Persistence.Repository.Departments;
 using Almox.Application.Repository.ItemsRepository;
 using Almox.Persistence.Repository.Items;
 using Almox.Application.Repository.RequestsRepository;
 using Almox.Persistence.Repository.Requests;
-using Almox.Application.Repository.RequestItemsRepository;
 
 namespace Almox.Persistence;
 

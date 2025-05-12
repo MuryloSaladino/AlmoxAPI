@@ -1,7 +1,6 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
-using Almox.Application.Repository.RequestItemsRepository;
 using Almox.Application.Repository.RequestsRepository;
 using Almox.Domain.Common.Messages;
 using Almox.Domain.Entities;

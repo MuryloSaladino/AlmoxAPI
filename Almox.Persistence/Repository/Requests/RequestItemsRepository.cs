@@ -1,4 +1,4 @@
-using Almox.Application.Repository.RequestItemsRepository;
+using Almox.Application.Repository.RequestsRepository;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
