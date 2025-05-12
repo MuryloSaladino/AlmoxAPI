@@ -23,4 +23,11 @@ public class RequestsRepository(
 
         return await query.ToListAsync(cancellationToken);
     }
+
+    public async Task<Request> GetWithItems(Guid id, CancellationToken cancellationToken)
+        => await dbSet
+            .Where(r => r.DeletedAt == null)
+            .Where(r => r.Id == id)
+            .Include(r => r.RequestItems)
+            .FirstAsync(cancellationToken);
 }

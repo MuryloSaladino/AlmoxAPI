@@ -3,6 +3,7 @@ using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Requests.AddItem;
 using Almox.Application.Features.Requests.Create;
 using Almox.Application.Features.Requests.Find;
+using Almox.Application.Features.Requests.FindById;
 using Almox.Application.Repository.RequestsRepository;
 using Almox.Domain.Common.Enums;
 using MediatR;
@@ -33,6 +34,15 @@ public class RequestsController(IMediator mediator) : ControllerBase
     {
         var filters = new RequestsQueryFilters(userId, status);
         var response = await mediator.Send(new FindRequestsRequest(filters), cancellationToken);
+        return Ok(response);
+    }
+
+    [HttpGet, Route("{id}")]
+    public async Task<ActionResult<FindRequestByIdResponse>> FindById(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(new FindRequestByIdRequest(id), cancellationToken);
         return Ok(response);
     }
 
