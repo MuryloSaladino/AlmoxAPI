@@ -26,11 +26,11 @@ public class ItemsController(IMediator mediator) : ControllerBase
         return Created(APIRoutes.Items, response);
     }
 
-    [HttpDelete, Route("{id}")]
+    [HttpDelete, Route("{itemId}")]
     public async Task<ActionResult> Delete(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid itemId, CancellationToken cancellationToken)
     {
-        await mediator.Send(new DeleteItemRequest(id), cancellationToken);
+        await mediator.Send(new DeleteItemRequest(itemId), cancellationToken);
         return NoContent();
     }
 
@@ -45,13 +45,13 @@ public class ItemsController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpPatch, Route("{id}")]
+    [HttpPatch, Route("{itemId}")]
     public async Task<ActionResult<UpdateItemResponse>> Update(
-        [FromRoute] Guid id,
+        [FromRoute] Guid itemId,
         [FromBody] UpdateItemRequestBody body, 
         CancellationToken cancellationToken)
     {
-        var request = new UpdateItemRequest(id, body);
+        var request = new UpdateItemRequest(itemId, body);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }

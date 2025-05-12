@@ -31,11 +31,11 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete, Route("{id}")]
+    [HttpDelete, Route("{categoryId}")]
     public async Task<ActionResult> Delete(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid categoryId, CancellationToken cancellationToken)
     {
-        await mediator.Send(new DeleteCategoryRequest(id), cancellationToken);
+        await mediator.Send(new DeleteCategoryRequest(categoryId), cancellationToken);
         return NoContent();
     }
 }

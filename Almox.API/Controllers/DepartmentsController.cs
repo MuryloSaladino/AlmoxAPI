@@ -25,11 +25,11 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
         return Created(APIRoutes.Departments, response);
     }
 
-    [HttpDelete, Route("{id}")]
+    [HttpDelete, Route("{departmentId}")]
     public async Task<ActionResult> Delete(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid departmentId, CancellationToken cancellationToken)
     {
-        await mediator.Send(new DeleteDepartmentRequest(id), cancellationToken);
+        await mediator.Send(new DeleteDepartmentRequest(departmentId), cancellationToken);
         return NoContent();
     }
 
@@ -42,11 +42,11 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet, Route("{id}")]
+    [HttpGet, Route("{departmentId}")]
     public async Task<ActionResult<FindDepartmentByIdResponse>> FindById(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid departmentId, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindDepartmentByIdRequest(id), cancellationToken);
+        var response = await mediator.Send(new FindDepartmentByIdRequest(departmentId), cancellationToken);
         return Ok(response);
     }
 }

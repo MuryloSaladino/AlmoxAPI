@@ -25,11 +25,11 @@ public class UsersController(IMediator mediator) : ControllerBase
         return Created(APIRoutes.Users, response);
     }
 
-    [HttpGet, Route("{id}")]
+    [HttpGet, Route("{userId}")]
     public async Task<ActionResult<FindUserByIdResponse>> FindById(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid userId, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindUserByIdRequest(id), cancellationToken);
+        var response = await mediator.Send(new FindUserByIdRequest(userId), cancellationToken);
         return Ok(response);
     }
 
@@ -44,11 +44,11 @@ public class UsersController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpPatch, Route("promote/{id}")]
+    [HttpPatch, Route("promote/{userId}")]
     public async Task<ActionResult<PromoteUserResponse>> Promote(
-        [FromRoute] Guid id, CancellationToken cancellationToken)
+        [FromRoute] Guid userId, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new PromoteUserRequest(id), cancellationToken);
+        var response = await mediator.Send(new PromoteUserRequest(userId), cancellationToken);
         return Ok(response);
     }
 }

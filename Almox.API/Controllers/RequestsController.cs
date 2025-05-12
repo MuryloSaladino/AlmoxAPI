@@ -38,12 +38,12 @@ public class RequestsController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet, Route("{id}")]
+    [HttpGet, Route("{requestId}")]
     public async Task<ActionResult<FindRequestByIdResponse>> FindById(
-        [FromRoute] Guid id,
+        [FromRoute] Guid requestId,
         CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindRequestByIdRequest(id), cancellationToken);
+        var response = await mediator.Send(new FindRequestByIdRequest(requestId), cancellationToken);
         return Ok(response);
     }
 
