@@ -11,10 +11,10 @@ public sealed record FindRequestByIdResponse(
     int Priority,
     string? Observations,
     RequestStatus Status,
-    List<FindRequestsResponseItem> RequestItems
+    List<FindRequestByIdResponseItem> RequestItems
 );
 
-public class FindRequestsResponseItem
+public class FindRequestByIdResponseItem
 {
     public Guid? Id { get; set; }
     public string? Name { get; set; } 
