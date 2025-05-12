@@ -32,7 +32,7 @@ public class AddItemToRequestHandler(
         var session = userSession.GetSession();
 
         if(session.UserId != referencedRequest.UserId && !session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUser);
+            throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
 
         var itemAddition = mapper.Map<RequestItem>(request);
         requestItemsRepository.Create(itemAddition);
