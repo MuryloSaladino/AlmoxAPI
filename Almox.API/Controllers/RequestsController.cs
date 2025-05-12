@@ -4,6 +4,7 @@ using Almox.Application.Features.Requests.AddItem;
 using Almox.Application.Features.Requests.Create;
 using Almox.Application.Features.Requests.Find;
 using Almox.Application.Features.Requests.FindById;
+using Almox.Application.Features.Requests.UpdateStatus;
 using Almox.Application.Repository.RequestsRepository;
 using Almox.Domain.Common.Enums;
 using MediatR;
@@ -56,5 +57,16 @@ public class RequestsController(IMediator mediator) : ControllerBase
         var request = new AddItemToRequestRequest(requestId, itemId, body);
         var response = await mediator.Send(request, cancellationToken);
         return Created(APIRoutes.Requests + "/{requestId}/items/{itemId}", response);
+    }
+
+    [HttpPost, Route("{requestId}/status/{status}")]
+    public async Task<ActionResult<UpdateRequestStatusResponse>> UpdateStatus(
+        [FromRoute] Guid requestId,
+        [FromRoute] RequestStatus status,
+        CancellationToken cancellationToken)
+    {
+        var request = new UpdateRequestStatusRequest(requestId, status);
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 }
