@@ -9,6 +9,7 @@ using Almox.Persistence;
 using Almox.Persistence.Context;
 using Almox.Application.Common.Session;
 using System.Text.Json.Serialization;
+using Almox.Persistence.Seeding;
 
 DotEnv.Load();
 
@@ -19,9 +20,12 @@ builder.Services.ConfigureApplication();
 
 builder.Services.ConfigureCorsPolicy();
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => options
+        .JsonSerializerOptions
+        .Converters
+        .Add(new JsonStringEnumConverter())
     );
     
 builder.Services.AddEndpointsApiExplorer();
@@ -35,8 +39,11 @@ builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypterService>();
 var app = builder.Build();
 
 var serviceScope = app.Services.CreateScope();
-var dataContext = serviceScope.ServiceProvider.GetService<AlmoxContext>();
-dataContext?.Database.EnsureCreated();
+var dataContext = serviceScope.ServiceProvider.GetService<AlmoxContext>()
+    ?? throw new InvalidOperationException("Failed to resolve AlmoxContext from service provider.");
+
+dataContext.Database.EnsureCreated();
+await dataContext.SeedData();
 
 app.UseMiddleware<AuthenticateMiddleware>();
 
