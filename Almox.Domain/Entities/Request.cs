@@ -9,7 +9,7 @@ public class Request : BaseEntity
 
     public List<RequestItem> RequestItems { get; } = [];
 
-    public int Priority { get; set; }
+    public RequestPriority Priority { get; set; }
     public string? Observations { get; set; } = null;
     public RequestStatus Status { get; set; } = RequestStatus.Draft;
 }

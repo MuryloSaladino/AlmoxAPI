@@ -9,7 +9,6 @@ public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ConfigureActionLogEntity();
         modelBuilder.ConfigureCategoryEntity();
         modelBuilder.ConfigureDeliveryEntity();
         modelBuilder.ConfigureDeliveryItemEntity();

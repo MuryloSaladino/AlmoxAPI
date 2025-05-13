@@ -12,16 +12,21 @@ public static class BaseEntityConfigurationExtensions
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)
+            .HasColumnName("id")
             .IsRequired();
 
         builder.Property(e => e.CreatedAt)
-            .HasColumnType("TIMESTAMPTZ")
+            .HasColumnName("created_at")
+            .HasColumnType("timestamptz")
             .IsRequired();
 
         builder.Property(e => e.UpdatedAt)
-            .HasColumnType("TIMESTAMPTZ");
+            .HasColumnName("updated_at")
+            .HasColumnType("timestamptz")
+            .IsRequired();
 
         builder.Property(e => e.DeletedAt)
-            .HasColumnType("TIMESTAMPTZ");
+            .HasColumnName("deleted_at")
+            .HasColumnType("timestamptz");
     }
 }

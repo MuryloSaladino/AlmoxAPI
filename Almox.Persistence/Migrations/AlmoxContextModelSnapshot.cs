@@ -22,206 +22,217 @@ namespace Almox.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Almox.Domain.Entities.ActionLog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ActionLog");
-                });
-
             modelBuilder.Entity("Almox.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(35)");
+                        .HasColumnType("varchar(35)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Category");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.Delivery", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("date");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Observations")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text")
+                        .HasColumnName("observations");
 
-                    b.Property<int>("Status")
+                    b.Property<short>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)0)
+                        .HasColumnName("status");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Delivery");
+                    b.ToTable("deliveries", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.DeliveryItem", b =>
                 {
                     b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("item_id");
 
                     b.Property<Guid>("DeliveryId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("delivery_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("INT");
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
 
                     b.HasKey("ItemId", "DeliveryId");
 
                     b.HasIndex("DeliveryId");
 
-                    b.ToTable("DeliveryItem");
+                    b.ToTable("delivery_items", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Department");
+                    b.ToTable("departments", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INT")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("quantity");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Item");
+                    b.ToTable("items", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.Request", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<string>("Observations")
-                        .HasColumnType("VARCHAR(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("observations");
 
                     b.Property<short>("Priority")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("SMALLINT")
-                        .HasDefaultValue((short)1);
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)0)
+                        .HasColumnName("priority");
 
-                    b.Property<int>("Status")
+                    b.Property<short>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)0)
+                        .HasColumnName("status");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -230,64 +241,78 @@ namespace Almox.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Request");
+                    b.ToTable("requests", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.RequestItem", b =>
                 {
                     b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("item_id");
 
                     b.Property<Guid>("RequestId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("request_id");
 
                     b.Property<int>("FulfilledQuantity")
-                        .HasColumnType("INT");
+                        .HasColumnType("int")
+                        .HasColumnName("fulfilled_quantity");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("INT");
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
 
                     b.HasKey("ItemId", "RequestId");
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RequestItem");
+                    b.ToTable("request_items", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("deleted_at");
 
                     b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("department_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("email");
 
                     b.Property<bool>("IsAdmin")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("BOOLEAN")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_admin");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("password");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TIMESTAMPTZ");
+                        .IsRequired()
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("updated_at");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("username");
 
                     b.HasKey("Id");
 
@@ -299,33 +324,22 @@ namespace Almox.Persistence.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("CategoryItem", b =>
+            modelBuilder.Entity("item_categories", b =>
                 {
-                    b.Property<Guid>("CategoriesId")
+                    b.Property<Guid>("item_id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ItemsId")
+                    b.Property<Guid>("category_id")
                         .HasColumnType("uuid");
 
-                    b.HasKey("CategoriesId", "ItemsId");
+                    b.HasKey("item_id", "category_id");
 
-                    b.HasIndex("ItemsId");
+                    b.HasIndex("category_id");
 
-                    b.ToTable("CategoryItem");
-                });
-
-            modelBuilder.Entity("Almox.Domain.Entities.ActionLog", b =>
-                {
-                    b.HasOne("Almox.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.ToTable("item_categories", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.Delivery", b =>
@@ -399,17 +413,17 @@ namespace Almox.Persistence.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("CategoryItem", b =>
+            modelBuilder.Entity("item_categories", b =>
                 {
                     b.HasOne("Almox.Domain.Entities.Category", null)
                         .WithMany()
-                        .HasForeignKey("CategoriesId")
+                        .HasForeignKey("category_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Almox.Domain.Entities.Item", null)
                         .WithMany()
-                        .HasForeignKey("ItemsId")
+                        .HasForeignKey("item_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

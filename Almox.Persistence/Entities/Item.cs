@@ -8,19 +8,20 @@ public static class ItemEntityCreationExtensions
     public static void ConfigureItemEntity(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Item>(entity =>
         {
+            entity.ToTable("items");
+
             entity.ConfigureBaseEntityProps();
 
-            entity.HasMany(e => e.Categories)
-                .WithMany(c => c.Items);
-            
             entity.Property(e => e.Name)
-                .HasColumnType("VARCHAR(50)")
+                .HasColumnName("name")
+                .HasColumnType("varchar(50)")
                 .IsRequired();
             entity.HasIndex(e => e.Name)
                 .IsUnique();
-            
+
             entity.Property(e => e.Quantity)
-                .HasColumnType("INT")
+                .HasColumnName("quantity")
+                .HasColumnType("int")
                 .HasDefaultValue(0);
         });
 }

@@ -8,11 +8,15 @@ public static class RequestItemEntityCreationExtensions
     public static void ConfigureRequestItemEntity(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<RequestItem>(entity =>
         {
+            entity.ToTable("request_items");
+
             entity.HasKey(e => new { e.ItemId, e.RequestId });
 
             entity.Property(e => e.RequestId)
+                .HasColumnName("request_id")
                 .IsRequired();
             entity.Property(e => e.ItemId)
+                .HasColumnName("item_id")
                 .IsRequired();
 
             entity.HasOne(e => e.Request)
@@ -24,10 +28,12 @@ public static class RequestItemEntityCreationExtensions
                 .HasForeignKey(e => e.ItemId);
 
             entity.Property(e => e.Quantity)
-                .HasColumnType("INT")
+                .HasColumnName("quantity")
+                .HasColumnType("int")
                 .IsRequired();
 
             entity.Property(e => e.FulfilledQuantity)
-                .HasColumnType("INT");
+                .HasColumnName("fulfilled_quantity")
+                .HasColumnType("int");
         });
 }

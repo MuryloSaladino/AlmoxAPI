@@ -6,8 +6,6 @@ using Almox.Persistence.Repository;
 using Almox.Persistence.Repository.Users;
 using Almox.Application.Repository;
 using Almox.Application.Repository.UsersRepository;
-using Almox.Application.Repository.ActionLogsRepository;
-using Almox.Persistence.Repository.ActionLogs;
 using Almox.Application.Repository.CategoriesRepository;
 using Almox.Persistence.Repository.Categories;
 using Almox.Persistence.Repository.Deliveries;
@@ -30,7 +28,6 @@ public static class ServiceExtensions
         services.AddDbContext<AlmoxContext>(opt => opt.UseNpgsql(connection));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<IActionLogsRepository, ActionLogsRepository>();
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<IDeliveriesRepository, DeliveriesRepository>();
         services.AddScoped<IDeliveryItemsRepository, DeliveryItemsRepository>();

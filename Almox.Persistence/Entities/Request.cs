@@ -9,6 +9,8 @@ public static class RequestEntityCreationExtensions
     public static void ConfigureRequestEntity(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Request>(entity =>
         {
+            entity.ToTable("requests");
+
             entity.ConfigureBaseEntityProps();
 
             entity.Property(e => e.UserId)
@@ -22,13 +24,17 @@ public static class RequestEntityCreationExtensions
                 .HasForeignKey(ri => ri.RequestId);
 
             entity.Property(e => e.Priority)
-                .HasColumnType("SMALLINT")
-                .HasDefaultValue(1);
+                .HasColumnName("priority")
+                .HasColumnType("smallint")
+                .HasDefaultValue(RequestPriority.Irrelevant);
             
             entity.Property(e => e.Observations)
-                .HasColumnType("VARCHAR(255)");
+                .HasColumnName("observations")
+                .HasColumnType("varchar(255)");
 
             entity.Property(e => e.Status)
+                .HasColumnName("status")
+                .HasColumnType("smallint")
                 .HasDefaultValue(RequestStatus.Draft)
                 .IsRequired();
         });

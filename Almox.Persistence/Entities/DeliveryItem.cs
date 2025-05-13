@@ -8,11 +8,15 @@ public static class DeliveryItemEntityCreationExtensions
     public static void ConfigureDeliveryItemEntity(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<DeliveryItem>(entity =>
         {
+            entity.ToTable("delivery_items");
+
             entity.HasKey(e => new { e.ItemId, e.DeliveryId });
 
             entity.Property(e => e.DeliveryId)
+                .HasColumnName("delivery_id")
                 .IsRequired();
             entity.Property(e => e.ItemId)
+                .HasColumnName("item_id")
                 .IsRequired();
 
             entity.HasOne(e => e.Delivery)
@@ -24,7 +28,8 @@ public static class DeliveryItemEntityCreationExtensions
                 .HasForeignKey(e => e.ItemId);
 
             entity.Property(e => e.Quantity)
-                .HasColumnType("INT")
+                .HasColumnName("quantity")
+                .HasColumnType("int")
                 .IsRequired();
         });
 }
