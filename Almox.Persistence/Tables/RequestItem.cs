@@ -1,11 +1,11 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class RequestItemEntityCreationExtensions
+public static class RequestItemTableConfigurationExtensions
 {
-    public static void ConfigureRequestItemEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureRequestItemTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<RequestItem>(entity =>
         {
             entity.ToTable("request_items");

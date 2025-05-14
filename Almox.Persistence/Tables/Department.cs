@@ -1,16 +1,16 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class DepartmentEntityCreationExtensions
+public static class DepartmentTableConfigurationExtensions
 {
-    public static void ConfigureDepartmentEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureDepartmentTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Department>(entity =>
         {
             entity.ToTable("departments");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.HasMany(e => e.Users)
                 .WithOne(u => u.Department)

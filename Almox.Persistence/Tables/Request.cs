@@ -2,16 +2,16 @@ using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class RequestEntityCreationExtensions
+public static class RequestTableConfigurationExtensions
 {
-    public static void ConfigureRequestEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureRequestTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Request>(entity =>
         {
             entity.ToTable("requests");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.Property(e => e.UserId)
                 .IsRequired();

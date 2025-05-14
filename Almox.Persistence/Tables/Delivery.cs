@@ -2,16 +2,16 @@ using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class DeliveryEntityCreationExtensions
+public static class DeliveryTableConfigurationExtensions
 {
-    public static void ConfigureDeliveryEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureDeliveryTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Delivery>(entity => 
         {
             entity.ToTable("deliveries");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.Property(e => e.UserId)
                 .HasColumnName("user_id")

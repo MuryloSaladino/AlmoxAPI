@@ -2,11 +2,11 @@ using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class BaseEntityConfigurationExtensions
+public static class BaseTableConfigurationExtensions
 {
-    public static void ConfigureBaseEntityProps<T>(this EntityTypeBuilder<T> builder) 
+    public static void ConfigureBaseTableProps<T>(this EntityTypeBuilder<T> builder) 
         where T : BaseEntity
     {
         builder.HasKey(e => e.Id);

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Almox.Persistence.Entities;
+using Almox.Persistence.Tables;
 
 namespace Almox.Persistence.Context;
 
@@ -9,13 +9,13 @@ public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ConfigureCategoryEntity();
-        modelBuilder.ConfigureDeliveryEntity();
-        modelBuilder.ConfigureDeliveryItemEntity();
-        modelBuilder.ConfigureDepartmentEntity();
-        modelBuilder.ConfigureItemEntity();
-        modelBuilder.ConfigureRequestEntity();
-        modelBuilder.ConfigureRequestItemEntity();
-        modelBuilder.ConfigureUserEntity();
+        modelBuilder.ConfigureCategoryTable();
+        modelBuilder.ConfigureDeliveryTable();
+        modelBuilder.ConfigureDeliveryItemTable();
+        modelBuilder.ConfigureDepartmentTable();
+        modelBuilder.ConfigureItemTable();
+        modelBuilder.ConfigureRequestTable();
+        modelBuilder.ConfigureRequestItemTable();
+        modelBuilder.ConfigureUserTable();
     }
 }

@@ -1,16 +1,16 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class ItemEntityCreationExtensions
+public static class ItemTableConfigurationExtensions
 {
-    public static void ConfigureItemEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureItemTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Item>(entity =>
         {
             entity.ToTable("items");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.Property(e => e.Name)
                 .HasColumnName("name")

@@ -1,16 +1,16 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class UserEntityCreationExtensions
+public static class UserTableConfigurationExtensions
 {
-    public static void ConfigureUserEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureUserTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("users");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.Property(e => e.DepartmentId)
                 .HasColumnName("department_id")

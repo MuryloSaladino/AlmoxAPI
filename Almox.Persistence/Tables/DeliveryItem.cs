@@ -1,11 +1,11 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class DeliveryItemEntityCreationExtensions
+public static class DeliveryItemTableConfigurationExtensions
 {
-    public static void ConfigureDeliveryItemEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureDeliveryItemTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<DeliveryItem>(entity =>
         {
             entity.ToTable("delivery_items");

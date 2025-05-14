@@ -1,16 +1,16 @@
 using Almox.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Almox.Persistence.Entities;
+namespace Almox.Persistence.Tables;
 
-public static class CategoryEntityCreationExtensions
+public static class CategoryTableConfigurationExtensions
 {
-    public static void ConfigureCategoryEntity(this ModelBuilder modelBuilder)
+    public static void ConfigureCategoryTable(this ModelBuilder modelBuilder)
         =>  modelBuilder.Entity<Category>(entity =>
         {
             entity.ToTable("categories");
 
-            entity.ConfigureBaseEntityProps();
+            entity.ConfigureBaseTableProps();
 
             entity.HasMany(c => c.Items)
                 .WithMany(i => i.Categories)
