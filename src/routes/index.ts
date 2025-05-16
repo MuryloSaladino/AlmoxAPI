@@ -6,6 +6,8 @@ import { Cart } from "@/pages/cart";
 import { Catalog } from "@/pages/catalog";
 import { Deliveries } from "@/pages/deliveries";
 import { DeliveryDetails } from "@/pages/delivery-details";
+import { DepartmentDetails } from "@/pages/department-details";
+import { Departments } from "@/pages/departments";
 import { Home } from "@/pages/home";
 import { Login } from "@/pages/login";
 import { RequestDetails } from "@/pages/request-details";
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([{
                     {
                         path: AppRoutes.CATALOG,
                         Component: Catalog,
+                    },
+                    {
+                        path: AppRoutes.DEPARTMENTS,
+                        Component: Departments,
+                    },
+                    {
+                        path: AppRoutes.DEPARTMENT_DETAILS(),
+                        Component: DepartmentDetails,
                     },
                     {
                         path: AppRoutes.DELIVERIES,
