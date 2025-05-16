@@ -2,19 +2,30 @@ import { login, type ILoginRequest } from "@/services/almox/auth";
 import { Button, Center, Container, Flex, rem, TextInput, Title } from "@mantine/core";
 import { IconAt, IconLock } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
-import { Logo } from "@/components/brand/logo";
+import { Logo } from "@/components/logo";
 import { useNavigate } from "react-router";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { StorageKeys } from "@/config/constants/storage-keys";
+import { useContext } from "react";
+import { UserContext } from "@/providers/user.context";
+import { jwtDecode } from "jwt-decode"
+import { getUserById } from "@/services/almox/users";
 
 export function Login() {
 
-    const { key, onSubmit, getInputProps } = useForm<ILoginRequest>();
     const navigate = useNavigate();
-
+    const { updateUser } = useContext(UserContext);
+    const { key, onSubmit, getInputProps } = useForm<ILoginRequest>({
+        initialValues: { password: "", username: "" },
+    });
+    
     const submit = async (request: ILoginRequest) => {
-        const { data } = await login(request);
-        localStorage.setItem(StorageKeys.TOKEN, data.token)
+        const { token } = await login(request);
+        localStorage.setItem(StorageKeys.TOKEN, token);
+
+        const { sub } = jwtDecode(token);
+        const user = await getUserById(sub!);
+        updateUser(user);
 
         navigate(AppRoutes.ROOT);
     }
