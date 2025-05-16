@@ -1,6 +1,6 @@
 import type { INavbarItemProps } from "@/components/app-layout/navbar";
 import { AppRoutes } from "@/config/constants/app-routes";
-import { IconBook, IconBrandTelegram, IconHome, IconMailbox } from "@tabler/icons-react";
+import { IconBook, IconBrandTelegram, IconHome, IconMailbox, IconTruck } from "@tabler/icons-react";
 
 export const navbarItems: INavbarItemProps[] = [
     {
@@ -23,7 +23,7 @@ export const navbarItems: INavbarItemProps[] = [
 export const adminNavbarItems: INavbarItemProps[] = [
     {
         title: "Deliveries",
-        icon: <IconMailbox/>,
+        icon: <IconTruck/>,
         link: AppRoutes.DELIVERIES,
     },
 ]

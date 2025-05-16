@@ -2,8 +2,7 @@ import { UserContext } from "@/providers/user.context";
 import { adminNavbarItems, navbarItems } from "@/components/app-layout/navbar-items";
 import { AppShell, Button, Flex, rem, Stack } from "@mantine/core";
 import { useContext, type ReactNode } from "react";
-import { Link } from "react-router";
-
+import { AppLink } from "../app-link";
 
 export function Navbar() {
 
@@ -11,17 +10,13 @@ export function Navbar() {
 
     return (
         <AppShell.Navbar p="xs">
-            <Flex direction="column" justify="space-between" h="100%">
-                <Stack>
-                    {navbarItems.map((item, i) => <NavbarItem key={i} {...item}/>)}
-                </Stack>
+            <Stack>
+                {navbarItems.map((item, i) => <NavbarItem key={i} {...item}/>)}
                 
                 {user?.isAdmin &&
-                    <Stack>
-                        {adminNavbarItems.map((item, i) => <NavbarItem key={i} {...item}/>)}
-                    </Stack>
+                    adminNavbarItems.map((item, i) => <NavbarItem key={i} {...item}/>)
                 }
-            </Flex>
+            </Stack>
         </AppShell.Navbar>
     )
 }
@@ -35,7 +30,7 @@ export interface INavbarItemProps {
 
 function NavbarItem({ link, title, icon, color = "cyan" }: INavbarItemProps) {
     return (
-        <Link to={link} style={{ display: "block", textDecoration: "none" }}>
+        <AppLink to={link} type="block">
             <Button
                 fullWidth
                 variant="subtle"
@@ -45,6 +40,6 @@ function NavbarItem({ link, title, icon, color = "cyan" }: INavbarItemProps) {
                 fz={rem(16)}
                 justify="flex-start"
             />
-        </Link>
+        </AppLink>
     )
 }
