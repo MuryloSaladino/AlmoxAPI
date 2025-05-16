@@ -1,7 +1,7 @@
 import { Logo } from "@/components/logo";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { UserContext } from "@/providers/user.context";
-import { AppShell, Avatar, Burger, Button, Flex, Group, Menu, rem } from "@mantine/core";
+import { AppShell, Avatar, Burger, Button, Flex, Group, Menu } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
@@ -34,7 +34,7 @@ export function Header({
                         hiddenFrom="sm"
                         size="sm"
                     />
-                    <Logo/>
+                    <Logo redirectToHome/>
                 </Group>
                 
                 {user &&

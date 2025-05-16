@@ -1,5 +1,5 @@
 import { login, type ILoginRequest } from "@/services/almox/auth";
-import { Button, Center, Container, Flex, rem, TextInput, Title } from "@mantine/core";
+import { Button, Center, Container, Flex, rem, Text, TextInput } from "@mantine/core";
 import { IconAt, IconLock } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { Logo } from "@/components/logo";
@@ -37,12 +37,9 @@ export function Login() {
                 px="md" py={rem(32)} bd="1px solid var(--mantine-color-default-border)"
             >
                 <form onSubmit={onSubmit(submit)}>
-                    <Flex 
-                        direction="column" 
-                        gap="md"
-                    >
-                        <Logo/>
-                        <Title order={4} ta="center">Login to your account</Title>
+                    <Flex direction="column" gap="lg">
+                        <Logo style={{ alignSelf: "center" }}/>
+                        <Text ta="center" fz={rem(18)}>Login to your account</Text>
 
                         <TextInput 
                             key={key("username")}
@@ -61,7 +58,11 @@ export function Login() {
                             required
                         />
 
-                        <Button mt="sm" type="submit">Login</Button>
+                        <Button 
+                            mt="sm" 
+                            type="submit"
+                            style={{ alignSelf: "end" }}
+                        >Login</Button>
                     </Flex>
                 </form>
             </Container>
