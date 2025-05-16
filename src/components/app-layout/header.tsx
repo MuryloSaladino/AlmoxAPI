@@ -1,7 +1,7 @@
 import { Logo } from "@/components/logo";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { UserContext } from "@/providers/user.context";
-import { AppShell, Avatar, Burger, Flex, Group, Menu } from "@mantine/core";
+import { AppShell, Avatar, Burger, Button, Flex, Group, Menu, rem } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
@@ -25,9 +25,9 @@ export function Header({
     }
 
     return (
-        <AppShell.Header>
-            <Flex>
-                <Group h="100%" px="md">
+        <AppShell.Header px="md">
+            <Flex h="100%" align="center" justify="space-between">
+                <Group h="100%">
                     <Burger
                         opened={opened}
                         onClick={onClick}
@@ -40,7 +40,9 @@ export function Header({
                 {user &&
                     <Menu>
                         <Menu.Target>
-                            <Avatar color="initials" name={user.username}/>
+                            <Button variant="white" p={0}>
+                                <Avatar color="initials" name={user.username} />
+                            </Button>
                         </Menu.Target>
 
                         <Menu.Dropdown>
