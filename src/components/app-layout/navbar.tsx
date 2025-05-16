@@ -1,5 +1,5 @@
 import { UserContext } from "@/providers/user.context";
-import { adminNavbarItems, navbarItems } from "@/routes/navbar-items";
+import { adminNavbarItems, navbarItems } from "@/components/app-layout/navbar-items";
 import { AppShell, Button, Flex, rem, Stack } from "@mantine/core";
 import { useContext, type ReactNode } from "react";
 import { Link } from "react-router";
