@@ -18,21 +18,21 @@ public class AuthenticationService : IAuthenticator
 
     private static class PayloadKeys
     {
-        public const string UserId = "userId";
+        public const string UserId = "sub";
+        public const string IsAdmin = "admin";
         public const string Username = "username";
-        public const string IsAdmin = "isAdmin";
     }
 
     public string GenerateUserToken(User user)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(SecretKey);
+        var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity([ 
-                new Claim(PayloadKeys.UserId, user.Id.ToString()),
                 new Claim(PayloadKeys.Username, user.Username), 
-                new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString())
+                new Claim(PayloadKeys.UserId, user.Id.ToString()),
+                new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString()),
             ]),
             
             Expires = DateTime.UtcNow.AddHours(ExpireHours),
