@@ -1,5 +1,6 @@
 import { App } from "@/App";
-import { AppLayout } from "@/components/layout/app-layout";
+import { AppLayout } from "@/components/app-layout";
+import { RouteProtection } from "@/components/route-protection";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { Home } from "@/pages/home";
 import { Login } from "@/pages/login";
@@ -10,17 +11,19 @@ export const router = createBrowserRouter([{
     children: [
         {
             path: AppRoutes.LOGIN,
-            Component: Login
+            Component: Login,
         },
         {
-            path: AppRoutes.ROOT,
-            Component: AppLayout,
-            children: [
-                {
-                    index: true,
-                    Component: Home,
-                },
-            ]
+            Component: RouteProtection,
+            children: [{
+                Component: AppLayout,
+                children: [
+                    {
+                        path: AppRoutes.ROOT,
+                        Component: Home,
+                    },
+                ]
+            }]
         },
     ]
 }])
