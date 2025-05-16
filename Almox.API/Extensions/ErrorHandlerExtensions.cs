@@ -26,12 +26,17 @@ public static class ErrorHandlerExtensions
                     AppException appError => appError.Message,
                     _ => ExceptionMessages.InternalServerError.Default
                 };
+                var details = contextFeature.Error switch
+                {
+                    AppException appError => appError.Details,
+                    _ => null
+                };
 
                 context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int) statusCode;
 
-                var errorResponse = new { statusCode, message };
+                var errorResponse = new { statusCode, message, details };
 
                 await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
             });
