@@ -4,7 +4,7 @@ import { MantineProvider } from '@mantine/core';
 import { Outlet } from 'react-router';
 import { theme } from '@/config/mantine/theme';
 import { UserContextProvider } from './providers/user.context';
-import { Notifier } from './components/notifier';
+import { Notifier } from './components/feedback/notifier';
 
 
 export function App() {
