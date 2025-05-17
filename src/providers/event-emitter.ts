@@ -1,5 +1,6 @@
 export const Events = {
-    NOTIFY: "notify"
+    NOTIFY: "notify",
+    REFRESH: "refresh",
 } as const
 
 export interface IEventEmitter {
