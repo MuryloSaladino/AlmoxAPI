@@ -1,15 +1,15 @@
-import { login, type ILoginRequest } from "@/services/almox/auth";
+import { AuthService, type ILoginRequest } from "@/services/almox/auth.service";
 import { Button, Center, Container, Flex, rem, Text, TextInput } from "@mantine/core";
 import { IconAt, IconLock } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
-import { Logo } from "@/components/logo";
 import { useNavigate } from "react-router";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { StorageKeys } from "@/config/constants/storage-keys";
 import { useContext } from "react";
 import { UserContext } from "@/providers/user.context";
 import { jwtDecode } from "jwt-decode"
-import { getUserById } from "@/services/almox/users";
+import { Logo } from "@/components/brand/logo";
+import { UsersService } from "@/services/almox/users.service";
 
 export function Login() {
 
@@ -20,11 +20,11 @@ export function Login() {
     });
     
     const submit = async (request: ILoginRequest) => {
-        const { token } = await login(request);
+        const { token } = await AuthService.login(request);
         localStorage.setItem(StorageKeys.TOKEN, token);
 
         const { sub } = jwtDecode(token);
-        const user = await getUserById(sub!);
+        const user = await UsersService.getById(sub!);
         updateUser(user);
 
         navigate(AppRoutes.ROOT);
