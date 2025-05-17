@@ -1,7 +1,7 @@
 import { Group, Title, type GroupProps } from "@mantine/core";
 import { IconStack3 } from "@tabler/icons-react";
-import { AppLink } from "../app-link";
 import { AppRoutes } from "@/config/constants/app-routes";
+import { AppLink } from "@/components/navigation/app-link";
 
 export interface ILogoProps extends GroupProps {
     size?: "sm" | "md" | "lg";

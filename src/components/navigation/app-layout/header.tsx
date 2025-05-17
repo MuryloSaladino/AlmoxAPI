@@ -1,4 +1,4 @@
-import { Logo } from "@/components/logo";
+import { Logo } from "@/components/brand/logo";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { UserContext } from "@/providers/user.context";
 import { AppShell, Avatar, Burger, Button, Flex, Group, Menu } from "@mantine/core";

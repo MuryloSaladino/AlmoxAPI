@@ -1,12 +1,15 @@
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import { Header } from "./header";
 import { Navbar } from "./navbar";
+import { PageLoading } from "@/components/feedback/page-loading";
 
 export function AppLayout() {
 
     const [opened, { toggle }] = useDisclosure();
+    const navigation = useNavigation();
+    const isNavigating = Boolean(navigation.location);
 
     return (
         <AppShell
@@ -19,7 +22,11 @@ export function AppLayout() {
             <Navbar/>
 
             <AppShell.Main>
-                <Outlet/>
+                {
+                    isNavigating
+                    ? <PageLoading/>
+                    : <Outlet/>
+                }
             </AppShell.Main>
         </AppShell>
     )
