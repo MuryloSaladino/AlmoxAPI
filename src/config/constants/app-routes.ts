@@ -6,7 +6,6 @@ export const AppRoutes = {
     CART: "/cart",
     
     DEPARTMENTS: "/departments",
-    DEPARTMENT_DETAILS: (id: string = ":id") => `/departments/${id}`,
 
     REQUESTS: "/requests",
     REQUEST_DETAILS: (id: string = ":id") => `/requests/${id}`,

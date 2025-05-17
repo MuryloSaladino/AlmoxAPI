@@ -1,12 +1,11 @@
 import { App } from "@/App";
-import { AppLayout } from "@/components/app-layout";
-import { RouteProtection } from "@/components/route-protection";
+import { AppLayout } from "@/components/navigation/app-layout";
+import { AuthenticationGuard } from "@/components/guards/authentication-guard";
 import { AppRoutes } from "@/config/constants/app-routes";
 import { Cart } from "@/pages/cart";
 import { Catalog } from "@/pages/catalog";
 import { Deliveries } from "@/pages/deliveries";
 import { DeliveryDetails } from "@/pages/delivery-details";
-import { DepartmentDetails } from "@/pages/department-details";
 import { Departments } from "@/pages/departments";
 import { Home } from "@/pages/home";
 import { Login } from "@/pages/login";
@@ -22,7 +21,7 @@ export const router = createBrowserRouter([{
             Component: Login,
         },
         {
-            Component: RouteProtection,
+            Component: AuthenticationGuard,
             children: [{
                 Component: AppLayout,
                 children: [
@@ -41,10 +40,6 @@ export const router = createBrowserRouter([{
                     {
                         path: AppRoutes.DEPARTMENTS,
                         Component: Departments,
-                    },
-                    {
-                        path: AppRoutes.DEPARTMENT_DETAILS(),
-                        Component: DepartmentDetails,
                     },
                     {
                         path: AppRoutes.DELIVERIES,
