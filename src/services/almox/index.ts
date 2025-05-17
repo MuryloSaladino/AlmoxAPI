@@ -1,4 +1,4 @@
-import { notify } from "@/components/notifier/functions";
+import { notify } from "@/components/feedback/notifier/functions";
 import { NotificationMessages } from "@/config/constants/notifications";
 import { StorageKeys } from "@/config/constants/storage-keys";
 import axios, { AxiosError, type AxiosResponse } from "axios"
@@ -20,16 +20,11 @@ almoxApi.interceptors.request.use((config) => {
 });
 
 almoxApi.interceptors.response.use(
-    (data: AxiosResponse<any, any>) => {
-        if(import.meta.env.DEV) {
-            console.log("Request: " + data.request)
-            console.log("Response: " + data.data)
-        }
-        return data
-    },
+    (data: AxiosResponse<any, any>) => data,
     (error: AxiosError<any>) => {
         notify.error(error.response?.data.message 
             || NotificationMessages.Error.Unknown.Undefined);
+        throw error
     }
 )
 
