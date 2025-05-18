@@ -7,6 +7,16 @@ public sealed record FindDepartmentByIdResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    List<User> Users,
+    List<FindDepartmentByIdResponseUser> Users,
     string Name
+);
+
+public record FindDepartmentByIdResponseUser(
+    Guid Id,
+    DateTime CreatedAt,
+    DateTime UpdatedAt,
+    DateTime? DeletedAt,
+    string Username,
+    string Email,
+    bool IsAdmin
 );

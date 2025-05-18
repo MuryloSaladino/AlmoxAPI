@@ -22,7 +22,7 @@ public class UpdateItemHandler(
 
     public async Task<UpdateItemResponse> Handle(UpdateItemRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var item = await itemsRepository.Get(request.Id, cancellationToken)

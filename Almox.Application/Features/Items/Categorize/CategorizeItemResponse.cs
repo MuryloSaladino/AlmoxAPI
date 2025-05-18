@@ -14,5 +14,6 @@ public sealed record CategorizeItemResponse(
 
 public sealed record CategorizeItemResponseCategory(
     Guid Id,
-    string Name
+    string Name,
+    string Description
 );

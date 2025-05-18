@@ -20,7 +20,7 @@ public class DeleteDepartmentHandler(
     public async Task<DeleteDepartmentResponse> Handle(
         DeleteDepartmentRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var department = await departmentRepository.Get(request.Id, cancellationToken)

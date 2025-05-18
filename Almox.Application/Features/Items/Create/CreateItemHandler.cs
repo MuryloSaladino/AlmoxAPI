@@ -23,7 +23,7 @@ public class CreateItemHandler(
 
     public async Task<CreateItemResponse> Handle(CreateItemRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var item = mapper.Map<Item>(request);

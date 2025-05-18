@@ -23,7 +23,7 @@ public class CreateCategoryHandler(
 
     public async Task<CreateCategoryResponse> Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = mapper.Map<Category>(request);

@@ -19,7 +19,7 @@ public class DeleteCategoryHandler(
 
     public async Task<DeleteCategoryResponse> Handle(DeleteCategoryRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.Id, cancellationToken)

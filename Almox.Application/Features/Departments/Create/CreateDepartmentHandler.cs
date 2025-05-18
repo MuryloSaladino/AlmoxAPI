@@ -24,7 +24,7 @@ public class CreateDepartmentHandler(
     public async Task<CreateDepartmentResponse> Handle(
         CreateDepartmentRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSession().IsAdmin)
+        if(!userSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var department = mapper.Map<Department>(request);
