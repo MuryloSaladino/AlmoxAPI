@@ -9,5 +9,6 @@ public class RequestItem
     public required Request Request { get; set; }
 
     public required int Quantity { get; set; }
+    public string? Observations { get; set; } = null;
     public int FulfilledQuantity { get; set; } = 0;
 }
