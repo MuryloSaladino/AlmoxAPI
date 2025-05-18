@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Almox.Persistence.Migrations
 {
     [DbContext(typeof(AlmoxContext))]
-    [Migration("20250513150333_InitialMigration")]
+    [Migration("20250517100313_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -238,7 +238,8 @@ namespace Almox.Persistence.Migrations
                         .HasColumnName("updated_at");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
@@ -260,6 +261,10 @@ namespace Almox.Persistence.Migrations
                     b.Property<int>("FulfilledQuantity")
                         .HasColumnType("int")
                         .HasColumnName("fulfilled_quantity");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("observations");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int")

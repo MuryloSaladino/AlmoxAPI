@@ -136,7 +136,7 @@ namespace Almox.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     priority = table.Column<short>(type: "smallint", nullable: false, defaultValue: (short)0),
                     observations = table.Column<string>(type: "varchar(255)", nullable: true),
                     status = table.Column<short>(type: "smallint", nullable: false, defaultValue: (short)0),
@@ -148,8 +148,8 @@ namespace Almox.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_requests", x => x.id);
                     table.ForeignKey(
-                        name: "FK_requests_users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_requests_users_user_id",
+                        column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -187,6 +187,7 @@ namespace Almox.Persistence.Migrations
                     item_id = table.Column<Guid>(type: "uuid", nullable: false),
                     request_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quantity = table.Column<int>(type: "int", nullable: false),
+                    observations = table.Column<string>(type: "varchar(255)", nullable: true),
                     fulfilled_quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -245,9 +246,9 @@ namespace Almox.Persistence.Migrations
                 column: "request_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_requests_UserId",
+                name: "IX_requests_user_id",
                 table: "requests",
-                column: "UserId");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_users_department_id",
