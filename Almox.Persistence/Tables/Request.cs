@@ -14,6 +14,7 @@ public static class RequestTableConfigurationExtensions
             entity.ConfigureBaseTableProps();
 
             entity.Property(e => e.UserId)
+                .HasColumnName("user_id")
                 .IsRequired();
             entity.HasOne(e => e.User)
                 .WithMany()
