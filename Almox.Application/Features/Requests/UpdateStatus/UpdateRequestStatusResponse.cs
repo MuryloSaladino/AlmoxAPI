@@ -8,15 +8,7 @@ public sealed record UpdateRequestStatusResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     Guid UserId,
-    int Priority,
+    RequestPriority Priority,
     string? Observations,
-    RequestStatus Status,
-    List<UpdateRequestStatusResponseItem> RequestItems
+    RequestStatus Status
 );
-
-public class UpdateRequestStatusResponseItem
-{
-    public Guid? Id { get; set; }
-    public string? Name { get; set; } 
-    public int? Quantity { get; set; }
-}

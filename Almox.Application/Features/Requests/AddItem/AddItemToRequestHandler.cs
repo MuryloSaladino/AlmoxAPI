@@ -28,7 +28,7 @@ public class AddItemToRequestHandler(
         var referencedRequest = await requestsRepository.Get(request.RequestId, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);
 
-        var session = userSession.GetSession();
+        var session = userSession.GetSessionOrThrow();
 
         if(session.UserId != referencedRequest.UserId && !session.IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);

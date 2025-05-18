@@ -8,7 +8,7 @@ public sealed record FindRequestByIdResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     Guid UserId,
-    int Priority,
+    RequestPriority Priority,
     string? Observations,
     RequestStatus Status,
     List<FindRequestByIdResponseItem> RequestItems

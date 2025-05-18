@@ -19,7 +19,7 @@ public class FindRequestByIdHandler(
 
     public async Task<FindRequestByIdResponse> Handle(FindRequestByIdRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSession();
+        var session = userSession.GetSessionOrThrow();
 
         var almoxRequest = await requestsRepository.GetWithItems(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);

@@ -8,7 +8,7 @@ public sealed record FindRequestsResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     Guid UserId,
-    int Priority,
+    RequestPriority Priority,
     string? Observations,
     RequestStatus Status
 );

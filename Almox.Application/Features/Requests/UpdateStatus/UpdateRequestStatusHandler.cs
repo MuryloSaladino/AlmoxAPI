@@ -12,12 +12,14 @@ using MediatR;
 namespace Almox.Application.Features.Requests.UpdateStatus;
 
 public class UpdateRequestStatusHandler(
+    IRequestHistoryRepository historyRepository,
     IRequestsRepository requestsRepository,
     IUserSession userSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<UpdateRequestStatusRequest, UpdateRequestStatusResponse>
 {
+    private readonly IRequestHistoryRepository historyRepository = historyRepository;
     private readonly IRequestsRepository requestsRepository = requestsRepository;
     private readonly IUserSession userSession = userSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
@@ -26,13 +28,15 @@ public class UpdateRequestStatusHandler(
     public async Task<UpdateRequestStatusResponse> Handle(
         UpdateRequestStatusRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSession();
+        var session = userSession.GetSessionOrThrow();
+
         var almoxRequest = await requestsRepository.GetWithItems(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);
 
         ValidateOrThrow(request.Status, almoxRequest, session);
+        ApplyChanges(almoxRequest, request.Status);
+        SaveHistory(session.UserId, request.Id, request.Status);
 
-        almoxRequest.Status = request.Status;
         await unitOfWork.Save(cancellationToken);
 
         return mapper.Map<UpdateRequestStatusResponse>(almoxRequest);
@@ -40,27 +44,54 @@ public class UpdateRequestStatusHandler(
 
     private static void ValidateOrThrow(RequestStatus status, Request request, AuthPayload session)
     {
-        switch(status)
+        switch (status)
         {
             case RequestStatus.Draft:
                 throw new ConflictException(ExceptionMessages.Conflict.ResourceState);
 
             case RequestStatus.Requested:
-                if(request.UserId != session.UserId)
+                if (request.UserId != session.UserId)
                     throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUser);
                 break;
 
             case RequestStatus.Accepted:
             case RequestStatus.Ready:
             case RequestStatus.Completed:
-                if(!session.IsAdmin)
+                if (!session.IsAdmin)
                     throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
                 break;
 
             case RequestStatus.Canceled:
-                if(!session.IsAdmin && request.UserId != session.UserId)
+                if (!session.IsAdmin && request.UserId != session.UserId)
                     throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
                 break;
         }
+    }
+
+    private static void ApplyChanges(Request request, RequestStatus status)
+    {
+        switch (status)
+        {
+            case RequestStatus.Completed:
+                foreach (var requestItem in request.RequestItems)
+                    requestItem.Item.Quantity -= requestItem.FulfilledQuantity;
+                break;
+            default:
+                break;
+        }
+        request.Status = status;
+    }
+
+    private void SaveHistory(Guid userId, Guid requestId, RequestStatus status)
+    {
+        var history = new RequestHistory()
+        {
+            RequestId = requestId,
+            Request = null!,
+            UpdatedById = userId,
+            UpdatedBy = null!,
+            Status = status,
+        };
+        historyRepository.Create(history);
     }
 }

@@ -19,7 +19,7 @@ public class FindRequestsHandler(
 
     public async Task<List<FindRequestsResponse>> Handle(FindRequestsRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSession();
+        var session = userSession.GetSessionOrThrow();
 
         if(!session.IsAdmin && request.Filters.UserId != session.UserId)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
