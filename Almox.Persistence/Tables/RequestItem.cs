@@ -32,6 +32,10 @@ public static class RequestItemTableConfigurationExtensions
                 .HasColumnType("int")
                 .IsRequired();
 
+            entity.Property(e => e.Observations)
+                .HasColumnName("observations")
+                .HasColumnType("varchar(255)");
+
             entity.Property(e => e.FulfilledQuantity)
                 .HasColumnName("fulfilled_quantity")
                 .HasColumnType("int");
