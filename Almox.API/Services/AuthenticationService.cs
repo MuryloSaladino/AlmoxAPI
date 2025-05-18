@@ -30,6 +30,7 @@ public class AuthenticationService : IAuthenticator
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity([ 
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(PayloadKeys.Username, user.Username), 
                 new Claim(PayloadKeys.UserId, user.Id.ToString()),
                 new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString()),
@@ -59,14 +60,15 @@ public class AuthenticationService : IAuthenticator
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
+            ClockSkew = TimeSpan.Zero,
         };
 
         try
         {
             var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 
-            var userId = principal.FindFirst(PayloadKeys.UserId)?.Value;
+            var userId = principal.FindFirst("sub")?.Value
+                ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var username = principal.FindFirst(PayloadKeys.Username)?.Value;
             var isAdmin = bool.Parse( principal.FindFirst(PayloadKeys.IsAdmin)?.Value ?? "False" );
 

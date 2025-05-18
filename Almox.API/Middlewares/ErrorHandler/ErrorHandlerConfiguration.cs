@@ -4,11 +4,11 @@ using Almox.Application.Common.Exceptions;
 using Almox.Domain.Common.Enums;
 using Almox.Domain.Common.Messages;
 
-namespace Almox.API.Extensions;
+namespace Almox.API.Middlewares.ErrorHandler;
 
 public static class ErrorHandlerExtensions
 {
-    public static void UserErrorHandler(this IApplicationBuilder app) => 
+    public static void UseErrorHandler(this IApplicationBuilder app) => 
         app.UseExceptionHandler(error => 
         {
             error.Run(async context => 

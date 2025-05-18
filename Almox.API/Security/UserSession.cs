@@ -3,7 +3,7 @@ using Almox.Application.Common.Session;
 using Almox.Domain.Common.Messages;
 using Almox.Domain.Objects;
 
-namespace Almox.API.Security.Session;
+namespace Almox.API.Security;
 
 public class UserSession(AuthPayload? session = null) : IUserSession
 {
@@ -11,7 +11,7 @@ public class UserSession(AuthPayload? session = null) : IUserSession
 
     public bool IsLoggedIn() => Session != null;
 
-    public AuthPayload GetSession()
+    public AuthPayload GetSessionOrThrow()
         => Session ?? throw new UnauthorizedException(ExceptionMessages.Unauthorized.Session);
 
     public void SetSession(AuthPayload? session)

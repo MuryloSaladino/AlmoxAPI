@@ -1,7 +1,7 @@
-using Almox.API.Extensions;
 using Almox.API.Middlewares.Authenticate;
+using Almox.API.Middlewares.ErrorHandler;
 using Almox.API.Services;
-using Almox.API.Security.Session;
+using Almox.API.Security;
 using Almox.Application;
 using Almox.Application.Config;
 using Almox.Application.Contracts;
@@ -50,6 +50,6 @@ app.UseMiddleware<AuthenticateMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors();
-app.UserErrorHandler();
+app.UseErrorHandler();
 app.MapControllers();
 app.Run();

@@ -1,4 +1,4 @@
-namespace Almox.API.Extensions;
+namespace Almox.API.Security;
 
 public static class CorsPolicyExtensions
 {
