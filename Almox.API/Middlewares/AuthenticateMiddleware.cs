@@ -3,30 +3,26 @@ using Almox.Application.Common.Session;
 using Almox.Application.Contracts;
 using Almox.Domain.Common.Messages;
 
-namespace Almox.API.Middlewares.Authenticate;
+namespace Almox.API.Middlewares;
 
 public class AuthenticateMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next = next;
+    private readonly RequestDelegate next = next;
 
     public async Task Invoke(HttpContext context)
     {
-        var endpoint = context.GetEndpoint();
+        var authHeader = context.Request.Headers.Authorization.FirstOrDefault();
 
-        var requiresAuthentication = endpoint?.Metadata.GetMetadata<AuthenticateAttribute>() != null;
-        
-        if (!requiresAuthentication)
+        if (string.IsNullOrEmpty(authHeader))
         {
-            await _next(context);
+            await next(context);
             return;
         }
 
-        var authHeader = context.Request.Headers.Authorization.FirstOrDefault();
-
-        if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+        if (!authHeader.StartsWith("Bearer "))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            string message = JsonSerializer.Serialize(new { message = ExceptionMessages.Unauthorized.MissingToken });
+            string message = JsonSerializer.Serialize(new { message = ExceptionMessages.Unauthorized.TokenPrefix });
             await context.Response.WriteAsync(message);
             return;
         }
@@ -41,12 +37,12 @@ public class AuthenticateMiddleware(RequestDelegate next)
             var sessionPayload = authService.ExtractToken(token);
             scopedSession.SetSession(sessionPayload);
 
-            await _next(context);
+            await next(context);
         }
-        catch
+        catch(Exception e)
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            string message = JsonSerializer.Serialize(new { message = ExceptionMessages.Unauthorized.Token });
+            string message = JsonSerializer.Serialize(new { message = e.Message });
             await context.Response.WriteAsync(message);
         }
     }

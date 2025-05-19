@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.FindById;
 using Almox.Application.Features.Users.Promote;
@@ -12,7 +11,6 @@ namespace Almox.API.Controllers;
 
 [ApiController]
 [Route(APIRoutes.Users)]
-[Authenticate]
 public class UsersController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;

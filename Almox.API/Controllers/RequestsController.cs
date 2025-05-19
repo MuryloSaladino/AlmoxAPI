@@ -1,5 +1,4 @@
 using Almox.API.Enums;
-using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Requests.AddItem;
 using Almox.Application.Features.Requests.Start;
 using Almox.Application.Features.Requests.Find;
@@ -15,7 +14,6 @@ namespace Almox.API.Controllers;
 
 [ApiController]
 [Route(APIRoutes.Requests)]
-[Authenticate]
 public class RequestsController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;

@@ -13,7 +13,7 @@ public static class ExceptionMessages
         public const string Default = "Unauthorized.";
         public const string Session = "Invalid user session, you must login first.";
         public const string Token = "Invalid bearer token provided in header.";
-        public const string MissingToken = "Missing bearer token in authorization header.";
+        public const string TokenPrefix = "Token must be Bearer type.";
         public const string Credentials = "Credentials do not match or incorrect password.";
     }
 

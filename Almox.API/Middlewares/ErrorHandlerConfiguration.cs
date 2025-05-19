@@ -4,7 +4,7 @@ using Almox.Application.Common.Exceptions;
 using Almox.Domain.Common.Enums;
 using Almox.Domain.Common.Messages;
 
-namespace Almox.API.Middlewares.ErrorHandler;
+namespace Almox.API.Middlewares;
 
 public static class ErrorHandlerExtensions
 {

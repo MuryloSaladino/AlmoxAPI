@@ -1,5 +1,4 @@
 using Almox.API.Enums;
-using Almox.API.Middlewares.Authenticate;
 using Almox.Application.Features.Categories.Create;
 using Almox.Application.Features.Categories.Delete;
 using Almox.Application.Features.Categories.Find;
@@ -10,7 +9,6 @@ namespace Almox.API.Controllers;
 
 [ApiController]
 [Route(APIRoutes.Categories)]
-[Authenticate]
 public class CategoriesController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator mediator = mediator;

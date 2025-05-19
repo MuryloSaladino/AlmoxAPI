@@ -1,5 +1,3 @@
-using Almox.API.Middlewares.Authenticate;
-using Almox.API.Middlewares.ErrorHandler;
 using Almox.API.Services;
 using Almox.API.Security;
 using Almox.Application;
@@ -10,6 +8,7 @@ using Almox.Application.Common.Session;
 using System.Text.Json.Serialization;
 using Almox.Persistence.Seeding;
 using Almox.API.Config;
+using Almox.API.Middlewares;
 
 DotEnv.Load();
 
