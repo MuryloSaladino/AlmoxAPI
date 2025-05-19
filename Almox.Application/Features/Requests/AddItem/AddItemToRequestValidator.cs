@@ -6,6 +6,6 @@ public class AddItemToRequestValidator : AbstractValidator<AddItemToRequestReque
 {
     public AddItemToRequestValidator()
     {
-        RuleFor(r => r.Body.Quantity).GreaterThanOrEqualTo(1);
+        RuleFor(r => r.Props.Quantity).GreaterThanOrEqualTo(1);
     }
 }

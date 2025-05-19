@@ -12,5 +12,12 @@ public sealed record StartRequestResponse(
     RequestPriority Priority,
     string Observations,
     RequestStatus Status,
-    List<RequestItem> RequestItems
+    List<StartRequestItemPresenter> RequestItems
 );
+
+public class StartRequestItemPresenter
+{
+    public Guid? Id { get; set; }
+    public string? Name { get; set; } 
+    public int? Quantity { get; set; }
+}

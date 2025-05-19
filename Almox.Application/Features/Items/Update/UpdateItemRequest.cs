@@ -4,10 +4,10 @@ namespace Almox.Application.Features.Items.Update;
 
 public sealed record UpdateItemRequest(
     Guid Id,
-    UpdateItemRequestBody Body
+    UpdateItemRequestProps Props
 ) : IRequest<UpdateItemResponse>;
 
-public sealed record UpdateItemRequestBody(
+public sealed record UpdateItemRequestProps(
     string? Name,
     int? Quantity
 );

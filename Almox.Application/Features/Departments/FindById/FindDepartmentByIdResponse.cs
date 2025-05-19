@@ -1,5 +1,3 @@
-using Almox.Domain.Entities;
-
 namespace Almox.Application.Features.Departments.FindById;
 
 public sealed record FindDepartmentByIdResponse(
@@ -7,11 +5,11 @@ public sealed record FindDepartmentByIdResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    List<FindDepartmentByIdResponseUser> Users,
+    List<FindDepartmentByIdUserPresenter> Users,
     string Name
 );
 
-public record FindDepartmentByIdResponseUser(
+public record FindDepartmentByIdUserPresenter(
     Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,

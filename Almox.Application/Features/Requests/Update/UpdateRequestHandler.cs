@@ -31,8 +31,8 @@ public class UpdateRequestHandler(
         if(session.UserId != almoxRequest.UserId)
             throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUser);
 
-        almoxRequest.Priority = request.Body.Priority;
-        almoxRequest.Observations = request.Body.Observations;
+        almoxRequest.Priority = request.Props.Priority;
+        almoxRequest.Observations = request.Props.Observations;
 
         await unitOfWork.Save(cancellationToken);
 

@@ -6,14 +6,14 @@ public class UpdateItemValidator : AbstractValidator<UpdateItemRequest>
 {
     public UpdateItemValidator()
     {
-        RuleFor(i => i.Body.Name)
+        RuleFor(i => i.Props.Name)
             .NotEmpty()
             .MinimumLength(2)
             .MaximumLength(50)
-            .When(i => !string.IsNullOrEmpty(i.Body.Name));
+            .When(i => !string.IsNullOrEmpty(i.Props.Name));
         
-        RuleFor(i => i.Body.Quantity)
+        RuleFor(i => i.Props.Quantity)
             .GreaterThanOrEqualTo(0)
-            .When(i => i.Body.Quantity.HasValue);
+            .When(i => i.Props.Quantity.HasValue);
     }
 }

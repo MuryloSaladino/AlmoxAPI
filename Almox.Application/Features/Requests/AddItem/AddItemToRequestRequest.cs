@@ -5,9 +5,9 @@ namespace Almox.Application.Features.Requests.AddItem;
 public sealed record AddItemToRequestRequest(
     Guid RequestId,
     Guid ItemId,
-    AddItemToRequestRequestBody Body
+    AddItemToRequestRequestProps Props
 ) : IRequest<AddItemToRequestResponse>;
 
-public sealed record AddItemToRequestRequestBody(
+public sealed record AddItemToRequestRequestProps(
     int Quantity
 );

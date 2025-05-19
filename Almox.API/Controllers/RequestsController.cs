@@ -50,7 +50,7 @@ public class RequestsController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<AddItemToRequestResponse>> AddItem(
         [FromRoute] Guid requestId,
         [FromRoute] Guid itemId,
-        [FromBody] AddItemToRequestRequestBody body,
+        [FromBody] AddItemToRequestRequestProps body,
         CancellationToken cancellationToken)
     {
         var request = new AddItemToRequestRequest(requestId, itemId, body);
@@ -61,7 +61,7 @@ public class RequestsController(IMediator mediator) : ControllerBase
     [HttpPut, Route("{requestId}")]
     public async Task<ActionResult<UpdateRequestResponse>> Update(
         [FromRoute] Guid requestId,
-        UpdateRequestRequestPayload body,
+        UpdateRequestRequestProps body,
         CancellationToken cancellationToken)
     {
         var request = new UpdateRequestRequest(requestId, body);

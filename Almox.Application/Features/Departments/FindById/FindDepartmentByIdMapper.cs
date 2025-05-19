@@ -8,6 +8,6 @@ public class FindDepartmentByIdMapper : Profile
     public FindDepartmentByIdMapper()
     {
         CreateMap<Department, FindDepartmentByIdResponse>();
-        CreateMap<User, FindDepartmentByIdResponseUser>();
+        CreateMap<User, FindDepartmentByIdUserPresenter>();
     }
 }

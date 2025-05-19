@@ -46,7 +46,7 @@ public class ItemsController(IMediator mediator) : ControllerBase
     [HttpPatch, Route("{itemId}")]
     public async Task<ActionResult<UpdateItemResponse>> Update(
         [FromRoute] Guid itemId,
-        [FromBody] UpdateItemRequestBody body, 
+        [FromBody] UpdateItemRequestProps body, 
         CancellationToken cancellationToken)
     {
         var request = new UpdateItemRequest(itemId, body);

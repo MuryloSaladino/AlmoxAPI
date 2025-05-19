@@ -7,7 +7,7 @@ public class CategorizeItemMapper : Profile
 {
     public CategorizeItemMapper()
     {
-        CreateMap<Category, CategorizeItemResponseCategory>();
+        CreateMap<Category, CategorizeItemCategoryPresenter>();
         CreateMap<Item, CategorizeItemResponse>();
     }
 }

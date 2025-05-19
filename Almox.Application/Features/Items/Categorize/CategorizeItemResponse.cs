@@ -1,5 +1,3 @@
-using Almox.Domain.Entities;
-
 namespace Almox.Application.Features.Items.Categorize;
 
 public sealed record CategorizeItemResponse(
@@ -9,10 +7,10 @@ public sealed record CategorizeItemResponse(
     DateTime? DeletedAt,
     string Name, 
     int Quantity,
-    List<CategorizeItemResponseCategory> Categories
+    List<CategorizeItemCategoryPresenter> Categories
 );
 
-public sealed record CategorizeItemResponseCategory(
+public sealed record CategorizeItemCategoryPresenter(
     Guid Id,
     string Name,
     string Description

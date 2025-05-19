@@ -7,7 +7,7 @@ public class FindItemsMapper : Profile
 {
     public FindItemsMapper()
     {
-        CreateMap<Category, FindItemsResponseCategory>();
+        CreateMap<Category, FindItemsCategoryPresenter>();
         CreateMap<Item, FindItemsResponse>();
     }
 }

@@ -5,10 +5,10 @@ namespace Almox.Application.Features.Requests.Update;
 
 public sealed record UpdateRequestRequest(
     Guid Id,
-    UpdateRequestRequestPayload Body
+    UpdateRequestRequestProps Props
 ) : IRequest<UpdateRequestResponse>;
 
-public record UpdateRequestRequestPayload(
+public record UpdateRequestRequestProps(
     RequestPriority Priority,
     string? Observations
 );

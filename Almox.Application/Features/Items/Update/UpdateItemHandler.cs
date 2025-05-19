@@ -28,9 +28,9 @@ public class UpdateItemHandler(
         var item = await itemsRepository.Get(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Item);
 
-        if(request.Body.Name is string name)
+        if(request.Props.Name is string name)
             item.Name = name;
-        if(request.Body.Quantity is int quantity)
+        if(request.Props.Quantity is int quantity)
             item.Quantity = quantity;
 
         await unitOfWork.Save(cancellationToken);
