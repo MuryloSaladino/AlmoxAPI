@@ -9,8 +9,8 @@ import { DeliveryDetails } from "@/pages/delivery-details";
 import { Departments } from "@/pages/departments";
 import { Home } from "@/pages/home";
 import { Login } from "@/pages/login";
-import { RequestDetails } from "@/pages/request-details";
-import { Requests } from "@/pages/requests";
+import { OrderDetails } from "@/pages/order-details";
+import { Orders } from "@/pages/orders";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([{
@@ -50,12 +50,12 @@ export const router = createBrowserRouter([{
                         Component: DeliveryDetails,
                     },
                     {
-                        path: AppRoutes.REQUESTS,
-                        Component: Requests,
+                        path: AppRoutes.ORDERS,
+                        Component: Orders,
                     },
                     {
-                        path: AppRoutes.REQUEST_DETAILS(),
-                        Component: RequestDetails,
+                        path: AppRoutes.ORDER_DETAILS(),
+                        Component: OrderDetails,
                     }
                 ]
             }]

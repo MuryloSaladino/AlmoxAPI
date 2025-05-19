@@ -9,7 +9,7 @@ export type Item = BaseEntity & {
 
 export type ItemSummary = Omit<Item, "categories">;
 
-export type ItemRequest = {
+export type ItemOrder = {
     id: string;
     name: string;
     quantity: number;

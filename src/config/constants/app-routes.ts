@@ -7,8 +7,8 @@ export const AppRoutes = {
     
     DEPARTMENTS: "/departments",
 
-    REQUESTS: "/requests",
-    REQUEST_DETAILS: (id: string = ":id") => `/requests/${id}`,
+    ORDERS: "/orders",
+    ORDER_DETAILS: (id: string = ":id") => `/orders/${id}`,
 
     DELIVERIES: "/deliveries",
     DELIVERY_DETAILS: (id: string = ":id") => `/deliveries/${id}`,

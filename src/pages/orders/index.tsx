@@ -1,4 +1,4 @@
-export function RequestDetails() {
+export function Orders() {
     return (
         <>
         

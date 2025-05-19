@@ -14,9 +14,9 @@ export const navbarItems: INavbarItemProps[] = [
         link: AppRoutes.CATALOG,
     },
     {
-        title: "Requests",
+        title: "Orders",
         icon: <IconBrandTelegram/>,
-        link: AppRoutes.CATALOG,
+        link: AppRoutes.ORDERS,
     },
 ];
 
