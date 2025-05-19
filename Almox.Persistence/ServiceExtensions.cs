@@ -16,6 +16,8 @@ using Almox.Persistence.Repository.Items;
 using Almox.Application.Repository.OrdersRepository;
 using Almox.Persistence.Config;
 using Almox.Persistence.Repository.Orders;
+using Almox.Application.Contracts;
+using Almox.Persistence.Exceptions;
 
 namespace Almox.Persistence;
 
@@ -27,6 +29,8 @@ public static class ServiceExtensions
 
         services.AddDbContext<AlmoxContext>(opt => opt.UseNpgsql(connection));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        services.AddScoped<IErrorSummaryExtractor<DbUpdateException>, DbUpdateErrorSummaryExtractor>();
 
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<IDeliveriesRepository, DeliveriesRepository>();

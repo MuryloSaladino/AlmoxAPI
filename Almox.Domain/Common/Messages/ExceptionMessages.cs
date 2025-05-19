@@ -6,6 +6,8 @@ public static class ExceptionMessages
     {
         public const string Default = "Bad request.";
         public const string Format = "The request was not built correctly or contains invalid fields.";
+        public const string ValueAlreadyTaken = "You tried creating a resource that requires a unique value that's already in use.";
+        public const string NullValue = "A null value was received to create a resource that cannot be null.";
     }
 
     public static class Unauthorized
@@ -28,6 +30,7 @@ public static class ExceptionMessages
     public static class NotFound
     {
         public const string Default = "Not Found.";
+        public const string Resource = "Resource not found.";
         public const string User = "User not found.";
         public const string Category = "Category not found.";
         public const string Department = "Department not found.";

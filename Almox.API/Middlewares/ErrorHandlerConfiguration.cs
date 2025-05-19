@@ -31,13 +31,13 @@ public static class ErrorHandlerExtensions
             });
         });
     
-    private static DynamicErrorSummaryHandler ResolveExtractor(
+    private static DynamicErrorSummaryExtractorHandler ResolveExtractor(
         Exception error, IServiceProvider services)
     {
         var errorType = error.GetType();
         var extractorType = typeof(IErrorSummaryExtractor<>).MakeGenericType(errorType);
         var extractorInstance = services.GetService(extractorType);
 
-        return new DynamicErrorSummaryHandler(extractorInstance);
+        return new DynamicErrorSummaryExtractorHandler(extractorInstance);
     }
 }

@@ -13,12 +13,12 @@ public class DefaultErrorSummaryExtractor : IErrorSummaryExtractor<Exception>
     public ErrorSummary Extract(Exception ex) => new(ex);
 }
 
-public class DynamicErrorSummaryHandler : IErrorSummaryExtractor<Exception>
+public class DynamicErrorSummaryExtractorHandler : IErrorSummaryExtractor<Exception>
 {
     private readonly object InnerExtractor;
     private readonly MethodInfo ExtractMethod;
 
-    public DynamicErrorSummaryHandler(object? innerExtractor)
+    public DynamicErrorSummaryExtractorHandler(object? innerExtractor)
     {
         InnerExtractor = innerExtractor ?? new DefaultErrorSummaryExtractor();
         ExtractMethod = InnerExtractor.GetType().GetMethod("Extract")
