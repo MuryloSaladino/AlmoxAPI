@@ -3,13 +3,13 @@ using Almox.API.Middlewares.ErrorHandler;
 using Almox.API.Services;
 using Almox.API.Security;
 using Almox.Application;
-using Almox.Application.Config;
 using Almox.Application.Contracts;
 using Almox.Persistence;
 using Almox.Persistence.Context;
 using Almox.Application.Common.Session;
 using System.Text.Json.Serialization;
 using Almox.Persistence.Seeding;
+using Almox.API.Config;
 
 DotEnv.Load();
 

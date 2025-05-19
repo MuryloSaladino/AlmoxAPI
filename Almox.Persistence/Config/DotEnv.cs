@@ -1,4 +1,4 @@
-namespace Almox.Application.Config;
+namespace Almox.Persistence.Config;
 
 public static class DotEnv
 {

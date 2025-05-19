@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Almox.Application.Config;
 using Almox.Persistence.Context;
 using Almox.Persistence.Repository;
 using Almox.Persistence.Repository.Users;
@@ -16,6 +15,7 @@ using Almox.Application.Repository.ItemsRepository;
 using Almox.Persistence.Repository.Items;
 using Almox.Application.Repository.RequestsRepository;
 using Almox.Persistence.Repository.Requests;
+using Almox.Persistence.Config;
 
 namespace Almox.Persistence;
 

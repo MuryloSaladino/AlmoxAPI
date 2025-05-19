@@ -1,5 +1,5 @@
-using Almox.Application.Config;
 using Almox.Domain.Entities;
+using Almox.Persistence.Config;
 using Almox.Persistence.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

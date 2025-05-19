@@ -1,6 +1,6 @@
+using Almox.Persistence.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Almox.Application.Config;
 
 namespace Almox.Persistence.Context;
 

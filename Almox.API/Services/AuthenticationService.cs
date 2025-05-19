@@ -3,11 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Config;
 using Almox.Domain.Entities;
 using Almox.Application.Contracts;
 using Almox.Domain.Objects;
 using Almox.Domain.Common.Messages;
+using Almox.API.Config;
 
 namespace Almox.API.Services;
 
