@@ -10,7 +10,7 @@ public class RequestSession(SessionData? session = null) : IRequestSession
     public SessionData? Session { get; set; } = session;
 
     public SessionData GetSessionOrThrow()
-        => Session ?? throw new UnauthorizedException(ExceptionMessages.Unauthorized.Session);
+        => Session ?? throw AppException.Unauthorized(ExceptionMessages.Unauthorized.Session);
 
     public void SetSession(SessionData? session)
         => Session = session;

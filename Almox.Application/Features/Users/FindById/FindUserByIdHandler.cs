@@ -23,10 +23,10 @@ public sealed class FindUserByIdHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin && request.UserId != session.UserId)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
 
         var user = await usersRepository.Get(request.UserId, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.User);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
     
         return mapper.Map<FindUserByIdResponse>(user);
     }

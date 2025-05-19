@@ -31,7 +31,7 @@ public class UpdateOrderStatusHandler(
         var session = requestSession.GetSessionOrThrow();
 
         var order = await ordersRepository.GetWithItems(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Order);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         ValidateOrThrow(request.Status, order, session);
 
@@ -49,23 +49,23 @@ public class UpdateOrderStatusHandler(
         switch (status)
         {
             case OrderStatus.Draft:
-                throw new ConflictException(ExceptionMessages.Conflict.ResourceState);
+                throw AppException.Conflict(ExceptionMessages.Conflict.ResourceState);
 
             case OrderStatus.Requested:
                 if (order.UserId != session.UserId)
-                    throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUser);
+                    throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUser);
                 break;
 
             case OrderStatus.Accepted:
             case OrderStatus.Ready:
             case OrderStatus.Completed:
                 if (!session.IsAdmin)
-                    throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+                    throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
                 break;
 
             case OrderStatus.Canceled:
                 if (!session.IsAdmin && order.UserId != session.UserId)
-                    throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+                    throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
                 break;
         }
     }

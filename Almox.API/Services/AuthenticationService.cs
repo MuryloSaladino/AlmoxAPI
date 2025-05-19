@@ -82,7 +82,7 @@ public class AuthenticationService : IAuthenticator
         }
         catch(Exception e)
         {
-            throw new UnauthorizedException(ExceptionMessages.Unauthorized.Token, e.Message);
+            throw AppException.Unauthorized(ExceptionMessages.Unauthorized.Token, e.Message);
         }
     }
 }

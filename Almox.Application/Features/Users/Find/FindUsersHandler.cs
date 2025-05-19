@@ -23,7 +23,7 @@ public class FindUsersHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var users = await usersRepository.GetWithFilters(request.Filters, cancellationToken);
 

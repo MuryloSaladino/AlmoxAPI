@@ -23,10 +23,10 @@ public class DeleteDepartmentHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var department = await departmentRepository.Get(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Department);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
 
         departmentRepository.Delete(department);
         

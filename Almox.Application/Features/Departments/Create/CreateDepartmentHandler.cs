@@ -27,7 +27,7 @@ public class CreateDepartmentHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var department = mapper.Map<Department>(request);
         departmentRepository.Create(department);

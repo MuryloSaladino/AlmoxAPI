@@ -30,7 +30,7 @@ public class StartOrderHandler(
         var session = requestSession.GetSessionOrThrow();
 
         var user = await usersRepository.Get(session.UserId, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.User);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
 
         var draftFilter = new OrdersQueryFilters(user.Id, OrderStatus.Draft);
 

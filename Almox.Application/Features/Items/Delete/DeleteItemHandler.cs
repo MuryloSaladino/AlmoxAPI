@@ -23,10 +23,10 @@ public class DeleteItemHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Item);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
         
         categoriesRepository.Delete(category);
         

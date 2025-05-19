@@ -26,10 +26,10 @@ public class UpdateOrderHandler(
         var session = requestSession.GetSessionOrThrow();
 
         var order = await ordersRepository.GetWithItems(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Order);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         if(session.UserId != order.UserId)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUser);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUser);
 
         order.Priority = request.Props.Priority;
         order.Observations = request.Props.Observations;

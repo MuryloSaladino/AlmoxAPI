@@ -23,7 +23,7 @@ public class FindOrdersHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if(!session.IsAdmin && request.Filters.UserId != session.UserId)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var orders = await ordersRepository.GetWithFilters(request.Filters, cancellationToken);
 

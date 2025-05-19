@@ -23,7 +23,7 @@ public class FindDepartmentByIdHandler(
         requestSession.GetSessionOrThrow();
 
         var department = await departmentRepository.GetWithUsers(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Department);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
 
         return mapper.Map<FindDepartmentByIdResponse>(department);
     }

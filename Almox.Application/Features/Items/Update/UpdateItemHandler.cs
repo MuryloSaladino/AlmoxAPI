@@ -26,10 +26,10 @@ public class UpdateItemHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var item = await itemsRepository.Get(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Item);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
         item.Name = request.Props.Name;
         item.Quantity = request.Props.Quantity;

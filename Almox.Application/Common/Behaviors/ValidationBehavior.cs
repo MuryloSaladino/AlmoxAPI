@@ -33,7 +33,7 @@ public sealed class ValidationBehavior<TRequest, TResponse>(
         string details = string.Join("\n", errors);
 
         if (errors.Length != 0)
-            throw new BadRequestException(message, details);
+            throw AppException.BadRequest(message, details);
 
         return await next();
     }

@@ -1,44 +1,43 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
-using Almox.Application.Common.Exceptions;
-using Almox.Domain.Common.Enums;
-using Almox.Domain.Common.Messages;
+using Almox.Application.Contracts;
 
 namespace Almox.API.Middlewares;
 
 public static class ErrorHandlerExtensions
 {
-    public static void UseErrorHandler(this IApplicationBuilder app) => 
-        app.UseExceptionHandler(error => 
+    public static void UseErrorHandler(this IApplicationBuilder app) =>
+        app.UseExceptionHandler(error =>
         {
-            error.Run(async context => 
+            error.Run(async context =>
             {
                 var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                if(contextFeature is null) return;
+                if (contextFeature is null) return;
 
-                var statusCode = contextFeature.Error switch
-                {
-                    AppException appError => appError.Status,
-                    _ => StatusCode.InternalServerError
-                };
-                var message = contextFeature.Error switch
-                {
-                    AppException appError => appError.Message,
-                    _ => ExceptionMessages.InternalServerError.Default
-                };
-                var details = contextFeature.Error switch
-                {
-                    AppException appError => appError.Details,
-                    _ => null
-                };
+                var extractor = ResolveExtractor(contextFeature.Error, context.RequestServices);
+                var errorSummary = extractor.Extract(contextFeature.Error);
 
                 context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int) statusCode;
+                context.Response.StatusCode = (int)errorSummary.StatusCode;
 
-                var errorResponse = new { statusCode, message, details };
-
-                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+                var errorResponse = JsonSerializer.Serialize(new
+                {
+                    statusCode = errorSummary.StatusCode,
+                    message = errorSummary.Message,
+                    details = errorSummary.Details
+                });
+                await context.Response.WriteAsync(errorResponse);
             });
         });
+    
+    private static IErrorSummaryExtractor<Exception> ResolveExtractor(
+        Exception error, IServiceProvider services)
+    {
+        var errorType = error.GetType();
+        var extractorType = typeof(IErrorSummaryExtractor<>).MakeGenericType(errorType);
+        var extractorInstance = services.GetService(extractorType);
+
+        return new DynamicErrorSummaryHandler(extractorInstance);
+    }
 }

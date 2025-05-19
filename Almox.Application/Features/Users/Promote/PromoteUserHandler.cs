@@ -26,10 +26,10 @@ public sealed class PromoteUserHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var user = await usersRepository.Get(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.User);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
 
         user.IsAdmin = true;
 

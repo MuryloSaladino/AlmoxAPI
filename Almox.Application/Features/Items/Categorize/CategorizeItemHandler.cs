@@ -29,13 +29,13 @@ public class CategorizeItemHandler(
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.CategoryId, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Category);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Category);
             
         var item = await itemsRepository.Get(request.ItemId, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Item);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
         item.Categories.Add(category);
 

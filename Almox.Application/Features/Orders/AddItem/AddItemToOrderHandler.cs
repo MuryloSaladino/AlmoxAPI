@@ -27,12 +27,12 @@ public class AddItemToOrderHandler(
         AddItemToOrderRequest request, CancellationToken cancellationToken)
     {
         var order = await ordersRepository.Get(request.OrderId, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Order);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         var session = requestSession.GetSessionOrThrow();
 
         if(session.UserId != order.UserId && !session.IsAdmin)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
 
         var orderItem = mapper.Map<OrderItem>(request);
         

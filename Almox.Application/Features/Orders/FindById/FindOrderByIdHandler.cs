@@ -23,10 +23,10 @@ public class FindOrderByIdHandler(
         var session = requestSession.GetSessionOrThrow();
 
         var order = await ordersRepository.GetWithItems(request.Id, cancellationToken)
-            ?? throw new NotFoundException(ExceptionMessages.NotFound.Order);
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         if(!session.IsAdmin && order.UserId != session.UserId)
-            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
         return mapper.Map<FindOrderByIdResponse>(order);
     }
