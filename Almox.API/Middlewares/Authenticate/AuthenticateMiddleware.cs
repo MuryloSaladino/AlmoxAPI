@@ -36,7 +36,7 @@ public class AuthenticateMiddleware(RequestDelegate next)
         try
         {
             var authService = context.RequestServices.GetRequiredService<IAuthenticator>();
-            var scopedSession = context.RequestServices.GetRequiredService<IUserSession>();
+            var scopedSession = context.RequestServices.GetRequiredService<IRequestSession>();
 
             var sessionPayload = authService.ExtractToken(token);
             scopedSession.SetSession(sessionPayload);

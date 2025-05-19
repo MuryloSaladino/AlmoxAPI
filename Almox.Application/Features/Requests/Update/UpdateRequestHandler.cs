@@ -10,20 +10,20 @@ namespace Almox.Application.Features.Requests.Update;
 
 public class UpdateRequestHandler(
     IRequestsRepository requestsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<UpdateRequestRequest, UpdateRequestResponse>
 {
     private readonly IRequestsRepository requestsRepository = requestsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
     public async Task<UpdateRequestResponse> Handle(
         UpdateRequestRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         var almoxRequest = await requestsRepository.GetWithItems(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);

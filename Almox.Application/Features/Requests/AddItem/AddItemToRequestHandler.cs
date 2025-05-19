@@ -12,14 +12,14 @@ namespace Almox.Application.Features.Requests.AddItem;
 public class AddItemToRequestHandler(
     IRequestItemsRepository requestItemsRepository,
     IRequestsRepository requestsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<AddItemToRequestRequest, AddItemToRequestResponse>
 {
     private readonly IRequestItemsRepository requestItemsRepository = requestItemsRepository;
     private readonly IRequestsRepository requestsRepository = requestsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
@@ -28,7 +28,7 @@ public class AddItemToRequestHandler(
         var referencedRequest = await requestsRepository.Get(request.RequestId, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);
 
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         if(session.UserId != referencedRequest.UserId && !session.IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);

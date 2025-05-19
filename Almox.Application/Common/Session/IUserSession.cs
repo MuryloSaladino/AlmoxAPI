@@ -2,9 +2,8 @@ using Almox.Domain.Objects;
 
 namespace Almox.Application.Common.Session;
 
-public interface IUserSession
+public interface IRequestSession
 {
-    bool IsLoggedIn();
-    AuthPayload GetSessionOrThrow();
-    void SetSession(AuthPayload session);
+    SessionData GetSessionOrThrow();
+    void SetSession(SessionData session);
 }

@@ -13,20 +13,20 @@ namespace Almox.Application.Features.Requests.Start;
 public class StartRequestHandler(
     IRequestsRepository requestsRepository,
     IUsersRepository usersRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<StartRequestRequest, StartRequestResponse>
 {
     private readonly IRequestsRepository requestsRepository = requestsRepository;
     private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
     public async Task<StartRequestResponse> Handle(StartRequestRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         var user = await usersRepository.Get(session.UserId, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.User);

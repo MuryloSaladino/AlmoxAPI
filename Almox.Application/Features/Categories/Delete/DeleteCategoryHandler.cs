@@ -9,17 +9,17 @@ namespace Almox.Application.Features.Categories.Delete;
 
 public class DeleteCategoryHandler(
     ICategoriesRepository categoriesRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteCategoryRequest, DeleteCategoryResponse>
 {
     private readonly ICategoriesRepository categoriesRepository = categoriesRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
 
     public async Task<DeleteCategoryResponse> Handle(DeleteCategoryRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSessionOrThrow().IsAdmin)
+        if(!requestSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.Id, cancellationToken)

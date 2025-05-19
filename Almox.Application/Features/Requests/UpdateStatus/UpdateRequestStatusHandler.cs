@@ -14,21 +14,21 @@ namespace Almox.Application.Features.Requests.UpdateStatus;
 public class UpdateRequestStatusHandler(
     IRequestHistoryRepository historyRepository,
     IRequestsRepository requestsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<UpdateRequestStatusRequest, UpdateRequestStatusResponse>
 {
     private readonly IRequestHistoryRepository historyRepository = historyRepository;
     private readonly IRequestsRepository requestsRepository = requestsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
     public async Task<UpdateRequestStatusResponse> Handle(
         UpdateRequestStatusRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         var almoxRequest = await requestsRepository.GetWithItems(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);
@@ -42,7 +42,7 @@ public class UpdateRequestStatusHandler(
         return mapper.Map<UpdateRequestStatusResponse>(almoxRequest);
     }
 
-    private static void ValidateOrThrow(RequestStatus status, Request request, AuthPayload session)
+    private static void ValidateOrThrow(RequestStatus status, Request request, SessionData session)
     {
         switch (status)
         {

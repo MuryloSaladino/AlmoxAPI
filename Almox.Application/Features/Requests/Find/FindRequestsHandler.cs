@@ -9,17 +9,17 @@ namespace Almox.Application.Features.Requests.Find;
 
 public class FindRequestsHandler(
     IRequestsRepository requestsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IMapper mapper
 ) : IRequestHandler<FindRequestsRequest, List<FindRequestsResponse>>
 {
     private readonly IRequestsRepository requestsRepository = requestsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IMapper mapper = mapper;
 
     public async Task<List<FindRequestsResponse>> Handle(FindRequestsRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         if(!session.IsAdmin && request.Filters.UserId != session.UserId)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);

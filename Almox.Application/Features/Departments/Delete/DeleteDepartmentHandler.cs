@@ -9,18 +9,18 @@ namespace Almox.Application.Features.Departments.Delete;
 
 public class DeleteDepartmentHandler(
     IDepartmentRepository departmentRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteDepartmentRequest, DeleteDepartmentResponse>
 {
     private readonly IDepartmentRepository departmentRepository = departmentRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
 
     public async Task<DeleteDepartmentResponse> Handle(
         DeleteDepartmentRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSessionOrThrow().IsAdmin)
+        if(!requestSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var department = await departmentRepository.Get(request.Id, cancellationToken)

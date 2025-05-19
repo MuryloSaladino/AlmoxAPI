@@ -5,15 +5,13 @@ using Almox.Domain.Objects;
 
 namespace Almox.API.Security;
 
-public class UserSession(AuthPayload? session = null) : IUserSession
+public class RequestSession(SessionData? session = null) : IRequestSession
 {
-    public AuthPayload? Session { get; set; } = session;
+    public SessionData? Session { get; set; } = session;
 
-    public bool IsLoggedIn() => Session != null;
-
-    public AuthPayload GetSessionOrThrow()
+    public SessionData GetSessionOrThrow()
         => Session ?? throw new UnauthorizedException(ExceptionMessages.Unauthorized.Session);
 
-    public void SetSession(AuthPayload? session)
+    public void SetSession(SessionData? session)
         => Session = session;
 }

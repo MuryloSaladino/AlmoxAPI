@@ -20,7 +20,6 @@ public class AuthenticationService : IAuthenticator
     {
         public const string UserId = "sub";
         public const string IsAdmin = "admin";
-        public const string Username = "username";
     }
 
     public string GenerateUserToken(User user)
@@ -31,7 +30,6 @@ public class AuthenticationService : IAuthenticator
         {
             Subject = new ClaimsIdentity([ 
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(PayloadKeys.Username, user.Username), 
                 new Claim(PayloadKeys.UserId, user.Id.ToString()),
                 new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString()),
             ]),
@@ -48,7 +46,7 @@ public class AuthenticationService : IAuthenticator
         return tokenHandler.WriteToken(token);
     }
 
-    public AuthPayload ExtractToken(string token)
+    public SessionData ExtractToken(string token)
     {
         var key = Encoding.ASCII.GetBytes(SecretKey);
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -67,21 +65,18 @@ public class AuthenticationService : IAuthenticator
         {
             var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 
-            var userId = principal.FindFirst("sub")?.Value
-                ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var username = principal.FindFirst(PayloadKeys.Username)?.Value;
-            var isAdmin = bool.Parse( principal.FindFirst(PayloadKeys.IsAdmin)?.Value ?? "False" );
+            var userId = principal.FindFirst(PayloadKeys.UserId)?.Value
+                ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    ?? throw new SecurityTokenException($"Invalid token: missing {PayloadKeys.UserId} claim.");
 
-            if(userId == null || username == null)
-                throw new SecurityTokenException("Invalid token: missing claims.");
+            var isAdmin = bool.Parse(principal.FindFirst(PayloadKeys.IsAdmin)?.Value ?? "False");
 
             if(!Guid.TryParse(userId, out Guid parsedId))
                 throw new SecurityTokenException("Invalid token: user id format.");
 
-            return new AuthPayload
+            return new SessionData
             {
                 UserId = parsedId,
-                Username = username,
                 IsAdmin = isAdmin,
             };
         }

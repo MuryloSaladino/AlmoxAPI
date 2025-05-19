@@ -31,7 +31,7 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserSession, UserSession>();
+builder.Services.AddScoped<IRequestSession, RequestSession>();
 builder.Services.AddScoped<IAuthenticator, AuthenticationService>();
 builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypterService>();
 

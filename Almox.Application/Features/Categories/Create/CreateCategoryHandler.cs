@@ -11,19 +11,19 @@ namespace Almox.Application.Features.Categories.Create;
 
 public class CreateCategoryHandler(
     ICategoriesRepository categoriesRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<CreateCategoryRequest, CreateCategoryResponse>
 {
     private readonly ICategoriesRepository categoriesRepository = categoriesRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
     public async Task<CreateCategoryResponse> Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSessionOrThrow().IsAdmin)
+        if(!requestSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = mapper.Map<Category>(request);

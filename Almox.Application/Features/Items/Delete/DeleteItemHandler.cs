@@ -9,17 +9,17 @@ namespace Almox.Application.Features.Items.Delete;
 
 public class DeleteItemHandler(
     IItemsRepository categoriesRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteItemRequest, DeleteItemResponse>
 {
     private readonly IItemsRepository categoriesRepository = categoriesRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
 
     public async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSessionOrThrow().IsAdmin)
+        if(!requestSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.Id, cancellationToken)

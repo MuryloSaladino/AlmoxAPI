@@ -9,17 +9,17 @@ namespace Almox.Application.Features.Requests.FindById;
 
 public class FindRequestByIdHandler(
     IRequestsRepository requestsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IMapper mapper
 ) : IRequestHandler<FindRequestByIdRequest, FindRequestByIdResponse>
 {   
     private readonly IRequestsRepository requestsRepository = requestsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IMapper mapper = mapper;
 
     public async Task<FindRequestByIdResponse> Handle(FindRequestByIdRequest request, CancellationToken cancellationToken)
     {
-        var session = userSession.GetSessionOrThrow();
+        var session = requestSession.GetSessionOrThrow();
 
         var almoxRequest = await requestsRepository.GetWithItems(request.Id, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Request);

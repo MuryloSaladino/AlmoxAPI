@@ -11,19 +11,19 @@ namespace Almox.Application.Features.Items.Create;
 
 public class CreateItemHandler(
     IItemsRepository itemsRepository,
-    IUserSession userSession,
+    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<CreateItemRequest, CreateItemResponse>
 {
     private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IUserSession userSession = userSession;
+    private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
     public async Task<CreateItemResponse> Handle(CreateItemRequest request, CancellationToken cancellationToken)
     {
-        if(!userSession.GetSessionOrThrow().IsAdmin)
+        if(!requestSession.GetSessionOrThrow().IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var item = mapper.Map<Item>(request);
