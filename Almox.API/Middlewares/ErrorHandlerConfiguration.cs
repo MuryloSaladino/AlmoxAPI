@@ -31,7 +31,7 @@ public static class ErrorHandlerExtensions
             });
         });
     
-    private static IErrorSummaryExtractor<Exception> ResolveExtractor(
+    private static DynamicErrorSummaryHandler ResolveExtractor(
         Exception error, IServiceProvider services)
     {
         var errorType = error.GetType();
