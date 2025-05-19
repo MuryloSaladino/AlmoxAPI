@@ -6,4 +6,4 @@ namespace Almox.Application.Common.Exceptions;
 public class NotFoundException(
     string message = ExceptionMessages.NotFound.Default,
     string? details = null
-) : AppException(StatusCode.NotFound, message, details) { }
+) : AppException(StatusCode.NotFound, message, details);

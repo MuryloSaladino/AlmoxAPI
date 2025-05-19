@@ -6,6 +6,9 @@ public class CreateDepartmentValidator : AbstractValidator<CreateDepartmentReque
 {
     public CreateDepartmentValidator()
     {
-        RuleFor(d => d.Name).NotEmpty().MinimumLength(2).MaximumLength(50);
+        RuleFor(d => d.Name)
+            .NotEmpty()
+            .MinimumLength(2)
+            .MaximumLength(50);
     }
 }

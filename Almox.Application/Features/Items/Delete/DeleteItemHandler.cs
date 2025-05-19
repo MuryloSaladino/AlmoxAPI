@@ -17,9 +17,12 @@ public class DeleteItemHandler(
     private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
 
-    public async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
+    public async Task<DeleteItemResponse> Handle(
+        DeleteItemRequest request, CancellationToken cancellationToken)
     {
-        if(!requestSession.GetSessionOrThrow().IsAdmin)
+        var session = requestSession.GetSessionOrThrow();
+
+        if (!session.IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.Id, cancellationToken)

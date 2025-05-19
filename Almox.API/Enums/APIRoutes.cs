@@ -7,5 +7,5 @@ public static class APIRoutes
     public const string Departments = "api/departments";
     public const string Users = "api/users";
     public const string Items = "api/items";
-    public const string Requests = "api/requests";
+    public const string Orders = "api/orders";
 }

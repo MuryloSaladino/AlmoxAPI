@@ -9,11 +9,9 @@ public class UpdateItemValidator : AbstractValidator<UpdateItemRequest>
         RuleFor(i => i.Props.Name)
             .NotEmpty()
             .MinimumLength(2)
-            .MaximumLength(50)
-            .When(i => !string.IsNullOrEmpty(i.Props.Name));
+            .MaximumLength(50);
         
         RuleFor(i => i.Props.Quantity)
-            .GreaterThanOrEqualTo(0)
-            .When(i => i.Props.Quantity.HasValue);
+            .GreaterThanOrEqualTo(0);
     }
 }

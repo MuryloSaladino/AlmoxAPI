@@ -5,13 +5,17 @@ using Almox.Domain.Common.Messages;
 
 namespace Almox.Application.Common.Behaviors;
 
-public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) 
-    : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse>(
+    IEnumerable<IValidator<TRequest>> validators
+) : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> validators = validators;
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         if (!validators.Any()) return await next();
 
@@ -25,8 +29,11 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
             .Distinct()
             .ToArray();
 
+        string message = ExceptionMessages.BadRequest.Format;
+        string details = string.Join("\n", errors);
+
         if (errors.Length != 0)
-            throw new BadRequestException(ExceptionMessages.BadRequest.Format, string.Join("\n", errors));
+            throw new BadRequestException(message, details);
 
         return await next();
     }

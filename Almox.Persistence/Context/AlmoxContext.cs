@@ -14,8 +14,8 @@ public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(op
         modelBuilder.ConfigureDeliveryItemTable();
         modelBuilder.ConfigureDepartmentTable();
         modelBuilder.ConfigureItemTable();
-        modelBuilder.ConfigureRequestTable();
-        modelBuilder.ConfigureRequestItemTable();
+        modelBuilder.ConfigureOrderTable();
+        modelBuilder.ConfigureOrderItemTable();
         modelBuilder.ConfigureUserTable();
     }
 }

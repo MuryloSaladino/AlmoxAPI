@@ -13,9 +13,9 @@ using Almox.Application.Repository.DepartmentsRepository;
 using Almox.Persistence.Repository.Departments;
 using Almox.Application.Repository.ItemsRepository;
 using Almox.Persistence.Repository.Items;
-using Almox.Application.Repository.RequestsRepository;
-using Almox.Persistence.Repository.Requests;
+using Almox.Application.Repository.OrdersRepository;
 using Almox.Persistence.Config;
+using Almox.Persistence.Repository.Orders;
 
 namespace Almox.Persistence;
 
@@ -34,9 +34,9 @@ public static class ServiceExtensions
         services.AddScoped<IDeliveryHistoryRepository, DeliveryHistoryRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentsRepository>();
         services.AddScoped<IItemsRepository, ItemsRepository>();
-        services.AddScoped<IRequestsRepository, RequestsRepository>();
-        services.AddScoped<IRequestHistoryRepository, RequestHistoryRepository>();
-        services.AddScoped<IRequestItemsRepository, RequestItemsRepository>();
+        services.AddScoped<IOrdersRepository, OrdersRepository>();
+        services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
+        services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
         services.AddScoped<IUsersRepository, UserRepository>();
     }
 }

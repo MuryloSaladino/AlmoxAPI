@@ -8,6 +8,6 @@ public sealed record UpdateItemRequest(
 ) : IRequest<UpdateItemResponse>;
 
 public sealed record UpdateItemRequestProps(
-    string? Name,
-    int? Quantity
+    string Name,
+    int Quantity
 );

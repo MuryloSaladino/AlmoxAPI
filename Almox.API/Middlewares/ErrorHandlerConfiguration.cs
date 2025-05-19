@@ -18,7 +18,7 @@ public static class ErrorHandlerExtensions
 
                 var statusCode = contextFeature.Error switch
                 {
-                    AppException appError => appError.StatusCode,
+                    AppException appError => appError.Status,
                     _ => StatusCode.InternalServerError
                 };
                 var message = contextFeature.Error switch

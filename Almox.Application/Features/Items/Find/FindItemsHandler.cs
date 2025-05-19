@@ -12,7 +12,8 @@ public class FindItemsHandler(
     private readonly IItemsRepository itemsRepository = itemsRepository;
     private readonly IMapper mapper = mapper;
 
-    public async Task<List<FindItemsResponse>> Handle(FindItemsRequest request, CancellationToken cancellationToken)
+    public async Task<List<FindItemsResponse>> Handle(
+        FindItemsRequest request, CancellationToken cancellationToken)
     {
         var items = await itemsRepository.GetWithFilters(request.Filters, cancellationToken);
 

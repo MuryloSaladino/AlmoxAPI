@@ -6,4 +6,4 @@ namespace Almox.Application.Common.Exceptions;
 public class InternalServerErrorException(
     string message = ExceptionMessages.InternalServerError.Default,
     string? details = null
-) : AppException(StatusCode.InternalServerError, message, details) { }
+) : AppException(StatusCode.InternalServerError, message, details);

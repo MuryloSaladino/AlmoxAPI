@@ -21,12 +21,16 @@ public class CreateCategoryHandler(
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
-    public async Task<CreateCategoryResponse> Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
+    public async Task<CreateCategoryResponse> Handle(
+        CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        if(!requestSession.GetSessionOrThrow().IsAdmin)
+        var session = requestSession.GetSessionOrThrow();
+
+        if (!session.IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = mapper.Map<Category>(request);
+        
         categoriesRepository.Create(category);
 
         await unitOfWork.Save(cancellationToken);

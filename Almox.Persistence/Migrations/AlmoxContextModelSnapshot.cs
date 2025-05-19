@@ -198,7 +198,7 @@ namespace Almox.Persistence.Migrations
                     b.ToTable("items", (string)null);
                 });
 
-            modelBuilder.Entity("Almox.Domain.Entities.Request", b =>
+            modelBuilder.Entity("Almox.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,18 +242,18 @@ namespace Almox.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("requests", (string)null);
+                    b.ToTable("orders", (string)null);
                 });
 
-            modelBuilder.Entity("Almox.Domain.Entities.RequestItem", b =>
+            modelBuilder.Entity("Almox.Domain.Entities.OrderItem", b =>
                 {
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uuid")
                         .HasColumnName("item_id");
 
-                    b.Property<Guid>("RequestId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uuid")
-                        .HasColumnName("request_id");
+                        .HasColumnName("order_id");
 
                     b.Property<int>("FulfilledQuantity")
                         .HasColumnType("int")
@@ -267,11 +267,11 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("int")
                         .HasColumnName("quantity");
 
-                    b.HasKey("ItemId", "RequestId");
+                    b.HasKey("ItemId", "OrderId");
 
-                    b.HasIndex("RequestId");
+                    b.HasIndex("OrderId");
 
-                    b.ToTable("request_items", (string)null);
+                    b.ToTable("order_items", (string)null);
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.User", b =>
@@ -377,7 +377,7 @@ namespace Almox.Persistence.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("Almox.Domain.Entities.Request", b =>
+            modelBuilder.Entity("Almox.Domain.Entities.Order", b =>
                 {
                     b.HasOne("Almox.Domain.Entities.User", "User")
                         .WithMany()
@@ -388,7 +388,7 @@ namespace Almox.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Almox.Domain.Entities.RequestItem", b =>
+            modelBuilder.Entity("Almox.Domain.Entities.OrderItem", b =>
                 {
                     b.HasOne("Almox.Domain.Entities.Item", "Item")
                         .WithMany()
@@ -396,15 +396,15 @@ namespace Almox.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Almox.Domain.Entities.Request", "Request")
-                        .WithMany("RequestItems")
-                        .HasForeignKey("RequestId")
+                    b.HasOne("Almox.Domain.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Item");
 
-                    b.Navigation("Request");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Almox.Domain.Entities.User", b =>
@@ -443,9 +443,9 @@ namespace Almox.Persistence.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Almox.Domain.Entities.Request", b =>
+            modelBuilder.Entity("Almox.Domain.Entities.Order", b =>
                 {
-                    b.Navigation("RequestItems");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,33 @@
+using Almox.Application.Common.Exceptions;
+using Almox.Application.Common.Session;
+using Almox.Application.Repository.OrdersRepository;
+using Almox.Domain.Common.Messages;
+using AutoMapper;
+using MediatR;
+
+namespace Almox.Application.Features.Orders.FindById;
+
+public class FindOrderByIdHandler(
+    IOrdersRepository ordersRepository,
+    IRequestSession requestSession,
+    IMapper mapper
+) : IRequestHandler<FindOrderByIdRequest, FindOrderByIdResponse>
+{   
+    private readonly IOrdersRepository ordersRepository = ordersRepository;
+    private readonly IRequestSession requestSession = requestSession;
+    private readonly IMapper mapper = mapper;
+
+    public async Task<FindOrderByIdResponse> Handle(
+        FindOrderByIdRequest request, CancellationToken cancellationToken)
+    {
+        var session = requestSession.GetSessionOrThrow();
+
+        var order = await ordersRepository.GetWithItems(request.Id, cancellationToken)
+            ?? throw new NotFoundException(ExceptionMessages.NotFound.Order);
+
+        if(!session.IsAdmin && order.UserId != session.UserId)
+            throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
+
+        return mapper.Map<FindOrderByIdResponse>(order);
+    }
+}

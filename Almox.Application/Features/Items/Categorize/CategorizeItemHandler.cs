@@ -23,13 +23,17 @@ public class CategorizeItemHandler(
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
-    public async Task<CategorizeItemResponse> Handle(CategorizeItemRequest request, CancellationToken cancellationToken)
+    public async Task<CategorizeItemResponse> Handle(
+        CategorizeItemRequest request, CancellationToken cancellationToken)
     {
-        if(!requestSession.GetSessionOrThrow().IsAdmin)
+        var session = requestSession.GetSessionOrThrow();
+
+        if (!session.IsAdmin)
             throw new ForbiddenException(ExceptionMessages.Forbidden.Admin);
 
         var category = await categoriesRepository.Get(request.CategoryId, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Category);
+            
         var item = await itemsRepository.Get(request.ItemId, cancellationToken)
             ?? throw new NotFoundException(ExceptionMessages.NotFound.Item);
 

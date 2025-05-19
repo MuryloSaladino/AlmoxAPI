@@ -6,7 +6,12 @@ public class FindItemsValidator : AbstractValidator<FindItemsRequest>
 {
     public FindItemsValidator()
     {
-        RuleFor(r => r.Filters.Name).MaximumLength(50).When(r => !string.IsNullOrEmpty(r.Filters.Name));
-        RuleFor(r => r.Filters.CategoryName).MaximumLength(50).When(r => !string.IsNullOrEmpty(r.Filters.CategoryName));
+        RuleFor(r => r.Filters.Name)
+            .MaximumLength(50)
+            .When(r => !string.IsNullOrEmpty(r.Filters.Name));
+
+        RuleFor(r => r.Filters.CategoryName)
+            .MaximumLength(50)
+            .When(r => !string.IsNullOrEmpty(r.Filters.CategoryName));
     }
 }

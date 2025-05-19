@@ -2,7 +2,6 @@ using System.Reflection;
 using Almox.Application.Common.Behaviors;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Almox.Application;
@@ -17,8 +16,5 @@ public static class ServiceExtensions
         
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-        services.AddHttpContextAccessor();
-
     }
 }

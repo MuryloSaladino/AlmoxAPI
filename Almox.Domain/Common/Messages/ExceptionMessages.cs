@@ -32,7 +32,7 @@ public static class ExceptionMessages
         public const string Category = "Category not found.";
         public const string Department = "Department not found.";
         public const string Item = "Item not found.";
-        public const string Request = "Request not found.";
+        public const string Order = "Order not found.";
     }
 
     public static class Conflict
