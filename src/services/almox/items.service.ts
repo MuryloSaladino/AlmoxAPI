@@ -25,6 +25,13 @@ export const ItemsService = {
         return response.data;
     },
 
+    updateImage: async function(itemId: string, file: Blob) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const response = await almoxApi.patch<ItemSummary>(`${this.url}/${itemId}/image`, formData);
+        return response.data;
+    },
+
     categorize: async function(itemId: string, categoryId: string) {
         const response = await almoxApi.post<Item>(`${this.url}/${itemId}/categories/${categoryId}`);
         return response.data;

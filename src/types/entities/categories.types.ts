@@ -3,6 +3,7 @@ import type { BaseEntity } from "./base-entity.types";
 export type Category = BaseEntity & {
     name: string;
     description: string;
+    color: string;
 }
 
 export type CategorySummary = Omit<Category, 
