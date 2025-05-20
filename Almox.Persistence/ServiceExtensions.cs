@@ -18,6 +18,8 @@ using Almox.Persistence.Config;
 using Almox.Persistence.Repository.Orders;
 using Almox.Application.Contracts;
 using Almox.Persistence.Exceptions;
+using Almox.Application.Repository.ImageRepository;
+using Almox.Persistence.Repository.Images;
 
 namespace Almox.Persistence;
 
@@ -38,6 +40,7 @@ public static class ServiceExtensions
         services.AddScoped<IDeliveryHistoryRepository, DeliveryHistoryRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentsRepository>();
         services.AddScoped<IItemsRepository, ItemsRepository>();
+        services.AddScoped<IImagesRepository, ImagesRepository>();
         services.AddScoped<IOrdersRepository, OrdersRepository>();
         services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
         services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
