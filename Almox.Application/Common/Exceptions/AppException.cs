@@ -46,4 +46,9 @@ public class AppException(
         string message = ExceptionMessages.NotImplemented.Default,
         string? details = null
     ) => new(StatusCode.NotImplemented, message, details);
+
+    public static AppException BadGateway(
+        string message = ExceptionMessages.BadGateway.Default,
+        string? details = null
+    ) => new(StatusCode.BadGateway, message, details);
 }

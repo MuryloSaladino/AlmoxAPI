@@ -35,6 +35,7 @@ public static class ExceptionMessages
         public const string Category = "Category not found.";
         public const string Department = "Department not found.";
         public const string Item = "Item not found.";
+        public const string Image = "Image not found.";
         public const string Order = "Order not found.";
     }
 
@@ -52,5 +53,11 @@ public static class ExceptionMessages
     public static class NotImplemented
     {
         public const string Default = "Not Implemented.";
+    }
+
+    public static class BadGateway
+    {
+        public const string Default = "Bad Gateway.";
+        public const string Storage = "Our storage service failed.";
     }
 }

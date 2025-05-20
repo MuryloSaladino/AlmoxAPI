@@ -10,4 +10,5 @@ public enum StatusCode
     ImATeapot = 418,
     InternalServerError = 500,
     NotImplemented = 501,
+    BadGateway = 502,
 }
