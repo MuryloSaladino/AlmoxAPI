@@ -33,6 +33,8 @@ public class UpdateOrderStatusHandler(
         
         SaveHistory(session.UserId, order, request.Status);
 
+        ordersRepository.Update(order);
+        
         await unitOfWork.Save(cancellationToken);
 
         return mapper.Map<UpdateOrderStatusResponse>(order);

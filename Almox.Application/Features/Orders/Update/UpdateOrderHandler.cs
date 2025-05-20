@@ -29,6 +29,8 @@ public class UpdateOrderHandler(
         order.Priority = request.Props.Priority;
         order.Observations = request.Props.Observations;
 
+        ordersRepository.Update(order);
+
         await unitOfWork.Save(cancellationToken);
 
         return mapper.Map<UpdateOrderResponse>(order);

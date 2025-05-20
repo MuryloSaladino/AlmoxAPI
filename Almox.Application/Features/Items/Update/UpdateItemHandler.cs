@@ -30,6 +30,8 @@ public class UpdateItemHandler(
         item.Quantity = request.Props.Quantity;
         item.ImageUrl = request.Props.ImageUrl;
 
+        itemsRepository.Update(item);
+
         await unitOfWork.Save(cancellationToken);
 
         return mapper.Map<UpdateItemResponse>(item);
