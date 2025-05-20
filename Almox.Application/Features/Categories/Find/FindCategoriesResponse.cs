@@ -6,5 +6,6 @@ public sealed record FindCategoriesResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Name,
-    string Description
+    string Description,
+    string Color
 );

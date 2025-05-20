@@ -38,5 +38,12 @@ public static class CategoryTableConfigurationExtensions
                 .HasColumnName("description")
                 .HasColumnType("varchar(255)")
                 .IsRequired();
+
+            entity.Property(e => e.Color)
+                .HasColumnName("color")
+                .HasColumnType("char(7)")
+                .IsRequired();
+            entity.HasIndex(e => e.Color)
+                .IsUnique();
         });
 }

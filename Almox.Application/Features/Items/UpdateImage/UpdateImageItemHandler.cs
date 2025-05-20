@@ -1,42 +1,48 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
+using Almox.Application.Repository.ImageRepository;
 using Almox.Application.Repository.ItemsRepository;
 using Almox.Domain.Common.Messages;
 using AutoMapper;
 using MediatR;
 
-namespace Almox.Application.Features.Items.Update;
+namespace Almox.Application.Features.Items.UpdateImage;
 
-public class UpdateItemHandler(
+public class UpdateImageItemHandler(
+    IImagesRepository imageRepository,
     IItemsRepository itemsRepository,
     IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
-) : IRequestHandler<UpdateItemRequest, UpdateItemResponse>
+) : IRequestHandler<UpdateImageItemRequest, UpdateImageItemResponse>
 {
+    private readonly IImagesRepository imageRepository = imageRepository;
     private readonly IItemsRepository itemsRepository = itemsRepository;
     private readonly IRequestSession requestSession = requestSession;
     private readonly IUnitOfWork unitOfWork = unitOfWork;
     private readonly IMapper mapper = mapper;
 
-    public async Task<UpdateItemResponse> Handle(
-        UpdateItemRequest request, CancellationToken cancellationToken)
+    public async Task<UpdateImageItemResponse> Handle(
+        UpdateImageItemRequest request, CancellationToken cancellationToken)
     {
         var session = requestSession.GetSessionOrThrow();
 
         if (!session.IsAdmin)
             throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
 
-        var item = await itemsRepository.Get(request.Id, cancellationToken)
+        var url = await imageRepository.Save(request.File, request.FileName)
+            ?? throw AppException.BadGateway(ExceptionMessages.BadGateway.Storage);
+
+        var item = await itemsRepository.Get(request.ItemId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
-        item.Name = request.Props.Name;
-        item.Quantity = request.Props.Quantity;
-        item.ImageUrl = request.Props.ImageUrl;
+        await imageRepository.Delete(item.ImageUrl);
+
+        item.ImageUrl = url;
 
         await unitOfWork.Save(cancellationToken);
 
-        return mapper.Map<UpdateItemResponse>(item);
+        return mapper.Map<UpdateImageItemResponse>(item);
     }
 }

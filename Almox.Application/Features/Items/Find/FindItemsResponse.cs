@@ -7,10 +7,12 @@ public sealed record FindItemsResponse(
     DateTime? DeletedAt,
     string Name, 
     int Quantity,
+    string? ImageUrl,
     List<FindItemsCategoryPresenter> Categories
 );
 
 public sealed record FindItemsCategoryPresenter(
     Guid Id,
-    string Name
+    string Name,
+    string Color
 );

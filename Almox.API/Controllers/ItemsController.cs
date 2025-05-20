@@ -4,6 +4,7 @@ using Almox.Application.Features.Items.Create;
 using Almox.Application.Features.Items.Delete;
 using Almox.Application.Features.Items.Find;
 using Almox.Application.Features.Items.Update;
+using Almox.Application.Features.Items.UpdateImage;
 using Almox.Application.Repository.ItemsRepository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,7 @@ public class ItemsController(IMediator mediator) : ControllerBase
     [HttpPatch, Route("{itemId}")]
     public async Task<ActionResult<UpdateItemResponse>> Update(
         [FromRoute] Guid itemId,
-        [FromBody] UpdateItemRequestProps body, 
+        [FromBody] UpdateItemRequestProps body,
         CancellationToken cancellationToken)
     {
         var request = new UpdateItemRequest(itemId, body);
@@ -63,5 +64,17 @@ public class ItemsController(IMediator mediator) : ControllerBase
         var request = new CategorizeItemRequest(itemId, categoryId);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
+    }
+    
+    [HttpPatch, Route("{itemId}/image")]
+    public async Task<ActionResult<UpdateImageItemResponse>> Save(
+        [FromRoute] Guid itemId,
+        [FromForm] IFormFile file,
+        CancellationToken cancellationToken)
+    {
+        await using var stream = file.OpenReadStream();
+        var request = new UpdateImageItemRequest(itemId, stream, file.FileName);
+        var response = await mediator.Send(request, cancellationToken);
+        return Created($"{APIRoutes.Images}/uploads", response);
     }
 }

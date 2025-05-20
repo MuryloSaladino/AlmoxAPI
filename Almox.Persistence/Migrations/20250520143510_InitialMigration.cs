@@ -18,6 +18,7 @@ namespace Almox.Persistence.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "varchar(35)", nullable: false),
                     description = table.Column<string>(type: "varchar(255)", nullable: false),
+                    color = table.Column<string>(type: "char(7)", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     deleted_at = table.Column<DateTime>(type: "timestamptz", nullable: true)
@@ -49,6 +50,7 @@ namespace Almox.Persistence.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "varchar(50)", nullable: false),
                     quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    image_url = table.Column<string>(type: "varchar(255)", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     deleted_at = table.Column<DateTime>(type: "timestamptz", nullable: true)
@@ -206,6 +208,12 @@ namespace Almox.Persistence.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_categories_color",
+                table: "categories",
+                column: "color",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_categories_name",

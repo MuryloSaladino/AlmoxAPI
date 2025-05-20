@@ -23,5 +23,9 @@ public static class ItemTableConfigurationExtensions
                 .HasColumnName("quantity")
                 .HasColumnType("int")
                 .HasDefaultValue(0);
+
+            entity.Property(e => e.ImageUrl)
+                .HasColumnName("image_url")
+                .HasColumnType("varchar(255)");
         });
 }

@@ -7,11 +7,13 @@ public sealed record CategorizeItemResponse(
     DateTime? DeletedAt,
     string Name, 
     int Quantity,
+    string? ImageUrl,
     List<CategorizeItemCategoryPresenter> Categories
 );
 
 public sealed record CategorizeItemCategoryPresenter(
     Guid Id,
     string Name,
-    string Description
+    string Description,
+    string Color
 );

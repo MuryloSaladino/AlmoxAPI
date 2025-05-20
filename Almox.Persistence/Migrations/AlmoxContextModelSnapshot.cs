@@ -29,6 +29,11 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("char(7)")
+                        .HasColumnName("color");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamptz")
                         .HasColumnName("created_at");
@@ -53,6 +58,9 @@ namespace Almox.Persistence.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Color")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -173,6 +181,10 @@ namespace Almox.Persistence.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamptz")
                         .HasColumnName("deleted_at");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("image_url");
 
                     b.Property<string>("Name")
                         .IsRequired()

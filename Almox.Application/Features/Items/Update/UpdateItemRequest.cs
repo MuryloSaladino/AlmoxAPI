@@ -9,5 +9,6 @@ public sealed record UpdateItemRequest(
 
 public sealed record UpdateItemRequestProps(
     string Name,
-    int Quantity
+    int Quantity,
+    string? ImageUrl
 );

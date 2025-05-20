@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using Almox.Persistence.Seeding;
 using Almox.API.Config;
 using Almox.API.Middlewares;
+using Microsoft.AspNetCore.Http.Features;
 
 DotEnv.Load();
 
@@ -23,6 +24,11 @@ builder.Services.AddControllers().AddJsonOptions(op =>
 {
     op.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600; // 100MB
 });
     
 builder.Services.AddEndpointsApiExplorer();

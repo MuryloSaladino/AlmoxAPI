@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Almox.Persistence.Migrations
 {
     [DbContext(typeof(AlmoxContext))]
-    [Migration("20250519140625_InitialMigration")]
+    [Migration("20250520143510_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -31,6 +31,11 @@ namespace Almox.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("char(7)")
+                        .HasColumnName("color");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamptz")
@@ -56,6 +61,9 @@ namespace Almox.Persistence.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Color")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -176,6 +184,10 @@ namespace Almox.Persistence.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamptz")
                         .HasColumnName("deleted_at");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("image_url");
 
                     b.Property<string>("Name")
                         .IsRequired()

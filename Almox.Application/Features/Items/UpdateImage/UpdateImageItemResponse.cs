@@ -1,11 +1,11 @@
-namespace Almox.Application.Features.Items.Create;
+namespace Almox.Application.Features.Items.UpdateImage;
 
-public sealed record CreateItemResponse(
+public sealed record UpdateImageItemResponse(
     Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Name, 
     int Quantity,
-    string? ImageUrl
+    string ImageUrl
 );

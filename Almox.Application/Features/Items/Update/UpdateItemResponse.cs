@@ -6,5 +6,6 @@ public sealed record UpdateItemResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Name, 
-    int Quantity
+    int Quantity,
+    string ImageUrl
 );

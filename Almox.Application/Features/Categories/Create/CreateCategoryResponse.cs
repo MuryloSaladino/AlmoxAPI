@@ -6,5 +6,6 @@ public sealed record CreateCategoryResponse(
     DateTime UpdatedAt,
     DateTime? DeletedAt,
     string Name,
-    string Description
+    string Description,
+    string Color
 );
