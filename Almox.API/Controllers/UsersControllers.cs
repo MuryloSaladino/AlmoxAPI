@@ -13,8 +13,6 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Users)]
 public class UsersController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
-
     [HttpPost]
     public async Task<ActionResult<RegisterUserResponse>> Register(
         RegisterUserRequest request, CancellationToken cancellationToken)

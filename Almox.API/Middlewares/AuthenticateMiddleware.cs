@@ -7,8 +7,6 @@ namespace Almox.API.Middlewares;
 
 public class AuthenticateMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate next = next;
-
     public async Task Invoke(HttpContext context)
     {
         var authHeader = context.Request.Headers.Authorization.FirstOrDefault();

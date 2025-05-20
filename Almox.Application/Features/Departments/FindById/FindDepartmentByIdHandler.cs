@@ -13,10 +13,6 @@ public class FindDepartmentByIdHandler(
     IMapper mapper
 ) : IRequestHandler<FindDepartmentByIdRequest, FindDepartmentByIdResponse>
 {
-    private readonly IDepartmentRepository departmentRepository = departmentRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-
     public async Task<FindDepartmentByIdResponse> Handle(
         FindDepartmentByIdRequest request, CancellationToken cancellationToken)
     {

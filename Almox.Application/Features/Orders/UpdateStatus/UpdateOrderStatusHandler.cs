@@ -19,12 +19,6 @@ public class UpdateOrderStatusHandler(
     IMapper mapper
 ) : IRequestHandler<UpdateOrderStatusRequest, UpdateOrderStatusResponse>
 {
-    private readonly IOrderHistoryRepository historyRepository = historyRepository;
-    private readonly IOrdersRepository ordersRepository = ordersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<UpdateOrderStatusResponse> Handle(
         UpdateOrderStatusRequest request, CancellationToken cancellationToken)
     {

@@ -17,12 +17,6 @@ public class UpdateImageItemHandler(
     IMapper mapper
 ) : IRequestHandler<UpdateImageItemRequest, UpdateImageItemResponse>
 {
-    private readonly IImagesRepository imageRepository = imageRepository;
-    private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<UpdateImageItemResponse> Handle(
         UpdateImageItemRequest request, CancellationToken cancellationToken)
     {

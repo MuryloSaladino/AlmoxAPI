@@ -16,11 +16,6 @@ public class CreateItemHandler(
     IMapper mapper
 ) : IRequestHandler<CreateItemRequest, CreateItemResponse>
 {
-    private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<CreateItemResponse> Handle(
         CreateItemRequest request, CancellationToken cancellationToken)
     {

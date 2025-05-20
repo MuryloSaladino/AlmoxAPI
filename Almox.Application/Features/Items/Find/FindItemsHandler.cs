@@ -11,10 +11,6 @@ public class FindItemsHandler(
     IMapper mapper
 ) : IRequestHandler<FindItemsRequest, List<FindItemsResponse>>
 {
-    private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-
     public async Task<List<FindItemsResponse>> Handle(
         FindItemsRequest request, CancellationToken cancellationToken)
     {

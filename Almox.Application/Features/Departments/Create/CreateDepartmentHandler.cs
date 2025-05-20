@@ -16,11 +16,6 @@ public class CreateDepartmentHandler(
     IMapper mapper
 ) : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>
 {
-    private readonly IDepartmentRepository departmentRepository = departmentRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<CreateDepartmentResponse> Handle(
         CreateDepartmentRequest request, CancellationToken cancellationToken)
     {

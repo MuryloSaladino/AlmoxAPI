@@ -11,10 +11,6 @@ public class FindDepartmentsHandler(
     IMapper mapper
 ) : IRequestHandler<FindDepartmentsRequest, List<FindDepartmentsResponse>>
 {
-    private readonly IDepartmentRepository departmentRepository = departmentRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-
     public async Task<List<FindDepartmentsResponse>> Handle(
         FindDepartmentsRequest request, CancellationToken cancellationToken)
     {

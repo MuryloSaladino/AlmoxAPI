@@ -17,12 +17,6 @@ public class CategorizeItemHandler(
     IMapper mapper
 ) : IRequestHandler<CategorizeItemRequest, CategorizeItemResponse>
 {
-    private readonly ICategoriesRepository categoriesRepository = categoriesRepository;
-    private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<CategorizeItemResponse> Handle(
         CategorizeItemRequest request, CancellationToken cancellationToken)
     {

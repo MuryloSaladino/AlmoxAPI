@@ -15,11 +15,6 @@ public sealed class PromoteUserHandler(
     IMapper mapper
 ) : IRequestHandler<PromoteUserRequest, PromoteUserResponse>
 {
-    private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<PromoteUserResponse> Handle(
         PromoteUserRequest request, CancellationToken cancellationToken)
     {

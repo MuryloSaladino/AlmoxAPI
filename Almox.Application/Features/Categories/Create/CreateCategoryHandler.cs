@@ -16,11 +16,6 @@ public class CreateCategoryHandler(
     IMapper mapper
 ) : IRequestHandler<CreateCategoryRequest, CreateCategoryResponse>
 {
-    private readonly ICategoriesRepository categoriesRepository = categoriesRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<CreateCategoryResponse> Handle(
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {

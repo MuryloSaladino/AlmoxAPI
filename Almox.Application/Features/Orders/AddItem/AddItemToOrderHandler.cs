@@ -17,12 +17,6 @@ public class AddItemToOrderHandler(
     IMapper mapper
 ) : IRequestHandler<AddItemToOrderRequest, AddItemToOrderResponse>
 {
-    private readonly IOrderItemsRepository orderItemsRepository = orderItemsRepository;
-    private readonly IOrdersRepository ordersRepository = ordersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<AddItemToOrderResponse> Handle(
         AddItemToOrderRequest request, CancellationToken cancellationToken)
     {

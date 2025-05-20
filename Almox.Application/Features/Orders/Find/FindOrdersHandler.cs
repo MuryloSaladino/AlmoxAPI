@@ -13,10 +13,6 @@ public class FindOrdersHandler(
     IMapper mapper
 ) : IRequestHandler<FindOrdersRequest, List<FindOrdersResponse>>
 {
-    private readonly IOrdersRepository ordersRepository = ordersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-
     public async Task<List<FindOrdersResponse>> Handle(
         FindOrdersRequest request, CancellationToken cancellationToken)
     {

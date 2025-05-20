@@ -11,8 +11,6 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Categories)]
 public class CategoriesController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
-
     [HttpPost]
     public async Task<ActionResult<CreateCategoryResponse>> Create(
         CreateCategoryRequest request, CancellationToken cancellationToken)

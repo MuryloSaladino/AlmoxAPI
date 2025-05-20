@@ -18,12 +18,6 @@ public class StartOrderHandler(
     IMapper mapper
 ) : IRequestHandler<StartOrderRequest, StartOrderResponse>
 {
-    private readonly IOrdersRepository ordersRepository = ordersRepository;
-    private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<StartOrderResponse> Handle(
         StartOrderRequest request, CancellationToken cancellationToken)
     {

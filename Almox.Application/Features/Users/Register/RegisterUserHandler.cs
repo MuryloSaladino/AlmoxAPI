@@ -14,11 +14,6 @@ public sealed class RegisterUserHandler(
     IMapper mapper
 ) : IRequestHandler<RegisterUserRequest, RegisterUserResponse>
 {
-    private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IPasswordEncrypter encrypter = encrypter;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<RegisterUserResponse> Handle(
         RegisterUserRequest request, CancellationToken cancellationToken)
     {

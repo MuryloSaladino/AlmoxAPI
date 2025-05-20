@@ -12,10 +12,6 @@ public sealed class LoginHandler(
     IAuthenticator authentication
 ) : IRequestHandler<LoginRequest, LoginResponse>
 {
-    private readonly IPasswordEncrypter encrypter = encrypter;
-    private readonly IUsersRepository userRepository = userRepository;
-    private readonly IAuthenticator authentication = authentication;
-
     public async Task<LoginResponse> Handle(
         LoginRequest request, CancellationToken cancellationToken)
     {

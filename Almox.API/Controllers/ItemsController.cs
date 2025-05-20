@@ -15,8 +15,6 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Items)]
 public class ItemsController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
-
     [HttpPost]
     public async Task<ActionResult<CreateItemResponse>> Create(
         CreateItemRequest request, CancellationToken cancellationToken)
@@ -75,6 +73,6 @@ public class ItemsController(IMediator mediator) : ControllerBase
         await using var stream = file.OpenReadStream();
         var request = new UpdateImageItemRequest(itemId, stream, file.FileName);
         var response = await mediator.Send(request, cancellationToken);
-        return Created($"{APIRoutes.Images}/uploads", response);
+        return Created($"{APIRoutes.Items}/{{itemId}}/image", response);
     }
 }

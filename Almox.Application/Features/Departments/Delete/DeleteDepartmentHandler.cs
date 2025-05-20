@@ -13,10 +13,6 @@ public class DeleteDepartmentHandler(
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteDepartmentRequest, DeleteDepartmentResponse>
 {
-    private readonly IDepartmentRepository departmentRepository = departmentRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-
     public async Task<DeleteDepartmentResponse> Handle(
         DeleteDepartmentRequest request, CancellationToken cancellationToken)
     {

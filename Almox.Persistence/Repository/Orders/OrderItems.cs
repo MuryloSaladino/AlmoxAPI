@@ -6,20 +6,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Almox.Persistence.Repository.Orders;
 
 public class OrderItemsRepository(
-    AlmoxContext almoxContext
+    AlmoxContext context
 ) : IOrderItemsRepository
 {
-    private readonly AlmoxContext context = almoxContext;
-    private readonly DbSet<OrderItem> dbSet = almoxContext.Set<OrderItem>();
-
     public void Create(OrderItem requestItem)
         => context.Add(requestItem);
 
     public void Delete(Guid itemId, Guid requestId)
     {
-        var entity = dbSet.Find(itemId, requestId);
+        var entity = context.Set<OrderItem>().Find(itemId, requestId);
 
         if (entity is not null)
-            dbSet.Remove(entity);
+            context.Set<OrderItem>().Remove(entity);
     }
 }

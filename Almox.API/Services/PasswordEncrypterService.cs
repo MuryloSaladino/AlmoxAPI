@@ -11,7 +11,6 @@ public class PasswordEncrypterService : IPasswordEncrypter
     public string Hash(User user)
         => hasher.HashPassword(user, user.Password);
     
-
     public bool Matches(User user, string password)
     {
         var result = hasher.VerifyHashedPassword(user, user.Password, password);

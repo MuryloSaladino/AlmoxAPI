@@ -13,10 +13,6 @@ public class DeleteCategoryHandler(
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteCategoryRequest, DeleteCategoryResponse>
 {
-    private readonly ICategoriesRepository categoriesRepository = categoriesRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-
     public async Task<DeleteCategoryResponse> Handle(
         DeleteCategoryRequest request, CancellationToken cancellationToken)
     {

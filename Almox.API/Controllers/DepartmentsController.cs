@@ -13,8 +13,6 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Departments)]
 public class DepartmentsController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
-
     [HttpPost]
     public async Task<ActionResult<CreateDepartmentResponse>> Create(
         CreateDepartmentRequest request, CancellationToken cancellationToken)

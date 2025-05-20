@@ -16,8 +16,6 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Orders)]
 public class OrdersController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
-
     [HttpPost]
     public async Task<ActionResult<StartOrderResponse>> Start(
         CancellationToken cancellationToken)

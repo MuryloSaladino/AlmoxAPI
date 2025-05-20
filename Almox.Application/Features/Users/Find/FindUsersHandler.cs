@@ -13,10 +13,6 @@ public class FindUsersHandler(
     IMapper mapper
 ) : IRequestHandler<FindUsersRequest, List<FindUsersResponse>>
 {
-    private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-    
     public async Task<List<FindUsersResponse>> Handle(
         FindUsersRequest request, CancellationToken cancellationToken)
     {

@@ -13,10 +13,6 @@ public sealed class FindUserByIdHandler(
     IMapper mapper
 ) : IRequestHandler<FindUserByIdRequest, FindUserByIdResponse>
 {
-    private readonly IUsersRepository usersRepository = usersRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IMapper mapper = mapper;
-
     public async Task<FindUserByIdResponse> Handle(
         FindUserByIdRequest request, CancellationToken cancellationToken)
     {

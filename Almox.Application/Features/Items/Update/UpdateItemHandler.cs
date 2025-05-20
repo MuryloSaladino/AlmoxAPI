@@ -15,11 +15,6 @@ public class UpdateItemHandler(
     IMapper mapper
 ) : IRequestHandler<UpdateItemRequest, UpdateItemResponse>
 {
-    private readonly IItemsRepository itemsRepository = itemsRepository;
-    private readonly IRequestSession requestSession = requestSession;
-    private readonly IUnitOfWork unitOfWork = unitOfWork;
-    private readonly IMapper mapper = mapper;
-
     public async Task<UpdateItemResponse> Handle(
         UpdateItemRequest request, CancellationToken cancellationToken)
     {
