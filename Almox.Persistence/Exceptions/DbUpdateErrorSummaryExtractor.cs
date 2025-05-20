@@ -33,4 +33,6 @@ public class DbUpdateErrorSummaryExtractor
         }
         return new();
     }
+
+    public ErrorSummary Extract(Exception ex) => Extract((DbUpdateException)ex);
 }
