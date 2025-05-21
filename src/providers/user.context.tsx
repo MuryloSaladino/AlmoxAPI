@@ -1,4 +1,4 @@
-import type { IParentComponentProps } from "@/types/utils/component-utils.types";
+import type { ParentComponent } from "@/types/utils/component-utils.types";
 import type { User } from "@/types/entities/user.types";
 import { createContext, useState } from "react";
 
@@ -9,7 +9,7 @@ export interface IUserContext {
 
 export const UserContext = createContext({} as IUserContext);
 
-export function UserContextProvider(props: IParentComponentProps) {
+export function UserContextProvider(props: ParentComponent) {
 
     const [user, setUser] = useState<User | null>(null);
 
