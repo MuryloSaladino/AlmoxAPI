@@ -13,7 +13,7 @@ export function Home() {
 
                 <form action={AppRoutes.CATALOG}>
                     <Group>
-                        <TextInput name="q"/>
+                        <TextInput name="name"/>
                         <Button type="submit">
                             <IconSearch/>
                         </Button>

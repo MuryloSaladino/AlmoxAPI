@@ -1,6 +1,5 @@
 import type { ItemSummary, ItemCreation, Item } from "@/types/entities/items.types";
 import { almoxApi } from ".";
-import { Query } from "@/utils/query.utils";
 
 export const ItemsService = {
 
@@ -15,8 +14,8 @@ export const ItemsService = {
         await almoxApi.delete(`${this.url}/${itemId}`) 
     },
 
-    get: async function(filters: { name?: string, category?: string }) {
-        const response = await almoxApi.get<Item>(this.url + Query.fromObject(filters));
+    get: async function(query?: string) {
+        const response = await almoxApi.get<Item[]>(this.url + query || "");
         return response.data;
     },
 
@@ -28,7 +27,9 @@ export const ItemsService = {
     updateImage: async function(itemId: string, file: Blob) {
         const formData = new FormData();
         formData.append("file", file);
-        const response = await almoxApi.patch<ItemSummary>(`${this.url}/${itemId}/image`, formData);
+        const response = await almoxApi.patch<ItemSummary>(`${this.url}/${itemId}/image`, formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
         return response.data;
     },
 
