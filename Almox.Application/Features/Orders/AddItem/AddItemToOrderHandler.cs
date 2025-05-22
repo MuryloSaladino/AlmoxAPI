@@ -20,17 +20,22 @@ public class AddItemToOrderHandler(
     public async Task<AddItemToOrderResponse> Handle(
         AddItemToOrderRequest request, CancellationToken cancellationToken)
     {
-        var order = await ordersRepository.Get(request.OrderId, cancellationToken)
-            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
-
         var session = requestSession.GetSessionOrThrow();
+
+        var order = await ordersRepository.GetUserDraftOrder(session.UserId, cancellationToken)
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         if(session.UserId != order.UserId && !session.IsAdmin)
             throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
 
-        var orderItem = mapper.Map<OrderItem>(request);
-        
-        orderItemsRepository.Create(orderItem);
+        var orderItem = await orderItemsRepository.Get(request.ItemId, order.Id, cancellationToken);
+
+        if (orderItem is null)
+        {
+            orderItem = mapper.Map<OrderItem>(request);
+            orderItemsRepository.Create(orderItem);
+        }
+        orderItem.Quantity = request.Props.Quantity;
 
         await unitOfWork.Save(cancellationToken);
 

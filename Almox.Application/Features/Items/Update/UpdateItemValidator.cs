@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Almox.Application.Features.Items.Update;
 
@@ -17,6 +16,6 @@ public class UpdateItemValidator : AbstractValidator<UpdateItemRequest>
             
         RuleFor(i => i.Props.ImageUrl)
             .MaximumLength(255)
-            .When(i => !i.Props.ImageUrl.IsNullOrEmpty());
+            .When(i => !string.IsNullOrEmpty(i.Props.ImageUrl));
     }
 }

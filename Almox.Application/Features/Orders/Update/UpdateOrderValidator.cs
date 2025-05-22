@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Almox.Application.Features.Orders.Update;
 
@@ -9,6 +8,6 @@ public class UpdateRequestValidator : AbstractValidator<UpdateOrderRequest>
     {
         RuleFor(r => r.Props.Observations)
             .MaximumLength(255)
-            .When(r => !r.Props.Observations.IsNullOrEmpty());
+            .When(r => !string.IsNullOrWhiteSpace(r.Props.Observations));
     }
 }

@@ -26,10 +26,8 @@ public class StartOrderHandler(
         var user = await usersRepository.Get(session.UserId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
 
-        var draftFilter = new OrdersQueryFilters(user.Id, OrderStatus.Draft);
-
-        var order = (await ordersRepository.GetWithFilters(
-            draftFilter, cancellationToken)).First();
+        var order = await ordersRepository.GetUserDraftOrder(
+            session.UserId, cancellationToken);
 
         if(order is null)
         {
@@ -38,7 +36,6 @@ public class StartOrderHandler(
                 User = user,
                 UserId = user.Id
             };
-
             ordersRepository.Create(order);
             
             await unitOfWork.Save(cancellationToken);

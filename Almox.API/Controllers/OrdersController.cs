@@ -44,16 +44,15 @@ public class OrdersController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost, Route("{orderId}/items/{itemId}")]
+    [HttpPost, Route("items/{itemId}")]
     public async Task<ActionResult<AddItemToOrderResponse>> AddItem(
-        [FromRoute] Guid orderId,
         [FromRoute] Guid itemId,
         [FromBody] AddItemToOrderRequestProps body,
         CancellationToken cancellationToken)
     {
-        var request = new AddItemToOrderRequest(orderId, itemId, body);
+        var request = new AddItemToOrderRequest(itemId, body);
         var response = await mediator.Send(request, cancellationToken);
-        return Created(APIRoutes.Orders + "/{orderId}/items/{itemId}", response);
+        return Created(APIRoutes.Orders + "/items/{itemId}", response);
     }
 
     [HttpPut, Route("{orderId}")]
