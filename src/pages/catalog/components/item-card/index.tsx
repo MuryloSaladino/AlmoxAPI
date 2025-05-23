@@ -1,5 +1,5 @@
 import type { Item } from "@/types/entities/items.types";
-import { Badge, Box, Button, Card, Flex, Group, Image, Menu, NumberInput, Select, Stack, Text } from "@mantine/core";
+import { Badge, Box, Button, Card, Flex, Group, Image, Menu, NumberInput, Select, Stack, Text, Tooltip } from "@mantine/core";
 import { IconCheck, IconPlus, IconShoppingCart } from "@tabler/icons-react";
 import { useContext, useState } from "react";
 import { CatalogContext } from "../../context";
@@ -61,7 +61,9 @@ export function ItemCard({ editable, item: {
 
                 <Flex pos="absolute" left={20} top={20} gap={5}>
                     {categories.map((c, i) => 
-                        <Box key={i} h={20} w={20} bg={c.color} style={{ borderRadius: "50%" }}/>
+                        <Tooltip label={c.name}>
+                            <Box key={i} h={20} w={20} bg={c.color} style={{ borderRadius: "50%" }}/>
+                        </Tooltip>
                     )}
 
                     {editable &&
