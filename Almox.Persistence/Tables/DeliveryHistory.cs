@@ -30,7 +30,7 @@ public static class DeliveryHistoryTableConfigurationExtensions
             entity.Property(e => e.Status)
                 .HasColumnName("status")
                 .HasColumnType("smallint")
-                .HasDefaultValue(DeliveryStatus.Draft)
+                .HasDefaultValue(DeliveryStatus.Booked)
                 .IsRequired();
         });
 }
