@@ -9,6 +9,7 @@ using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Orders.Update;
+using Almox.Application.Features.Orders.RemoveItem;
 
 namespace Almox.API.Controllers;
 
@@ -53,6 +54,15 @@ public class OrdersController(IMediator mediator) : ControllerBase
         var request = new AddItemToOrderRequest(itemId, body);
         var response = await mediator.Send(request, cancellationToken);
         return Created(APIRoutes.Orders + "/items/{itemId}", response);
+    }
+
+    [HttpDelete, Route("items/{itemId}")]
+    public async Task<ActionResult<AddItemToOrderResponse>> RemoveItem(
+        [FromRoute] Guid itemId, CancellationToken cancellationToken)
+    {
+        var request = new RemoveItemToOrderRequest(itemId);
+        await mediator.Send(request, cancellationToken);
+        return NoContent();
     }
 
     [HttpPut, Route("{orderId}")]
