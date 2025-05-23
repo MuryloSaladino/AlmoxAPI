@@ -1,8 +1,7 @@
 import { App } from "@/App";
-import { AppLayout } from "@/components/navigation/app-layout";
 import { AuthenticationGuard } from "@/components/guards/authentication-guard";
+import { AppLayout } from "@/components/layout/app-layout";
 import { AppRoutes } from "@/config/constants/app-routes";
-import { Cart } from "@/pages/cart";
 import { Catalog } from "@/pages/catalog";
 import { Deliveries } from "@/pages/deliveries";
 import { DeliveryDetails } from "@/pages/delivery-details";
@@ -28,10 +27,6 @@ export const router = createBrowserRouter([{
                     {
                         path: AppRoutes.ROOT,
                         Component: Home,
-                    },
-                    {
-                        path: AppRoutes.CART,
-                        Component: Cart,
                     },
                     {
                         path: AppRoutes.CATALOG,
