@@ -8,8 +8,8 @@ import { StorageKeys } from "@/config/constants/storage-keys";
 import { useContext, useState } from "react";
 import { UserContext } from "@/providers/user.context";
 import { jwtDecode } from "jwt-decode"
-import { Logo } from "@/components/brand/logo";
 import { UsersService } from "@/services/almox/users.service";
+import { Logo } from "@/components/utils/logo";
 
 export function Login() {
 
