@@ -33,6 +33,7 @@ public class AddItemToOrderHandler(
         if (orderItem is null)
         {
             orderItem = mapper.Map<OrderItem>(request);
+            orderItem.OrderId = order.Id;
             orderItemsRepository.Create(orderItem);
         }
         orderItem.Quantity = request.Props.Quantity;
