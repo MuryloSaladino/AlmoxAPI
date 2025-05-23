@@ -7,7 +7,7 @@ export const OrdersService = {
     url: "/orders",
 
     start: async function() {
-        const response = await almoxApi.post<OrderSummary>(this.url);
+        const response = await almoxApi.post<Order>(this.url);
         return response.data;
     },
 
@@ -21,9 +21,13 @@ export const OrdersService = {
         return response.data;
     },
 
-    addItem: async function(requestId: string, itemId: string) {
-        const response = await almoxApi.get<OrderSummary>(`${this.url}/${requestId}/items/${itemId}`)
+    addItem: async function(itemId: string, quantity: number) {
+        const response = await almoxApi.post<OrderSummary>(`${this.url}/items/${itemId}`, { quantity })
         return response.data;
+    },
+
+    removeItem: async function(itemId: string) {
+        await almoxApi.delete(`${this.url}/items/${itemId}`)
     },
 
     update: async function(requestId: string, payload: OrderUpdate) {
