@@ -12,10 +12,12 @@ public class AlmoxContext(DbContextOptions<AlmoxContext> options) : DbContext(op
         modelBuilder.ConfigureCategoryTable();
         modelBuilder.ConfigureDeliveryTable();
         modelBuilder.ConfigureDeliveryItemTable();
+        modelBuilder.ConfigureDeliveryHistoryTable();
         modelBuilder.ConfigureDepartmentTable();
         modelBuilder.ConfigureItemTable();
         modelBuilder.ConfigureOrderTable();
         modelBuilder.ConfigureOrderItemTable();
+        modelBuilder.ConfigureOrderHistoryTable();
         modelBuilder.ConfigureUserTable();
     }
 }
