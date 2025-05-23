@@ -1,0 +1,35 @@
+import { Logo } from "@/components/utils/logo";
+import { AppShell, Burger, Flex, Group } from "@mantine/core";
+import { CartDrawer } from "../cart-drawer";
+import { UserMenu } from "../user-menu";
+
+export interface IHeaderProps {
+    opened: boolean;
+    onClick: () => void;
+}
+
+export function Header({
+    opened,
+    onClick,
+}: IHeaderProps) {
+    return (
+        <AppShell.Header px="md">
+            <Flex h="100%" align="center" justify="space-between">
+                <Group h="100%">
+                    <Burger
+                        opened={opened}
+                        onClick={onClick}
+                        hiddenFrom="sm"
+                        size="sm"
+                    />
+                    <Logo redirectToHome/>
+                </Group>
+                
+                <Group>
+                    <CartDrawer/>
+                    <UserMenu/>
+                </Group>
+            </Flex>
+        </AppShell.Header>
+    )
+}
