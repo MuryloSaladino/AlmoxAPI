@@ -22,8 +22,14 @@ almoxApi.interceptors.request.use((config) => {
 almoxApi.interceptors.response.use(
     (data: AxiosResponse<any, any>) => data,
     (error: AxiosError<any>) => {
-        notify.error(error.response?.data.message 
-            || NotificationMessages.Error.Unknown.Undefined);
+        switch(error.status) {
+            case 401:
+                break;
+            default:
+                notify.error(error.response?.data.message 
+                    || NotificationMessages.Error.Unknown.Undefined);
+                break;
+        }
         throw error
     }
 )
