@@ -29,7 +29,11 @@ export function DepartmentDetails() {
         updateDepartment();
     }, [searchParams])
 
-    useEffect(() => EventEmitter.subscribe(Events.REFRESH, updateDepartment), []);
+    useEffect(() => 
+        EventEmitter.subscribe(
+            Events.REFRESH, 
+            (key) => key == "departments" && updateDepartment()
+    ), []);
 
     return department && (
         <>

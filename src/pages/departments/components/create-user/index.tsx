@@ -35,7 +35,7 @@ export function CreateUser({
     const submit = async (data: UserCreation) => {
         reset();
         await UsersService.register({ ...data, departmentId });
-        EventEmitter.dispatch(Events.REFRESH, {});
+        EventEmitter.dispatch(Events.REFRESH, "departments");
         onClose();
     }
 

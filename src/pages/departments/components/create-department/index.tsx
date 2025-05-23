@@ -22,7 +22,7 @@ export function CreateDepartment({
     const submit = async (data: DepartmentCreation) => {
         reset();
         await DepartmentsService.create(data);
-        EventEmitter.dispatch(Events.REFRESH, {});
+        EventEmitter.dispatch(Events.REFRESH, "departments");
         onClose();
     }
 

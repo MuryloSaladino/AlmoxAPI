@@ -18,7 +18,11 @@ export function DepartmentsTable() {
     }
 
     useEffect(() => { updateDepartments() }, [])
-    useEffect(() => EventEmitter.subscribe(Events.REFRESH, updateDepartments), [])
+    useEffect(() => 
+        EventEmitter.subscribe(
+            Events.REFRESH, 
+            (key) => key == "departments" && updateDepartments()
+    ), []);
 
     return (
         <Table>
