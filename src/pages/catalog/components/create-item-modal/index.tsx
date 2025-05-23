@@ -1,6 +1,5 @@
 import { ImageInput } from "@/components/controls/image-input";
 import { notify } from "@/components/feedback/notifier/functions";
-import { EventEmitter, Events } from "@/providers/event-emitter";
 import { ItemsService } from "@/services/almox/items.service";
 import type { ItemCreation } from "@/types/entities/items.types";
 import { Button, Modal, Stack, TextInput } from "@mantine/core";
@@ -33,9 +32,7 @@ export function CreateItemModal({
         
         if(file) await ItemsService.updateImage(newItem.id, file);
 
-        EventEmitter.dispatch(Events.REFRESH, {});
         notify.success("New item created!");
-        
         onClose();
         reset();
     } 
