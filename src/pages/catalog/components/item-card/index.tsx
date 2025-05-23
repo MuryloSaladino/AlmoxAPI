@@ -1,9 +1,12 @@
 import type { Item } from "@/types/entities/items.types";
-import { Badge, Box, Button, Card, Flex, Image, Menu, Select, Stack, Text } from "@mantine/core";
-import { IconPlus, IconShoppingCart } from "@tabler/icons-react";
+import { Badge, Box, Button, Card, Flex, Group, Image, Menu, NumberInput, Select, Stack, Text } from "@mantine/core";
+import { IconCheck, IconPlus, IconShoppingCart } from "@tabler/icons-react";
 import { useContext, useState } from "react";
 import { CatalogContext } from "../../context";
 import { ItemsService } from "@/services/almox/items.service";
+import { OrdersService } from "@/services/almox/orders.service";
+import { useDisclosure } from "@mantine/hooks";
+import { EventEmitter, Events } from "@/providers/event-emitter";
 
 export interface ItemCardProps {
     item: Item;
@@ -20,6 +23,8 @@ export function ItemCard({ editable, item: {
 
     const { categories: ctxCategories } = useContext(CatalogContext);
     const [categories, setCategories] = useState(srcCategories);
+    const [orderQuantity, setOrderQuantity] = useState(1);
+    const [opened, { close, open }] = useDisclosure();
     const available = quantity > 0;
 
     const categoryOptions = ctxCategories.map(({ id, name }) => ({ label: name, value: id }));
@@ -28,6 +33,13 @@ export function ItemCard({ editable, item: {
             await ItemsService.categorize(id, categoryId);
             setCategories(prev => [...prev, ctxCategories.find(c => c.id == categoryId)!])
         }
+    }
+
+    const addItemToCart = async () => {
+        await OrdersService.addItem(id, orderQuantity);
+        setOrderQuantity(1);
+        close();
+        EventEmitter.dispatch(Events.REFRESH, "cart");
     }
 
     return (
@@ -72,10 +84,21 @@ export function ItemCard({ editable, item: {
             <Stack mt={10} h="100%" justify="space-between">
                 <Text fw={500}>{ name }</Text>
                 
-                <Button 
-                    rightSection={<IconShoppingCart/>}
-                    disabled={!available}
-                >Add to Cart</Button>
+                <Menu opened={opened} onClose={close} onOpen={open}>
+                    <Menu.Target>
+                        <Button rightSection={<IconShoppingCart/>} disabled={!available}>Add to Cart</Button>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                        <Group>
+                            <NumberInput 
+                                defaultValue={1}
+                                value={orderQuantity}
+                                onChange={(e) => setOrderQuantity(Number(e) || 1)}
+                            />
+                            <Button color="green" px={10} onClick={addItemToCart}><IconCheck/></Button>
+                        </Group>
+                    </Menu.Dropdown>
+                </Menu>
             </Stack>
         </Card>
     )
