@@ -2,8 +2,6 @@
 
 public enum DeliveryStatus
 {
-    Draft,
-    Requested,
     Booked,
     Received,
     Canceled
