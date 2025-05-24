@@ -19,7 +19,7 @@ public class RemoveItemToOrderHandler(
     {
         var session = requestSession.GetSessionOrThrow();
 
-        var order = await ordersRepository.GetUserDraftOrder(session.UserId, cancellationToken)
+        var order = await ordersRepository.GetUserCartOrder(session.UserId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         if(session.UserId != order.UserId && !session.IsAdmin)

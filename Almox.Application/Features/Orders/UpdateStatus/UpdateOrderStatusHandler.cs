@@ -44,7 +44,7 @@ public class UpdateOrderStatusHandler(
     {
         switch (status)
         {
-            case OrderStatus.Draft:
+            case OrderStatus.ShoppingCart:
                 throw AppException.Conflict(ExceptionMessages.Conflict.ResourceState);
 
             case OrderStatus.Requested:

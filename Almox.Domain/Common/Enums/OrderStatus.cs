@@ -2,7 +2,7 @@
 
 public enum OrderStatus
 {
-    Draft,
+    ShoppingCart,
     Requested,
     Accepted,
     Ready,

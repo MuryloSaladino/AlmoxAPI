@@ -26,7 +26,7 @@ public class StartOrderHandler(
         var user = await usersRepository.Get(session.UserId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
 
-        var order = await ordersRepository.GetUserDraftOrder(
+        var order = await ordersRepository.GetUserCartOrder(
             session.UserId, cancellationToken);
 
         if(order is null)

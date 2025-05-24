@@ -11,5 +11,5 @@ public class Order : BaseEntity
 
     public OrderPriority Priority { get; set; }
     public string? Observations { get; set; } = null;
-    public OrderStatus Status { get; set; } = OrderStatus.Draft;
+    public OrderStatus Status { get; set; } = OrderStatus.ShoppingCart;
 }

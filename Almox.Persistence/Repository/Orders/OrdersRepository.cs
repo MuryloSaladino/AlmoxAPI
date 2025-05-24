@@ -34,11 +34,11 @@ public class OrdersRepository(
                 .ThenInclude(oi => oi.Item)
             .FirstOrDefaultAsync(cancellationToken);
             
-    public async Task<Order?> GetUserDraftOrder(Guid userId, CancellationToken cancellationToken)
+    public async Task<Order?> GetUserCartOrder(Guid userId, CancellationToken cancellationToken)
         => await dbSet
             .Where(o => o.DeletedAt == null)
             .Where(o => o.UserId == userId)
-            .Where(o => o.Status == OrderStatus.Draft)
+            .Where(o => o.Status == OrderStatus.ShoppingCart)
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Item)
             .FirstOrDefaultAsync(cancellationToken);
