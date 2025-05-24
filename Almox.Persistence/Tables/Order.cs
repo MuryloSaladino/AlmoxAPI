@@ -35,8 +35,6 @@ public static class OrderTableConfigurationExtensions
 
             entity.Property(e => e.Status)
                 .HasColumnName("status")
-                .HasColumnType("smallint")
-                .HasDefaultValue(OrderStatus.ShoppingCart)
-                .IsRequired();
+                .HasColumnType("smallint");
         });
 }

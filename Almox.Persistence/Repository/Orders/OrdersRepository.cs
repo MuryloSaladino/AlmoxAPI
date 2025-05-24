@@ -1,5 +1,4 @@
 using Almox.Application.Repository.OrdersRepository;
-using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,7 @@ public class OrdersRepository(
     {
         var query = dbSet
             .Where(r => r.DeletedAt == null)
+            .Where(r => r.Status != null)
             .AsQueryable();
 
         if (filters.UserId is not null)
@@ -38,7 +38,7 @@ public class OrdersRepository(
         => await dbSet
             .Where(o => o.DeletedAt == null)
             .Where(o => o.UserId == userId)
-            .Where(o => o.Status == OrderStatus.ShoppingCart)
+            .Where(o => o.Status == null)
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Item)
             .FirstOrDefaultAsync(cancellationToken);

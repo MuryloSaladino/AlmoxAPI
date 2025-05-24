@@ -44,9 +44,6 @@ public class UpdateOrderStatusHandler(
     {
         switch (status)
         {
-            case OrderStatus.ShoppingCart:
-                throw AppException.Conflict(ExceptionMessages.Conflict.ResourceState);
-
             case OrderStatus.Requested:
                 if (order.UserId != session.UserId)
                     throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUser);

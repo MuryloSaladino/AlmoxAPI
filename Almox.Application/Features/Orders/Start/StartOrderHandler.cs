@@ -10,7 +10,6 @@ using MediatR;
 namespace Almox.Application.Features.Orders.Start;
 
 public class StartOrderHandler(
-    IOrderHistoryRepository historyRepository,
     IOrdersRepository ordersRepository,
     IUsersRepository usersRepository,
     IRequestSession requestSession,
@@ -38,15 +37,6 @@ public class StartOrderHandler(
             };
             ordersRepository.Create(order);
 
-            historyRepository.Create(new()
-            {
-                Order = order,
-                OrderId = order.Id,
-                Status = order.Status,
-                UpdatedBy = user,
-                UpdatedById = user.Id
-            });
-            
             await unitOfWork.Save(cancellationToken);
         }
 
