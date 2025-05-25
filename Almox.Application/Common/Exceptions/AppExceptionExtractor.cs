@@ -1,10 +1,10 @@
 using Almox.Application.Contracts;
-using Almox.Domain.Objects;
+using Almox.Domain.Common.Exceptions;
 
 namespace Almox.Application.Common.Exceptions;
 
-public class AppExceptionExtractor : IErrorSummaryExtractor<AppException>
+public class AppExceptionExtractor : IExceptionDataExtractor<AppException>
 {
-    public ErrorSummary Extract(AppException ex) => new(ex.Status, ex.Message, ex.Details);
-    public ErrorSummary Extract(Exception ex) => Extract((AppException)ex);
+    public ExceptionData Extract(AppException ex) => new(ex.Code, ex.Message, ex.Details);
+    public ExceptionData Extract(Exception ex) => Extract((AppException)ex);
 }
