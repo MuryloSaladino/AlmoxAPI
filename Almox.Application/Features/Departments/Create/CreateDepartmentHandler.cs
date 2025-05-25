@@ -1,8 +1,6 @@
-using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Departments;
-using Almox.Domain.Common.Messages;
 using Almox.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -19,10 +17,7 @@ public class CreateDepartmentHandler(
     public async Task<CreateDepartmentResponse> Handle(
         CreateDepartmentRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
-
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
+        requestSession.GetAdminSessionOrThrow();
 
         var department = mapper.Map<Department>(request);
         departmentRepository.Create(department);
