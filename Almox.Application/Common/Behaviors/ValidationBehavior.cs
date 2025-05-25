@@ -1,7 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Almox.Application.Common.Exceptions;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 
 namespace Almox.Application.Common.Behaviors;
 
