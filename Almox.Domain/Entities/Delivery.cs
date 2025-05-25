@@ -4,13 +4,11 @@ namespace Almox.Domain.Entities;
 
 public class Delivery : BaseEntity
 {
-    public required Guid UserId { get; set; }
-    public required User User { get; set; }
-
-    public string? Observations { get; set; } = null;
-    public required DateTime Date { get; set; }
+    public required string Supplier { get; set; }
+    public required string Tracking { get; set; }
+    public required DateTime ExpectedDate { get; set; }
     public DeliveryStatus Status { get; set; } = DeliveryStatus.Booked;
 
     public List<DeliveryItem> DeliveryItems { get; } = [];
-    public List<DeliveryHistory> History { get; } = [];
+    public List<DeliveryStatusUpdate> StatusUpdates { get; } = [];
 }
