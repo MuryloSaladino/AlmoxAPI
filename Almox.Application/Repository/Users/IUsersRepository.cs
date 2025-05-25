@@ -2,10 +2,12 @@ using Almox.Domain.Entities;
 
 namespace Almox.Application.Repository.Users;
 
-public interface IUsersRepository : IBaseRepository<User>
+public record UserFilters(
+    string? Username,
+    string? Email
+);
+
+public interface IUsersRepository : IBaseRepository<User, UserFilters>
 {
-    Task<bool> ExistsByUsername(string username, CancellationToken cancellationToken);
-    Task<User?> GetByUsername(string username, CancellationToken cancellationToken);
-    Task<List<User>> GetWithFilters(
-        UsersQueryFilters filters, CancellationToken cancellationToken);
+    Task<User?> GetByUsernameOrEmail(string search, CancellationToken cancellationToken);
 }
