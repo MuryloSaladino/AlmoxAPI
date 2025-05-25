@@ -1,6 +1,6 @@
-namespace Almox.Application.Features.Categories.Find;
+namespace Almox.Application.Features.Categories.GetAll;
 
-public sealed record FindCategoriesResponse(
+public sealed record GetAllCategoriesResponse(
     Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
