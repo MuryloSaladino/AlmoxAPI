@@ -1,10 +1,15 @@
+using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 
 namespace Almox.Application.Repository.Orders;
 
-public interface IOrdersRepository : IBaseRepository<Order>
+public record OrderFilters(
+    Guid? UserId,
+    OrderStatus? Status
+);
+
+public interface IOrdersRepository
+    : IBaseRepository<Order, OrderFilters>
 {
-    Task<List<Order>> GetWithFilters(OrdersQueryFilters filters, CancellationToken cancellationToken);
-    Task<Order?> GetWithItems(Guid id, CancellationToken cancellationToken);
     Task<Order?> GetUserCartOrder(Guid userId, CancellationToken cancellationToken);
 }
