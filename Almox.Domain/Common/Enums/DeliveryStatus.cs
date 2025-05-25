@@ -3,6 +3,7 @@
 public enum DeliveryStatus
 {
     Booked,
+    InTransit,
     Received,
     Canceled
 }
