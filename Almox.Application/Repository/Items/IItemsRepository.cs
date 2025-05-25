@@ -2,10 +2,10 @@ using Almox.Domain.Entities;
 
 namespace Almox.Application.Repository.Items;
 
-public record ItemsQueryFilters(
+public record ItemFilters(
     string? Name,
     string? CategoryName
 );
 
 public interface IItemsRepository
-    : IBaseRepository<Item, ItemsQueryFilters>;
+    : IBaseRepository<Item, ItemFilters>;
