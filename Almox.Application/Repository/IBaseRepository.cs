@@ -12,3 +12,10 @@ public interface IBaseRepository<TEntity>
     Task<TEntity?> Get(Guid id, CancellationToken cancellationToken);
     Task<List<TEntity>> GetAll(CancellationToken cancellationToken);
 }
+
+public interface IBaseRepository<TEntity, TFilters> 
+    : IBaseRepository<TEntity>
+        where TEntity : BaseEntity
+{
+    Task<List<TEntity>> GetAll(TFilters filters, CancellationToken cancellationToken);
+}
