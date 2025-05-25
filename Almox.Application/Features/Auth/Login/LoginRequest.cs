@@ -3,6 +3,6 @@ using MediatR;
 namespace Almox.Application.Features.Auth.Login;
 
 public sealed record LoginRequest(
-    string Username,
+    string UserIdentifier,
     string Password
 ) : IRequest<LoginResponse>;
