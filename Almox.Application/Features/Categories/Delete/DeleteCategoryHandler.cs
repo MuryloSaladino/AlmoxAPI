@@ -2,7 +2,7 @@ using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Categories;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using MediatR;
 
 namespace Almox.Application.Features.Categories.Delete;
@@ -16,12 +16,9 @@ public class DeleteCategoryHandler(
     public async Task<DeleteCategoryResponse> Handle(
         DeleteCategoryRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
+        requestSession.GetStaffSessionOrThrow();
 
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
-
-        var category = await categoriesRepository.Get(request.Id, cancellationToken)
+        var category = await categoriesRepository.Get(request.CategoryId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Category);
         
         categoriesRepository.Delete(category);
