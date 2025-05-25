@@ -6,6 +6,7 @@ public class Order : BaseEntity
 {
     public required Guid UserId { get; set; }
 
+    public required string Tracking { get; set; }
     public OrderPriority Priority { get; set; }
     public OrderStatus? Status { get; set; } = null;
     public string? Observations { get; set; } = null;
