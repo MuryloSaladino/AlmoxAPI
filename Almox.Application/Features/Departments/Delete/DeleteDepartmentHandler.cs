@@ -2,7 +2,7 @@ using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Departments;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using MediatR;
 
 namespace Almox.Application.Features.Departments.Delete;
@@ -16,12 +16,9 @@ public class DeleteDepartmentHandler(
     public async Task<DeleteDepartmentResponse> Handle(
         DeleteDepartmentRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
+        requestSession.GetAdminSessionOrThrow();
 
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
-
-        var department = await departmentRepository.Get(request.Id, cancellationToken)
+        var department = await departmentRepository.Get(request.DepartmentId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
 
         departmentRepository.Delete(department);
