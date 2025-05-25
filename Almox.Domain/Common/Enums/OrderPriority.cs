@@ -2,7 +2,7 @@ namespace Almox.Domain.Common.Enums;
 
 public enum OrderPriority
 {
-    Irrelevant,
+    Unspecified,
     Low,
     Medium,
     High,
