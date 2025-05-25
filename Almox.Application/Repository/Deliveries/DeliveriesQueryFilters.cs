@@ -1,6 +1,6 @@
 using Almox.Domain.Common.Enums;
 
-namespace Almox.Application.Repository.DeliveriesRepository;
+namespace Almox.Application.Repository.Deliveries;
 
 public record DeliveriesQueryFilters(
     DeliveryStatus? Status,

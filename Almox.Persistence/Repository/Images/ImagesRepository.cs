@@ -1,6 +1,6 @@
 using System.Net;
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Repository.ImageRepository;
+using Almox.Application.Repository.Images;
 using Almox.Domain.Common.Messages;
 using Almox.Persistence.Config;
 using CloudinaryDotNet;

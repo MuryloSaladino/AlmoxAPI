@@ -1,8 +1,8 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
-using Almox.Application.Repository.DeliveriesRepository;
-using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository.Deliveries;
+using Almox.Application.Repository.Users;
 using Almox.Domain.Common.Messages;
 using Almox.Domain.Entities;
 using AutoMapper;

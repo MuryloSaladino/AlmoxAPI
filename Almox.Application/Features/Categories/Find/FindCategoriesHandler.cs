@@ -1,5 +1,5 @@
 using Almox.Application.Common.Session;
-using Almox.Application.Repository.CategoriesRepository;
+using Almox.Application.Repository.Categories;
 using AutoMapper;
 using MediatR;
 

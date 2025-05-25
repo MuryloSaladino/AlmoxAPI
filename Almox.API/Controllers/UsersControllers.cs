@@ -5,7 +5,7 @@ using Almox.Application.Features.Users.FindById;
 using Almox.Application.Features.Users.Promote;
 using Almox.API.Enums;
 using Almox.Application.Features.Users.Find;
-using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository.Users;
 
 namespace Almox.API.Controllers;
 

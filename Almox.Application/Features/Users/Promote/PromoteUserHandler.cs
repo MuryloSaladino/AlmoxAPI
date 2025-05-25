@@ -1,7 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository.Users;
 using Almox.Application.Repository;
 using Almox.Domain.Common.Messages;
 using Almox.Application.Common.Session;

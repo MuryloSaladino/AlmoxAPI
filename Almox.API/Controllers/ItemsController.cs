@@ -5,7 +5,7 @@ using Almox.Application.Features.Items.Delete;
 using Almox.Application.Features.Items.Find;
 using Almox.Application.Features.Items.Update;
 using Almox.Application.Features.Items.UpdateImage;
-using Almox.Application.Repository.ItemsRepository;
+using Almox.Application.Repository.Items;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

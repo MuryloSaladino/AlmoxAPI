@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Repository.OrdersRepository;
+namespace Almox.Application.Repository.Orders;
 
 public interface IOrdersRepository : IBaseRepository<Order>
 {

@@ -1,6 +1,6 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
-using Almox.Application.Repository.OrdersRepository;
+using Almox.Application.Repository.Orders;
 using Almox.Domain.Common.Messages;
 using AutoMapper;
 using MediatR;

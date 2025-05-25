@@ -1,4 +1,4 @@
-using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository.Users;
 using MediatR;
 
 namespace Almox.Application.Features.Users.Find;

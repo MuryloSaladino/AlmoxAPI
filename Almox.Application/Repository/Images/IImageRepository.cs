@@ -1,4 +1,4 @@
-namespace Almox.Application.Repository.ImageRepository;
+namespace Almox.Application.Repository.Images;
 
 public interface IImagesRepository
 {

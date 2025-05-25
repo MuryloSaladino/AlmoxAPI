@@ -4,7 +4,7 @@ using Almox.Application.Features.Orders.Start;
 using Almox.Application.Features.Orders.Find;
 using Almox.Application.Features.Orders.FindById;
 using Almox.Application.Features.Orders.UpdateStatus;
-using Almox.Application.Repository.OrdersRepository;
+using Almox.Application.Repository.Orders;
 using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

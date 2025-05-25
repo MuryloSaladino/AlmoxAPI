@@ -1,4 +1,4 @@
-using Almox.Application.Repository.DepartmentsRepository;
+using Almox.Application.Repository.Departments;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
 using Microsoft.EntityFrameworkCore;

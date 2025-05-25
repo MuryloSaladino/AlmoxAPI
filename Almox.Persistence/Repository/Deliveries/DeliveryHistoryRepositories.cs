@@ -1,4 +1,4 @@
-using Almox.Application.Repository.DeliveriesRepository;
+using Almox.Application.Repository.Deliveries;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
 

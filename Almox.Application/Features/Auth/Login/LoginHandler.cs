@@ -1,6 +1,6 @@
 using MediatR;
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Repository.UsersRepository;
+using Almox.Application.Repository.Users;
 using Almox.Application.Contracts;
 using Almox.Domain.Common.Messages;
 

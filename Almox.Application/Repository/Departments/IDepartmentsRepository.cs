@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Repository.DepartmentsRepository;
+namespace Almox.Application.Repository.Departments;
 
 public interface IDepartmentRepository : IBaseRepository<Department> 
 {

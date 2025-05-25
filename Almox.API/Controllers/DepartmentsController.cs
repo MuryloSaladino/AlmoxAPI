@@ -3,7 +3,7 @@ using Almox.Application.Features.Departments.Create;
 using Almox.Application.Features.Departments.Delete;
 using Almox.Application.Features.Departments.Find;
 using Almox.Application.Features.Departments.FindById;
-using Almox.Application.Repository.DepartmentsRepository;
+using Almox.Application.Repository.Departments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

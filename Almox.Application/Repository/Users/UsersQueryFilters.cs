@@ -1,4 +1,4 @@
-namespace Almox.Application.Repository.UsersRepository;
+namespace Almox.Application.Repository.Users;
 
 public record UsersQueryFilters(
     string? Username,

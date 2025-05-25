@@ -1,6 +1,6 @@
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Repository.UsersRepository;
+namespace Almox.Application.Repository.Users;
 
 public interface IUsersRepository : IBaseRepository<User>
 {

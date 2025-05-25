@@ -1,4 +1,4 @@
-using Almox.Application.Repository.DeliveriesRepository;
+using Almox.Application.Repository.Deliveries;
 using MediatR;
 
 namespace Almox.Application.Features.Deliveries.Find;
