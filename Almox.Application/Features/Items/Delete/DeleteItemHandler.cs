@@ -2,13 +2,13 @@ using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Items;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using MediatR;
 
 namespace Almox.Application.Features.Items.Delete;
 
 public class DeleteItemHandler(
-    IItemsRepository categoriesRepository,
+    IItemsRepository itemsRepository,
     IRequestSession requestSession,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteItemRequest, DeleteItemResponse>
@@ -16,15 +16,12 @@ public class DeleteItemHandler(
     public async Task<DeleteItemResponse> Handle(
         DeleteItemRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
+        requestSession.GetStaffSessionOrThrow();
 
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
-
-        var category = await categoriesRepository.Get(request.Id, cancellationToken)
+        var item = await itemsRepository.Get(request.ItemId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
         
-        categoriesRepository.Delete(category);
+        itemsRepository.Delete(item);
         
         await unitOfWork.Save(cancellationToken);
 
