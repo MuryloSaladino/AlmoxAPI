@@ -1,4 +1,5 @@
 using Almox.Domain.Common.Enums;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Orders.FindById;
 
@@ -11,6 +12,7 @@ public sealed record FindOrderByIdResponse(
     OrderPriority Priority,
     string? Observations,
     OrderStatus Status,
+    List<OrderHistory> History,
     List<FindOrderByIdItemPresenter> OrderItems
 );
 

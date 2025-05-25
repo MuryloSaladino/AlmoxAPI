@@ -24,7 +24,7 @@ public static class OrderHistoryTableConfigurationExtensions
                 .HasColumnName("order_id")
                 .IsRequired();
             entity.HasOne(e => e.Order)
-                .WithMany()
+                .WithMany(o => o.History)
                 .HasForeignKey(e => e.OrderId);
 
             entity.Property(e => e.Status)

@@ -24,7 +24,7 @@ public static class DeliveryHistoryTableConfigurationExtensions
                 .HasColumnName("delivery_id")
                 .IsRequired();
             entity.HasOne(e => e.Delivery)
-                .WithMany()
+                .WithMany(d => d.History)
                 .HasForeignKey(e => e.DeliveryId);
 
             entity.Property(e => e.Status)
