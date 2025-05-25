@@ -1,6 +1,6 @@
-namespace Almox.Application.Features.Departments.Find;
+namespace Almox.Application.Features.Departments.GetAll;
 
-public sealed record FindDepartmentsResponse(
+public sealed record GetAllDepartmentsResponse(
     Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
