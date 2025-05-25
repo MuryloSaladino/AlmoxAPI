@@ -4,7 +4,6 @@ namespace Almox.Domain.Entities;
 
 public class DeliveryHistory : BaseEntity
 {
-    public required Delivery Delivery { get; set; }
     public required Guid DeliveryId { get; set; }
 
     public required User UpdatedBy { get; set; }

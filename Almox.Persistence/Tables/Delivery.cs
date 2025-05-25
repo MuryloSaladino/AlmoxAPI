@@ -24,6 +24,10 @@ public static class DeliveryTableConfigurationExtensions
                 .WithOne()
                 .HasForeignKey(di => di.DeliveryId);
 
+            entity.HasMany(e => e.History)
+                .WithOne()
+                .HasForeignKey(h => h.DeliveryId);
+
             entity.Property(e => e.Observations)
                 .HasColumnName("observations")
                 .HasColumnType("text");

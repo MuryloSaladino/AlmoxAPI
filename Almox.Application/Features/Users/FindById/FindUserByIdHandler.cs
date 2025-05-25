@@ -16,10 +16,7 @@ public sealed class FindUserByIdHandler(
     public async Task<FindUserByIdResponse> Handle(
         FindUserByIdRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
-
-        if (!session.IsAdmin && request.UserId != session.UserId)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
+        requestSession.GetSessionOrThrow();
 
         var user = await usersRepository.Get(request.UserId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);

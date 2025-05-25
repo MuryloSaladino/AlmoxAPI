@@ -21,8 +21,12 @@ public static class OrderTableConfigurationExtensions
                 .HasForeignKey(e => e.UserId);
 
             entity.HasMany(e => e.OrderItems)
-                .WithOne(ri => ri.Order)
+                .WithOne()
                 .HasForeignKey(ri => ri.OrderId);
+
+            entity.HasMany(e => e.History)
+                .WithOne()
+                .HasForeignKey(h => h.OrderId);
 
             entity.Property(e => e.Priority)
                 .HasColumnName("priority")

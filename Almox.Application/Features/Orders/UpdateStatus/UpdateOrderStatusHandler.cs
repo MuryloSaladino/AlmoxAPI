@@ -82,7 +82,6 @@ public class UpdateOrderStatusHandler(
         var history = new OrderHistory()
         {
             OrderId = order.Id,
-            Order = order,
             UpdatedById = userId,
             UpdatedBy = null!,
             Status = status,

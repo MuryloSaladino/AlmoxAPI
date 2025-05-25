@@ -38,7 +38,6 @@ public class CreateDeliveryHandler(
 
         historyRepository.Create(new()
         {
-            Delivery = delivery,
             DeliveryId = delivery.Id,
             UpdatedBy = user,
             UpdatedById = delivery.UserId,

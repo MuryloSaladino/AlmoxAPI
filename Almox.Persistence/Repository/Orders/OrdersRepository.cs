@@ -31,6 +31,7 @@ public class OrdersRepository(
         => await dbSet
             .Where(o => o.DeletedAt == null)
             .Where(o => o.Id == id)
+            .Include(o => o.History)
             .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Item)
             .FirstOrDefaultAsync(cancellationToken);

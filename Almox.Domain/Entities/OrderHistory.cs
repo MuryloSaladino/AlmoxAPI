@@ -4,7 +4,6 @@ namespace Almox.Domain.Entities;
 
 public class OrderHistory : BaseEntity
 {
-    public required Order Order { get; set; }
     public required Guid OrderId { get; set; }
 
     public required User UpdatedBy { get; set; }
