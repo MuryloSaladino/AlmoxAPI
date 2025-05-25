@@ -15,6 +15,7 @@ public class OrdersRepository(
         var query = dbSet
             .Where(r => r.DeletedAt == null)
             .Where(r => r.Status != null)
+            .OrderByDescending(o => o.Priority)
             .AsQueryable();
 
         if (filters.UserId is not null)
