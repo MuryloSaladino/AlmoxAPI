@@ -7,8 +7,8 @@ public sealed record CreateDeliveryResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    Guid UserId,
-    string? Observations,
-    DateTime Date,
-    DeliveryStatus Status 
+    string Supplier,
+    string Tracking,
+    DateTime ExpectedDate,
+    DeliveryStatus Status
 );
