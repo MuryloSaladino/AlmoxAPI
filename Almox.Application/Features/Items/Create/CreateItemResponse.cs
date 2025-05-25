@@ -1,3 +1,5 @@
+using Almox.Domain.Entities;
+
 namespace Almox.Application.Features.Items.Create;
 
 public sealed record CreateItemResponse(
@@ -5,7 +7,10 @@ public sealed record CreateItemResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    string Name, 
-    int Quantity,
-    string? ImageUrl
+    string Name,
+    string Description,
+    decimal Price,
+    int Stock,
+    string? ImageUrl,
+    List<Category> Categories
 );

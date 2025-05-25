@@ -1,8 +1,7 @@
-using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
+using Almox.Application.Repository.Categories;
 using Almox.Application.Repository.Items;
-using Almox.Domain.Common.Messages;
 using Almox.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -10,6 +9,7 @@ using MediatR;
 namespace Almox.Application.Features.Items.Create;
 
 public class CreateItemHandler(
+    ICategoriesRepository categoriesRepository,
     IItemsRepository itemsRepository,
     IRequestSession requestSession,
     IUnitOfWork unitOfWork,
@@ -19,12 +19,13 @@ public class CreateItemHandler(
     public async Task<CreateItemResponse> Handle(
         CreateItemRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
+        requestSession.GetStaffSessionOrThrow();
 
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
+        var categoryFilters = new CategoryFilters(request.CategoryIds);
+        var categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
 
         var item = mapper.Map<Item>(request);
+        item.Categories.AddRange(categories);
         
         itemsRepository.Create(item);
 
