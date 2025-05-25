@@ -1,8 +1,6 @@
-using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Categories;
-using Almox.Domain.Common.Messages;
 using Almox.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -19,10 +17,7 @@ public class CreateCategoryHandler(
     public async Task<CreateCategoryResponse> Handle(
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
-
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
+        requestSession.GetStaffSessionOrThrow();
 
         var category = mapper.Map<Category>(request);
         

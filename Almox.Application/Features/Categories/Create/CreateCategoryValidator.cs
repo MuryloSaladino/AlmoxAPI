@@ -10,13 +10,5 @@ public class CreateCategoryValidator : AbstractValidator<CreateCategoryRequest>
             .NotEmpty()
             .MinimumLength(2)
             .MaximumLength(35);
-
-        RuleFor(c => c.Description)
-            .NotEmpty()
-            .MaximumLength(255);
-
-        RuleFor(c => c.Color)
-            .NotEmpty()
-            .Length(7);
     }
 }
