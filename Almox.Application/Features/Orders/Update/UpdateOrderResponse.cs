@@ -1,4 +1,5 @@
 using Almox.Domain.Common.Enums;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Orders.Update;
 
@@ -9,15 +10,9 @@ public sealed record UpdateOrderResponse(
     DateTime? DeletedAt,
     Guid UserId,
     OrderPriority Priority,
-    string? Observations,
+    string Tracking,
     OrderStatus Status,
-    List<UpdateOrderStatusItemPresenter> OrderItems
+    string? Observations,
+    List<OrderItem> OrderItems
 );
 
-public class UpdateOrderStatusItemPresenter
-{
-    public required Guid Id { get; set; }
-    public required string Name { get; set; } 
-    public required int Quantity { get; set; }
-    public string? ImageUrl { get; set; }
-}

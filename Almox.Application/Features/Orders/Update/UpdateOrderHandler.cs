@@ -2,7 +2,7 @@ using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Orders;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using AutoMapper;
 using MediatR;
 
@@ -20,7 +20,7 @@ public class UpdateOrderHandler(
     {
         var session = requestSession.GetSessionOrThrow();
 
-        var order = await ordersRepository.GetWithItems(request.Id, cancellationToken)
+        var order = await ordersRepository.Get(request.Id, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
 
         if(session.UserId != order.UserId)
