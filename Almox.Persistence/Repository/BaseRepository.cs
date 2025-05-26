@@ -5,10 +5,12 @@ using Almox.Domain.Entities;
 
 namespace Almox.Persistence.Repository;
 
-public class BaseRepository<TEntity>(AlmoxContext AlmoxContext) : IBaseRepository<TEntity>
-    where TEntity : BaseEntity
+public class BaseRepository<TEntity>(
+    AlmoxContext context
+) : IBaseRepository<TEntity>
+        where TEntity : BaseEntity
 {
-    protected readonly AlmoxContext context = AlmoxContext;
+    protected readonly AlmoxContext context = context;
 
     public void Create(TEntity entity)
         => context.Add(entity);
@@ -35,11 +37,30 @@ public class BaseRepository<TEntity>(AlmoxContext AlmoxContext) : IBaseRepositor
             .Where(entity => entity.DeletedAt == null)
             .ToListAsync(cancellationToken);
     
-    public virtual Task<List<TEntity>> GetAll(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-        => context.Set<TEntity>()
-            .Where(entity => entity.DeletedAt == null)
-            .Where(entity => ids.Contains(entity.Id))
+    public virtual Task<List<TEntity>> GetAll(
+        IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => context.Set<TEntity>()
+                .Where(entity => entity.DeletedAt == null)
+                .Where(entity => ids.Contains(entity.Id))
+                .ToListAsync(cancellationToken);
+
+    public async Task<PaginatedResult<TEntity>> GetAll(
+        PaginatedFilter filters, CancellationToken cancellationToken)
+    {
+        var query = context.Set<TEntity>()
+            .AsQueryable()
+            .Where(e => e.DeletedAt == null);
+
+        var count = await query.CountAsync(cancellationToken);
+        var maxPage = (int)Math.Ceiling(count / (double)filters.PageSize);
+
+        var results = await query
+            .Skip((filters.Page - 1) * filters.PageSize)
+            .Take(filters.PageSize)
             .ToListAsync(cancellationToken);
+
+        return new(filters.Page, filters.PageSize, maxPage, results);
+    }
     
     public virtual Task<bool> Exists(Guid id, CancellationToken cancellationToken)
         => context.Set<TEntity>()
