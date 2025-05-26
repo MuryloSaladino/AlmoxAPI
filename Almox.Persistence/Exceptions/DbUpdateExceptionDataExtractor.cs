@@ -1,31 +1,29 @@
 using Almox.Application.Contracts;
-using Almox.Domain.Common.Enums;
-using Almox.Domain.Common.Messages;
-using Almox.Domain.Objects;
+using Almox.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
 namespace Almox.Persistence.Exceptions;
 
-public class DbUpdateErrorSummaryExtractor
-    : IErrorSummaryExtractor<DbUpdateException>
+public class DbUpdateExceptionDataExtractor
+    : IExceptionDataExtractor<DbUpdateException>
 {
-    public ErrorSummary Extract(DbUpdateException ex)
+    public ExceptionData Extract(DbUpdateException ex)
     {
         if (ex.InnerException is PostgresException psqlEx)
         {
             return psqlEx.SqlState switch
             {
                 PostgresErrorCodes.UniqueViolation
-                    => new(StatusCode.BadRequest,
+                    => new(ExceptionCode.BadRequest,
                         ExceptionMessages.BadRequest.ValueAlreadyTaken,
                         psqlEx.MessageText),
                 PostgresErrorCodes.ForeignKeyViolation
-                    => new(StatusCode.NotFound,
+                    => new(ExceptionCode.NotFound,
                         ExceptionMessages.NotFound.Resource,
                         psqlEx.MessageText),
                 PostgresErrorCodes.NotNullViolation
-                    => new(StatusCode.BadRequest,
+                    => new(ExceptionCode.BadRequest,
                         ExceptionMessages.BadRequest.NullValue,
                         psqlEx.MessageText),
                 _ => new()
@@ -34,5 +32,5 @@ public class DbUpdateErrorSummaryExtractor
         return new();
     }
 
-    public ErrorSummary Extract(Exception ex) => Extract((DbUpdateException)ex);
+    public ExceptionData Extract(Exception ex) => Extract((DbUpdateException)ex);
 }
