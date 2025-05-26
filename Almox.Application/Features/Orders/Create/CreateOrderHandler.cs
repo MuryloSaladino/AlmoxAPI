@@ -27,19 +27,17 @@ public class CreateOrderHandler(
         var order = mapper.Map<Order>(request);
         order.UserId = session.UserId;
 
-        var itemIds = request.OrderedItems.Select(x => x.ItemId).ToList();
+        var itemIds = request.OrderedItems.Select(x => x.ItemId);
+        var itemsDict = request.OrderedItems.ToDictionary(x => x.ItemId);
         var items = await itemsRepository.GetAll(itemIds, cancellationToken);
 
-        if (itemIds.Count != items.Count)
-            throw AppException.NotFound(ExceptionMessages.NotFound.Item);
-
-        order.OrderItems = items.Select(x => new OrderItem
+        order.OrderItems = [..items.Select(orderItem => new OrderItem
         {
-            ItemId = x.Id,
+            ItemId = orderItem.Id,
             OrderId = order.Id,
-            Price = x.Price,
-            Quantity = request.OrderedItems.First(y => y.ItemId == x.Id).Quantity
-        }).ToList();
+            Price = orderItem.Price,
+            Quantity = itemsDict[orderItem.Id].Quantity
+        })];
 
         ordersRepository.Create(order);
 
