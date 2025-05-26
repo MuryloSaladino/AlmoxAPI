@@ -1,4 +1,5 @@
 using Almox.Domain.Common.Enums;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Orders.Start;
 
@@ -9,15 +10,8 @@ public sealed record StartOrderResponse(
     DateTime? DeletedAt,
     Guid UserId,
     OrderPriority Priority,
-    string Observations,
+    string Tracking,
     OrderStatus Status,
-    List<StartOrderItemPresenter> OrderItems
+    string? Observations,
+    List<OrderItem> OrderItems
 );
-
-public class StartOrderItemPresenter
-{
-    public Guid? Id { get; set; }
-    public string? Name { get; set; } 
-    public int? Quantity { get; set; }
-    public string? ImageUrl { get; set; }
-}

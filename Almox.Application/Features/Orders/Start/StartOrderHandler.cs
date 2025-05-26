@@ -1,9 +1,7 @@
-using Almox.Application.Common.Exceptions;
+using Almox.Application.Common.Generators;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Orders;
-using Almox.Application.Repository.Users;
-using Almox.Domain.Common.Messages;
 using AutoMapper;
 using MediatR;
 
@@ -11,7 +9,6 @@ namespace Almox.Application.Features.Orders.Start;
 
 public class StartOrderHandler(
     IOrdersRepository ordersRepository,
-    IUsersRepository usersRepository,
     IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
@@ -22,18 +19,14 @@ public class StartOrderHandler(
     {
         var session = requestSession.GetSessionOrThrow();
 
-        var user = await usersRepository.Get(session.UserId, cancellationToken)
-            ?? throw AppException.NotFound(ExceptionMessages.NotFound.User);
-
-        var order = await ordersRepository.GetUserCartOrder(
-            session.UserId, cancellationToken);
+        var order = await ordersRepository.GetUserCartOrder(session.UserId, cancellationToken);
 
         if(order is null)
         {
             order = new()
             {
-                User = user,
-                UserId = user.Id
+                Tracking = TrackingCodeGenerator.Generate(),
+                UserId = session.UserId
             };
             ordersRepository.Create(order);
 
