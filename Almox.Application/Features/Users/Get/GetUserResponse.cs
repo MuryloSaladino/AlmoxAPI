@@ -1,5 +1,4 @@
 using Almox.Domain.Common.Enums;
-using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Users.Get;
 

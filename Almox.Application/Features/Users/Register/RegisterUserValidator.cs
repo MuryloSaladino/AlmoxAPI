@@ -10,10 +10,6 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserRequest>
             .NotEmpty()
             .MinimumLength(3);
         
-        RuleFor(u => u.Password)
-            .NotEmpty()
-            .MinimumLength(8);
-        
         RuleFor(u => u.Email)
             .NotEmpty()
             .EmailAddress();

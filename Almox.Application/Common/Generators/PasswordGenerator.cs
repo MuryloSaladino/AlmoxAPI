@@ -1,9 +1,8 @@
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Almox.Application.Common.Generators;
 
-public static class IPasswordGenerator
+public static class PasswordGenerator
 {
     private const string Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private const string Lowercase = "abcdefghijklmnopqrstuvwxyz";
