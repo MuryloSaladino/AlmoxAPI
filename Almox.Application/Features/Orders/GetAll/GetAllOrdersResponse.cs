@@ -1,4 +1,5 @@
 using Almox.Domain.Common.Enums;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Orders.GetAll;
 
@@ -10,5 +11,8 @@ public sealed record GetAllOrdersResponse(
     Guid UserId,
     OrderPriority Priority,
     string Tracking,
-    OrderStatus Status
+    OrderStatus Status,
+    string? Observations,
+    List<OrderItem> OrderItems,
+    List<OrderStatusUpdate> StatusUpdates
 );
