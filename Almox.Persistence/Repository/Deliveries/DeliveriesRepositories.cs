@@ -10,8 +10,8 @@ public class DeliveriesRepository(
     AlmoxContext almoxContext
 ) : BaseRepository<Delivery>(almoxContext), IDeliveriesRepository
 {
-    public Task<List<Delivery>> GetWithFilters(
-        DeliveriesQueryFilters filters, CancellationToken cancellationToken)
+    public Task<List<Delivery>> GetAll(
+        DeliveryFilters filters, CancellationToken cancellationToken)
     {
         var query = context.Set<Delivery>()
             .Where(d => d.DeletedAt == null)
@@ -20,9 +20,9 @@ public class DeliveriesRepository(
         if (filters.Status is DeliveryStatus statusFilter)
             query = query.Where(d => d.Status == statusFilter);
         if (filters.Start is DateTime startDateFilter)
-            query = query.Where(d => d.Date > startDateFilter);
+            query = query.Where(d => d.ExpectedDate > startDateFilter);
         if (filters.End is DateTime endDateFilter)
-            query = query.Where(d => d.Date < endDateFilter);
+            query = query.Where(d => d.ExpectedDate < endDateFilter);
 
         return query.ToListAsync(cancellationToken);
     }
