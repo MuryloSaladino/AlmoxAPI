@@ -1,5 +1,7 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Deliveries.Create;
+using Almox.Application.Features.Deliveries.GetAll;
+using Almox.Application.Repository.Deliveries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,5 +17,14 @@ public class DeliveriesController(IMediator mediator) : ControllerBase
     {
         var response = await mediator.Send(request, cancellationToken);
         return Created(APIRoutes.Deliveries, response);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<GetAllDeliveriesResponse>>> GetAll(
+        [FromQuery] DeliveryFilters filters, CancellationToken cancellationToken)
+    {
+        var request = new GetAllDeliveriesRequest(filters);
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 }
