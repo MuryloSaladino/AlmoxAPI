@@ -18,6 +18,8 @@ public class UserConfiguration : BaseEntityConfiguration<User>
         builder.HasOne(e => e.Department)
             .WithMany(d => d.Users)
             .HasForeignKey(e => e.DepartmentId);
+        builder.Navigation(u => u.Department)
+            .AutoInclude();
 
         builder.Property(e => e.Username)
             .HasColumnName("username")

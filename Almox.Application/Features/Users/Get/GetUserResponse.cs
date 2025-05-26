@@ -10,5 +10,6 @@ public sealed record GetUserResponse(
     string Username,
     string Email,
     UserRole Role,
-    string DepartmentName
+    string DepartmentName,
+    Guid DepartmentId
 );

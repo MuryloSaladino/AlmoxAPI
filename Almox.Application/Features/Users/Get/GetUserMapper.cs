@@ -8,6 +8,6 @@ public class GetUserMapper : Profile
     public GetUserMapper()
     {
         CreateMap<User, GetUserResponse>()
-            .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(u => u.Department.Name));
+            .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name));
     }
 }
