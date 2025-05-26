@@ -1,17 +1,17 @@
-using Almox.Persistence.Config;
+using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Almox.Persistence.Context;
 
-public class XpricefyDbContextFactory : IDesignTimeDbContextFactory<AlmoxContext>
+public class AlmoxDbContextFactory : IDesignTimeDbContextFactory<AlmoxContext>
 {
     public AlmoxContext CreateDbContext(string[] args)
     {
-        DotEnv.Load();
+        DotEnv.Load(options: new DotEnvOptions(envFilePaths: ["../.env"]));
 
         var optionsBuilder = new DbContextOptionsBuilder<AlmoxContext>();
-        optionsBuilder.UseNpgsql(DotEnv.Get("DATABASE_URL"));
+        optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL"));
 
         return new AlmoxContext(optionsBuilder.Options);
     }
