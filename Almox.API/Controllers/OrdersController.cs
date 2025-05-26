@@ -18,7 +18,7 @@ public class OrdersController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<StartOrderResponse>> Start(
-        StartOrderRequest request, CancellationToken cancellationToken)
+        [FromQuery] StartOrderRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);

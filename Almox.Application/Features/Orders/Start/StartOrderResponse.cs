@@ -11,7 +11,6 @@ public sealed record StartOrderResponse(
     Guid UserId,
     OrderPriority Priority,
     string Tracking,
-    OrderStatus Status,
     string? Observations,
     List<OrderItem> OrderItems
 );
