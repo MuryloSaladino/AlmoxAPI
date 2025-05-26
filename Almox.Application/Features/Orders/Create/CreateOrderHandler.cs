@@ -1,9 +1,7 @@
-using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Items;
 using Almox.Application.Repository.Orders;
-using Almox.Domain.Common.Exceptions;
 using Almox.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -34,6 +32,7 @@ public class CreateOrderHandler(
         order.OrderItems = [..items.Select(item => new OrderItem
         {
             ItemId = item.Id,
+            Item = item,
             OrderId = order.Id,
             Price = item.Price,
             Quantity = itemsDict[item.Id].Quantity
