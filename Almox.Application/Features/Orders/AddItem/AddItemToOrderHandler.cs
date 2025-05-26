@@ -1,8 +1,9 @@
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Common.Session;
 using Almox.Application.Repository;
+using Almox.Application.Repository.Items;
 using Almox.Application.Repository.Orders;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using Almox.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -12,6 +13,7 @@ namespace Almox.Application.Features.Orders.AddItem;
 public class AddItemToOrderHandler(
     IOrderItemsRepository orderItemsRepository,
     IOrdersRepository ordersRepository,
+    IItemsRepository itemsRepository,
     IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
@@ -24,9 +26,9 @@ public class AddItemToOrderHandler(
 
         var order = await ordersRepository.GetUserCartOrder(session.UserId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Order);
-
-        if(session.UserId != order.UserId && !session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
+            
+        var item = await itemsRepository.Get(request.ItemId, cancellationToken)
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
         var orderItem = await orderItemsRepository.Get(request.ItemId, order.Id, cancellationToken);
 
@@ -37,6 +39,7 @@ public class AddItemToOrderHandler(
             orderItemsRepository.Create(orderItem);
         }
         orderItem.Quantity = request.Props.Quantity;
+        orderItem.Price = item.Price;
 
         await unitOfWork.Save(cancellationToken);
 
