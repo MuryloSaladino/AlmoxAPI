@@ -9,6 +9,8 @@ public sealed record UpdateItemRequest(
 
 public sealed record UpdateItemRequestProps(
     string Name,
-    int Quantity,
-    string? ImageUrl
+    string Description,
+    decimal Price,
+    int Stock,
+    List<Guid> CategoryIds
 );

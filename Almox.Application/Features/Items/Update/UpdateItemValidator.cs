@@ -11,11 +11,14 @@ public class UpdateItemValidator : AbstractValidator<UpdateItemRequest>
             .MinimumLength(2)
             .MaximumLength(50);
 
-        RuleFor(i => i.Props.Quantity)
+        RuleFor(i => i.Props.Description)
+            .NotEmpty()
+            .MaximumLength(255);
+
+        RuleFor(i => i.Props.Stock)
             .GreaterThanOrEqualTo(0);
             
-        RuleFor(i => i.Props.ImageUrl)
-            .MaximumLength(255)
-            .When(i => !string.IsNullOrEmpty(i.Props.ImageUrl));
+        RuleFor(i => i.Props.Price)
+            .GreaterThanOrEqualTo(0);
     }
 }
