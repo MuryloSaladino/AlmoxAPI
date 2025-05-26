@@ -1,3 +1,4 @@
+using Almox.Application.Repository;
 using Almox.Application.Repository.Deliveries;
 using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
@@ -10,7 +11,7 @@ public class DeliveriesRepository(
     AlmoxContext context
 ) : BaseRepository<Delivery>(context), IDeliveriesRepository
 {
-    public Task<List<Delivery>> GetAll(
+    public async Task<PaginatedResult<Delivery>> GetAll(
         DeliveryFilters filters, CancellationToken cancellationToken)
     {
         var query = context.Set<Delivery>()
@@ -19,11 +20,21 @@ public class DeliveriesRepository(
 
         if (filters.Status is DeliveryStatus statusFilter)
             query = query.Where(d => d.Status == statusFilter);
+            
         if (filters.Start is DateTime startDateFilter)
             query = query.Where(d => d.ExpectedDate > startDateFilter);
+
         if (filters.End is DateTime endDateFilter)
             query = query.Where(d => d.ExpectedDate < endDateFilter);
 
-        return query.ToListAsync(cancellationToken);
+        var count = await query.CountAsync(cancellationToken);
+        var maxPage = (int)Math.Ceiling(count / (double)filters.PageSize);
+
+        var results = await query
+            .Skip((filters.Page - 1) * filters.PageSize)
+            .Take(filters.PageSize)
+            .ToListAsync(cancellationToken);
+        
+        return new(filters.Page, filters.PageSize, maxPage, results);
     }
 }
