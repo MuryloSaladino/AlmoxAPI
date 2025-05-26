@@ -15,7 +15,7 @@ public class AlmoxDbContextFactory : IDesignTimeDbContextFactory<AlmoxContext>
             ?? throw new InvalidConfigurationException("The environment needs \"DATABASE_URL\" variable");
         var optionsBuilder = new DbContextOptionsBuilder<AlmoxContext>();
 
-        optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable(connection));
+        optionsBuilder.UseNpgsql(connection);
 
         return new AlmoxContext(optionsBuilder.Options);
     }
