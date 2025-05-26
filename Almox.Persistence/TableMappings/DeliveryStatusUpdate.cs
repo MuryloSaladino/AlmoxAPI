@@ -10,6 +10,8 @@ public class DeliveryStatusUpdateConfiguration : IEntityTypeConfiguration<Delive
     {
         builder.ToTable("delivery_status_updates");
 
+        builder.HasKey(dsu => new { dsu.DeliveryId, dsu.Status });
+
         builder.Property(dsu => dsu.UpdatedById)
             .HasColumnName("updated_by_id")
             .IsRequired();
