@@ -10,20 +10,20 @@ public class DeliveryStatusUpdateConfiguration : IEntityTypeConfiguration<Delive
     {
         builder.ToTable("delivery_status_updates");
 
-        builder.Property(e => e.UpdatedById)
+        builder.Property(dsu => dsu.UpdatedById)
             .HasColumnName("updated_by_id")
             .IsRequired();
 
-        builder.Property(e => e.DeliveryId)
+        builder.Property(dsu => dsu.DeliveryId)
             .HasColumnName("delivery_id")
             .IsRequired();
 
-        builder.Property(e => e.UpdatedAt)
+        builder.Property(dsu => dsu.UpdatedAt)
             .HasColumnName("updated_at")
             .HasColumnType("timestamptz")
             .IsRequired();
 
-        builder.Property(e => e.Status)
+        builder.Property(dsu => dsu.Status)
             .HasColumnName("status")
             .HasColumnType("smallint")
             .IsRequired();
