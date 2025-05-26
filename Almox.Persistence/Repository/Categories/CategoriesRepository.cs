@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Almox.Persistence.Repository.Categories;
 
 public class CategoriesRepository(
-    AlmoxContext almoxContext
-) : BaseRepository<Category>(almoxContext), ICategoriesRepository
+    AlmoxContext context
+) : BaseRepository<Category>(context), ICategoriesRepository
 {
     public Task<List<Category>> GetAll(CategoryFilters filters, CancellationToken cancellationToken)
         => context.Set<Category>()
