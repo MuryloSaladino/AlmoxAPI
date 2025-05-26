@@ -1,3 +1,4 @@
+using Almox.Application.Repository;
 using Almox.Application.Repository.Items;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
@@ -9,7 +10,8 @@ public class ItemsRepository(
     AlmoxContext context
 ) : BaseRepository<Item>(context), IItemsRepository
 {
-    public Task<List<Item>> GetAll(ItemFilters filters, CancellationToken cancellationToken)
+    public async Task<PaginatedResult<Item>> GetAll(
+        ItemFilters filters, CancellationToken cancellationToken)
     {
         var query = context.Set<Item>()
             .Where(i => i.DeletedAt == null)
@@ -23,6 +25,14 @@ public class ItemsRepository(
             query = query.Where(i =>
                 i.Categories.Any(c => EF.Functions.ILike(c.Name, $"%{filters.CategoryName}%")));
 
-        return query.ToListAsync(cancellationToken);
+        var count = await query.CountAsync(cancellationToken);
+        var maxPage = (int)Math.Ceiling(count / (double)filters.PageSize);
+
+        var results = await query
+            .Skip((filters.Page - 1) * filters.PageSize)
+            .Take(filters.PageSize)
+            .ToListAsync(cancellationToken);
+
+        return new(filters.Page, filters.PageSize, maxPage, results);
     }
 }
