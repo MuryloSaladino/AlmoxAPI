@@ -6,7 +6,7 @@ public class AddItemToOrderValidator : AbstractValidator<AddItemToOrderRequest>
 {
     public AddItemToOrderValidator()
     {
-        RuleFor(r => r.Props.Quantity)
+        RuleFor(r => r.Quantity)
             .GreaterThanOrEqualTo(1);
     }
 }

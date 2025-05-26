@@ -8,7 +8,7 @@ public class AddItemToOrderMapper : Profile
     public AddItemToOrderMapper()
     {
         CreateMap<AddItemToOrderRequest, OrderItem>()
-            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Props.Quantity));
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
             
         CreateMap<OrderItem, AddItemToOrderResponse>();
     }

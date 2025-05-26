@@ -26,8 +26,8 @@ public class UpdateOrderHandler(
         if(session.UserId != order.UserId)
             throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUser);
 
-        order.Priority = request.Props.Priority;
-        order.Observations = request.Props.Observations;
+        order.Priority = request.Priority;
+        order.Observations = request.Observations;
 
         ordersRepository.Update(order);
 

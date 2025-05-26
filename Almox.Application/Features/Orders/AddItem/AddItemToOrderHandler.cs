@@ -38,7 +38,7 @@ public class AddItemToOrderHandler(
             orderItem.OrderId = order.Id;
             orderItemsRepository.Create(orderItem);
         }
-        orderItem.Quantity = request.Props.Quantity;
+        orderItem.Quantity = request.Quantity;
         orderItem.Price = item.Price;
 
         await unitOfWork.Save(cancellationToken);

@@ -6,8 +6,8 @@ public class UpdateRequestValidator : AbstractValidator<UpdateOrderRequest>
 {
     public UpdateRequestValidator()
     {
-        RuleFor(r => r.Props.Observations)
+        RuleFor(r => r.Observations)
             .MaximumLength(255)
-            .When(r => !string.IsNullOrWhiteSpace(r.Props.Observations));
+            .When(r => !string.IsNullOrWhiteSpace(r.Observations));
     }
 }

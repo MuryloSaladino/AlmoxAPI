@@ -25,12 +25,12 @@ public class UpdateItemHandler(
         var item = await itemsRepository.Get(request.Id, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
-        item.Name = request.Props.Name;
-        item.Stock = request.Props.Stock;
-        item.Price = request.Props.Price;
-        item.Description = request.Props.Description;
+        item.Name = request.Name;
+        item.Stock = request.Stock;
+        item.Price = request.Price;
+        item.Description = request.Description;
 
-        var categoryFilters = new CategoryFilters(request.Props.CategoryIds);
+        var categoryFilters = new CategoryFilters(request.CategoryIds);
         item.Categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
 
         itemsRepository.Update(item);
