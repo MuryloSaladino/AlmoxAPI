@@ -8,5 +8,5 @@ public class Item : BaseEntity
     public required int Stock { get; set; }
     public string? ImageUrl { get; set; }
     
-    public List<Category> Categories { get; } = [];
+    public List<Category> Categories { get; set; } = [];
 }
