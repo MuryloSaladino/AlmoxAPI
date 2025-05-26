@@ -14,12 +14,12 @@ using Almox.Persistence.Repository.Departments;
 using Almox.Application.Repository.Items;
 using Almox.Persistence.Repository.Items;
 using Almox.Application.Repository.Orders;
-using Almox.Persistence.Config;
 using Almox.Persistence.Repository.Orders;
-using Almox.Application.Contracts;
 using Almox.Persistence.Exceptions;
 using Almox.Application.Repository.Images;
 using Almox.Persistence.Repository.Images;
+using Microsoft.IdentityModel.Protocols.Configuration;
+using Almox.Application.Contracts;
 
 namespace Almox.Persistence;
 
@@ -27,23 +27,24 @@ public static class ServiceExtensions
 {
     public static void ConfigurePersistence(this IServiceCollection services)
     {
-        var connection = DotEnv.Get("DATABASE_URL");
+        var connection = Environment.GetEnvironmentVariable("DATABASE_URL")
+            ?? throw new InvalidConfigurationException("The environment needs \"DATABASE_URL\" variable");
 
         services.AddDbContext<AlmoxContext>(opt => opt.UseNpgsql(connection));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<IErrorSummaryExtractor<DbUpdateException>, DbUpdateErrorSummaryExtractor>();
+        services.AddScoped<IExceptionDataExtractor<DbUpdateException>, DbUpdateExceptionDataExtractor>();
 
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<IDeliveriesRepository, DeliveriesRepository>();
         services.AddScoped<IDeliveryItemsRepository, DeliveryItemsRepository>();
-        services.AddScoped<IDeliveryHistoryRepository, DeliveryHistoryRepository>();
+        services.AddScoped<IDeliveryStatusUpdatesRepository, DeliveryStatusUpdateRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentsRepository>();
-        services.AddScoped<IItemsRepository, ItemsRepository>();
         services.AddScoped<IImagesRepository, ImagesRepository>();
+        services.AddScoped<IItemsRepository, ItemsRepository>();
         services.AddScoped<IOrdersRepository, OrdersRepository>();
-        services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
         services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+        services.AddScoped<IOrderStatusUpdatesRepository, OrderStatusUpdateRepository>();
         services.AddScoped<IUsersRepository, UserRepository>();
     }
 }
