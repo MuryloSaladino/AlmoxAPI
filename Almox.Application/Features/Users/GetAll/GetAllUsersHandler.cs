@@ -14,7 +14,7 @@ public class GetAllUsersHandler(
     public async Task<List<GetAllUsersResponse>> Handle(
         GetAllUsersRequest request, CancellationToken cancellationToken)
     {
-        requestSession.GetStaffSessionOrThrow();
+        requestSession.GetSessionOrThrow();
 
         var users = await usersRepository.GetAll(request.Filters, cancellationToken);
 
