@@ -21,12 +21,11 @@ public class CreateItemHandler(
     {
         requestSession.GetStaffSessionOrThrow();
 
-        var categoryFilters = new CategoryFilters(request.CategoryIds);
-        var categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
-
         var item = mapper.Map<Item>(request);
-        item.Categories.AddRange(categories);
-        
+
+        var categoryFilters = new CategoryFilters(request.CategoryIds);
+        item.Categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
+
         itemsRepository.Create(item);
 
         await unitOfWork.Save(cancellationToken);
