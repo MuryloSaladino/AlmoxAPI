@@ -34,13 +34,17 @@ public class OrderConfiguration : BaseEntityConfiguration<Order>
         builder.Property(o => o.Observations)
             .HasColumnName("observations")
             .HasColumnType("varchar(255)");
-            
+
         builder.HasMany(o => o.OrderItems)
             .WithOne()
             .HasForeignKey(oi => oi.OrderId);
+        builder.Navigation(o => o.OrderItems)
+            .AutoInclude();
 
         builder.HasMany(o => o.StatusUpdates)
             .WithOne()
             .HasForeignKey(su => su.OrderId);
+        builder.Navigation(o => o.StatusUpdates)
+            .AutoInclude();
     }
 }
