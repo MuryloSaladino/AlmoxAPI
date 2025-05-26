@@ -5,5 +5,6 @@ public sealed record GetAllDepartmentsResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    string Name
+    string Name,
+    int UserCount
 );
