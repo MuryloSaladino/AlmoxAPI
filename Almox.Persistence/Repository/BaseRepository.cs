@@ -18,24 +18,24 @@ public class BaseRepository<TEntity>(AlmoxContext AlmoxContext) : IBaseRepositor
         entity.UpdatedAt = DateTime.UtcNow;
         context.Update(entity);
     }
-
-    public Task<TEntity?> Get(Guid id, CancellationToken cancellationToken)
-        => context.Set<TEntity>()
-            .Where(entity => entity.DeletedAt == null)
-            .FirstOrDefaultAsync(entity => entity.Id == id, cancellationToken);
-
-    public Task<List<TEntity>> GetAll(CancellationToken cancellationToken)
-        => context.Set<TEntity>()
-            .Where(entity => entity.DeletedAt == null)
-            .ToListAsync(cancellationToken);
-
+    
     public void Delete(TEntity entity)
     {
         entity.DeletedAt = DateTime.UtcNow;
         context.Update(entity);
     }
+
+    public virtual Task<TEntity?> Get(Guid id, CancellationToken cancellationToken)
+        => context.Set<TEntity>()
+            .Where(entity => entity.DeletedAt == null)
+            .FirstOrDefaultAsync(entity => entity.Id == id, cancellationToken);
+
+    public virtual Task<List<TEntity>> GetAll(CancellationToken cancellationToken)
+        => context.Set<TEntity>()
+            .Where(entity => entity.DeletedAt == null)
+            .ToListAsync(cancellationToken);
     
-    public Task<bool> Exists(Guid id, CancellationToken cancellationToken)
+    public virtual Task<bool> Exists(Guid id, CancellationToken cancellationToken)
         => context.Set<TEntity>()
             .AnyAsync(e => 
                 EF.Property<Guid>(e, "Id") == id && 
