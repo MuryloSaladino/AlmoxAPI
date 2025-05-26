@@ -13,5 +13,6 @@ public class DepartmentsRepository(
         => context.Set<Department>()
             .Where(d => d.DeletedAt == null)
             .Where(d => filters.Name == null || EF.Functions.ILike(d.Name, $"%{filters.Name}%"))
+            .Include(d => d.Users)
             .ToListAsync(cancellationToken);
 }
