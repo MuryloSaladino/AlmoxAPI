@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Almox.Persistence.Migrations
 {
     [DbContext(typeof(AlmoxContext))]
-    [Migration("20250526050952_StartMigration")]
+    [Migration("20250526051355_StartMigration")]
     partial class StartMigration
     {
         /// <inheritdoc />
