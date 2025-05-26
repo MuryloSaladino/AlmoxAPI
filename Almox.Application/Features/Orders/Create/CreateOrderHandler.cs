@@ -31,12 +31,12 @@ public class CreateOrderHandler(
         var itemsDict = request.OrderedItems.ToDictionary(x => x.ItemId);
         var items = await itemsRepository.GetAll(itemIds, cancellationToken);
 
-        order.OrderItems = [..items.Select(orderItem => new OrderItem
+        order.OrderItems = [..items.Select(item => new OrderItem
         {
-            ItemId = orderItem.Id,
+            ItemId = item.Id,
             OrderId = order.Id,
-            Price = orderItem.Price,
-            Quantity = itemsDict[orderItem.Id].Quantity
+            Price = item.Price,
+            Quantity = itemsDict[item.Id].Quantity
         })];
 
         ordersRepository.Create(order);
