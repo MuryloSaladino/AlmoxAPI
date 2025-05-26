@@ -22,8 +22,6 @@ public class OrdersRepository(
 
         if (filters.Status is OrderStatus status)
             query = query.Where(r => r.Status == status);
-        else
-            query = query.Where(r => r.Status != null);
 
         query = query.OrderByDescending(o => o.Priority);
 
@@ -34,6 +32,5 @@ public class OrdersRepository(
         => context.Set<Order>()
             .Where(o => o.DeletedAt == null)
             .Where(o => o.UserId == userId)
-            .Where(o => o.Status == null)
             .FirstOrDefaultAsync(cancellationToken);
 }

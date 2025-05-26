@@ -28,7 +28,8 @@ public class OrderConfiguration : BaseEntityConfiguration<Order>
 
         builder.Property(o => o.Status)
             .HasColumnName("status")
-            .HasColumnType("smallint");
+            .HasColumnType("smallint")
+            .IsRequired();
 
         builder.Property(o => o.Observations)
             .HasColumnName("observations")
