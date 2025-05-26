@@ -8,6 +8,13 @@ public class GetAllDepartmentsMapper : Profile
     public GetAllDepartmentsMapper()
     {
         CreateMap<Department, GetAllDepartmentsResponse>()
-            .ForMember(dest => dest.UserCount, opt => opt.MapFrom(d => d.Users.Count));
+            .ConstructUsing(d => new GetAllDepartmentsResponse(
+                d.Id,
+                d.CreatedAt,
+                d.UpdatedAt,
+                d.DeletedAt,
+                d.Name,
+                d.Users.Count
+            ));
     }
 }
