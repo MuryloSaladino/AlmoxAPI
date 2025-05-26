@@ -6,20 +6,24 @@ using Almox.Application.Common.Exceptions;
 using Almox.Domain.Entities;
 using Almox.Application.Contracts;
 using Almox.Domain.Objects;
-using Almox.Domain.Common.Messages;
-using Almox.API.Config;
+using Microsoft.IdentityModel.Protocols.Configuration;
+using Almox.Domain.Common.Enums;
+using Almox.Domain.Common.Exceptions;
 
 namespace Almox.API.Services;
 
 public class AuthenticationService : IAuthenticator
 {
-    public string SecretKey { get; private set; } = DotEnv.Get("SECRET_KEY");
-    public int ExpireHours { get; private set; } = int.Parse(DotEnv.Get("EXPIRE_HOURS"));
+    private string SecretKey { get; } = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+        ?? throw new InvalidConfigurationException("The environment needs \"SECRET_KEY\" variable");
+    private string Issuer { get; } = Environment.GetEnvironmentVariable("JWT_ISSUER")
+        ?? throw new InvalidConfigurationException("The environment needs \"JWT_ISSUER\" variable");
+    private int ExpireHours { get; } = int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRE_HOURS") ?? "3");
 
     private static class PayloadKeys
     {
-        public const string UserId = "sub";
-        public const string IsAdmin = "admin";
+        public const string User = "userId";
+        public const string Role = "userRole";
     }
 
     public string GenerateUserToken(User user)
@@ -28,18 +32,17 @@ public class AuthenticationService : IAuthenticator
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
-            Subject = new ClaimsIdentity([ 
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(PayloadKeys.UserId, user.Id.ToString()),
-                new Claim(PayloadKeys.IsAdmin, user.IsAdmin.ToString()),
+            Subject = new ClaimsIdentity([
+                new Claim(PayloadKeys.User, user.Id.ToString()),
+                new Claim(PayloadKeys.Role, user.Role.ToString()),
             ]),
-            
-            Expires = DateTime.UtcNow.AddHours(ExpireHours),
-            
             SigningCredentials = new(
-                new SymmetricSecurityKey(key), 
+                new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature
             ),
+            Issuer = Issuer,
+            IssuedAt = DateTime.UtcNow,
+            Expires = DateTime.UtcNow.AddHours(ExpireHours),
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -55,9 +58,8 @@ public class AuthenticationService : IAuthenticator
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
+            ValidIssuer = Issuer,
             ValidateAudience = false,
-            ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
         };
 
@@ -65,19 +67,22 @@ public class AuthenticationService : IAuthenticator
         {
             var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 
-            var userId = principal.FindFirst(PayloadKeys.UserId)?.Value
-                ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                    ?? throw new SecurityTokenException($"Invalid token: missing {PayloadKeys.UserId} claim.");
+            var userId = principal.FindFirst(PayloadKeys.User)?.Value
+                ?? throw new SecurityTokenException($"Invalid token: missing { PayloadKeys.User } claim.");
 
-            var isAdmin = bool.Parse(principal.FindFirst(PayloadKeys.IsAdmin)?.Value ?? "False");
+            var role = principal.FindFirst(PayloadKeys.Role)?.Value
+                ?? throw new SecurityTokenException($"Invalid token: missing { PayloadKeys.Role } claim.");
 
             if(!Guid.TryParse(userId, out Guid parsedId))
-                throw new SecurityTokenException("Invalid token: user id format.");
+                throw new SecurityTokenException($"Invalid token: { PayloadKeys.User } format.");
+            
+            if(!Enum.TryParse(role, out UserRole parsedRole))
+                throw new SecurityTokenException($"Invalid token: { PayloadKeys.Role } format.");
 
             return new SessionData
             {
                 UserId = parsedId,
-                IsAdmin = isAdmin,
+                Role = parsedRole,
             };
         }
         catch(Exception e)
