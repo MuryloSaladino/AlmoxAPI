@@ -19,6 +19,6 @@ public static class ServiceExtensions
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-        services.AddScoped<IErrorSummaryExtractor<AppException>, AppExceptionExtractor>();
+        services.AddScoped<IExceptionDataExtractor<AppException>, AppExceptionExtractor>();
     }
 }
