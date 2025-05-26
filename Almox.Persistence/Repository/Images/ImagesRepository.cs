@@ -4,12 +4,14 @@ using Almox.Application.Repository.Images;
 using Almox.Domain.Common.Exceptions;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.IdentityModel.Protocols.Configuration;
 
 namespace Almox.Persistence.Repository.Images;
 
 public class ImagesRepository : IImagesRepository
 {
-    private readonly Cloudinary Cloudinary = new(Environment.GetEnvironmentVariable("CLOUDINARY_URL"));
+    private readonly Cloudinary Cloudinary = new(Environment.GetEnvironmentVariable("CLOUDINARY_URL")
+        ?? throw new InvalidConfigurationException("The environment needs \"CLOUDINARY_URL\" variable"));
 
     public async Task<string?> Save(Stream file, string fileName)
     {
