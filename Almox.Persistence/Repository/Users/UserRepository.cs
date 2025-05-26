@@ -6,18 +6,16 @@ using Almox.Application.Repository.Users;
 namespace Almox.Persistence.Repository.Users;
 
 public class UserRepository(
-    AlmoxContext almoxContext
-) : BaseRepository<User>(almoxContext), IUsersRepository
+    AlmoxContext context
+) : BaseRepository<User>(context), IUsersRepository
 {
-    public Task<bool> ExistsByUsername(string username, CancellationToken cancellationToken)
+    public Task<User?> GetByUsernameOrEmail(string search, CancellationToken cancellationToken)
         => context.Set<User>()
-            .AnyAsync(user => user.Username == username && user.DeletedAt == null, cancellationToken);
+            .Where(u => u.DeletedAt == null)
+            .Where(u => u.Username == search || u.Email == search)
+            .FirstOrDefaultAsync(cancellationToken);
 
-    public Task<User?> GetByUsername(string username, CancellationToken cancellationToken)
-        => context.Set<User>()
-            .FirstOrDefaultAsync(user => user.Username == username && user.DeletedAt == null, cancellationToken);
-
-    public Task<List<User>> GetWithFilters(UsersQueryFilters filters, CancellationToken cancellationToken)
+    public Task<List<User>> GetAll(UserFilters filters, CancellationToken cancellationToken)
         => context.Set<User>()
             .Where(u => u.DeletedAt == null)
             .Where(u => filters.Username == null || EF.Functions.ILike(u.Username, $"%{filters.Username}%"))
