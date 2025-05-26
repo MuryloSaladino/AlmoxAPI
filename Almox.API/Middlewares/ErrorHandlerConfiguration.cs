@@ -1,6 +1,6 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Diagnostics;
 using Almox.Application.Contracts;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Almox.API.Middlewares;
 
@@ -19,11 +19,11 @@ public static class ErrorHandlerExtensions
 
                 context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int)errorSummary.StatusCode;
+                context.Response.StatusCode = (int)errorSummary.ExceptionCode;
 
                 var errorResponse = JsonSerializer.Serialize(new
                 {
-                    statusCode = errorSummary.StatusCode,
+                    statusCode = errorSummary.ExceptionCode,
                     message = errorSummary.Message,
                     details = errorSummary.Details
                 });
@@ -31,13 +31,13 @@ public static class ErrorHandlerExtensions
             });
         });
     
-    private static IErrorSummaryExtractor ResolveExtractor(
+    private static IExceptionDataExtractor ResolveExtractor(
         Exception error, IServiceProvider services)
     {
         var errorType = error.GetType();
-        var extractorType = typeof(IErrorSummaryExtractor<>).MakeGenericType(errorType);
+        var extractorType = typeof(IExceptionDataExtractor<>).MakeGenericType(errorType);
 
-        return (IErrorSummaryExtractor?) services.GetService(extractorType)
-            ?? new DefaultErrorSummaryExtractor();
+        return (IExceptionDataExtractor?) services.GetService(extractorType)
+            ?? new DefaultExceptionDataExtractor();
     }
 }

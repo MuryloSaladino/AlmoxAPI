@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Almox.Application.Common.Session;
 using Almox.Application.Contracts;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 
 namespace Almox.API.Middlewares;
 
