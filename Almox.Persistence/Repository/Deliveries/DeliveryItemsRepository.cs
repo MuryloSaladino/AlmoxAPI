@@ -1,7 +1,6 @@
 using Almox.Application.Repository.Deliveries;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Almox.Persistence.Repository.Deliveries;
 
