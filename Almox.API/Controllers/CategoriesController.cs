@@ -1,7 +1,7 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Categories.Create;
 using Almox.Application.Features.Categories.Delete;
-using Almox.Application.Features.Categories.Find;
+using Almox.Application.Features.Categories.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,18 +20,19 @@ public class CategoriesController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<FindCategoriesResponse>>> Find(
-        CancellationToken cancellationToken)
+    public async Task<ActionResult<List<GetAllCategoriesResponse>>> GetAll(
+        GetAllCategoriesRequest request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindCategoriesRequest(), cancellationToken);
+        var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
     [HttpDelete, Route("{categoryId}")]
     public async Task<ActionResult> Delete(
-        [FromRoute] Guid categoryId, CancellationToken cancellationToken)
+        Guid categoryId, CancellationToken cancellationToken)
     {
-        await mediator.Send(new DeleteCategoryRequest(categoryId), cancellationToken);
+        var request = new DeleteCategoryRequest(categoryId);
+        await mediator.Send(request, cancellationToken);
         return NoContent();
     }
 }
