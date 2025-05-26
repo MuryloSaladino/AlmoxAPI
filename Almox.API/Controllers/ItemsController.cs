@@ -1,8 +1,7 @@
 using Almox.API.Enums;
-using Almox.Application.Features.Items.Categorize;
 using Almox.Application.Features.Items.Create;
 using Almox.Application.Features.Items.Delete;
-using Almox.Application.Features.Items.Find;
+using Almox.Application.Features.Items.GetAll;
 using Almox.Application.Features.Items.Update;
 using Almox.Application.Features.Items.UpdateImage;
 using Almox.Application.Repository.Items;
@@ -27,44 +26,29 @@ public class ItemsController(IMediator mediator) : ControllerBase
     public async Task<ActionResult> Delete(
         [FromRoute] Guid itemId, CancellationToken cancellationToken)
     {
-        await mediator.Send(new DeleteItemRequest(itemId), cancellationToken);
+        var request = new DeleteItemRequest(itemId);
+        await mediator.Send(request, cancellationToken);
         return NoContent();
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<FindItemsResponse>>> Find(
-        [FromQuery] string? name,
-        [FromQuery] string? category,
-        CancellationToken cancellationToken)
+    public async Task<ActionResult<List<GetAllItemsResponse>>> GetAll(
+        [FromQuery] ItemFilters filters, CancellationToken cancellationToken)
     {
-        var filters = new ItemsQueryFilters(name, category);
-        var response = await mediator.Send(new FindItemsRequest(filters), cancellationToken);
+        var request = new GetAllItemsRequest(filters);
+        var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
-    [HttpPatch, Route("{itemId}")]
+    [HttpPut]
     public async Task<ActionResult<UpdateItemResponse>> Update(
-        [FromRoute] Guid itemId,
-        [FromBody] UpdateItemRequestProps body,
-        CancellationToken cancellationToken)
+        UpdateItemRequest request, CancellationToken cancellationToken)
     {
-        var request = new UpdateItemRequest(itemId, body);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
-    [HttpPost, Route("{itemId}/categories/{categoryId}")]
-    public async Task<ActionResult<CategorizeItemResponse>> Categorize(
-        [FromRoute] Guid itemId,
-        [FromRoute] Guid categoryId,
-        CancellationToken cancellationToken)
-    {
-        var request = new CategorizeItemRequest(itemId, categoryId);
-        var response = await mediator.Send(request, cancellationToken);
-        return Ok(response);
-    }
-    
-    [HttpPatch, Route("{itemId}/image")]
+    [HttpPut, Route("{itemId}/image")]
     public async Task<ActionResult<UpdateImageItemResponse>> Save(
         [FromRoute] Guid itemId,
         [FromForm] IFormFile file,
