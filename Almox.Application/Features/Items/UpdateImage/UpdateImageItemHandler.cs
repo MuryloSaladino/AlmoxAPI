@@ -3,7 +3,7 @@ using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Images;
 using Almox.Application.Repository.Items;
-using Almox.Domain.Common.Messages;
+using Almox.Domain.Common.Exceptions;
 using AutoMapper;
 using MediatR;
 
@@ -20,21 +20,17 @@ public class UpdateImageItemHandler(
     public async Task<UpdateImageItemResponse> Handle(
         UpdateImageItemRequest request, CancellationToken cancellationToken)
     {
-        var session = requestSession.GetSessionOrThrow();
-
-        if (!session.IsAdmin)
-            throw AppException.Forbidden(ExceptionMessages.Forbidden.Admin);
-
-        var url = await imageRepository.Save(request.File, request.FileName)
-            ?? throw AppException.BadGateway(ExceptionMessages.BadGateway.Storage);
+        requestSession.GetStaffSessionOrThrow();
 
         var item = await itemsRepository.Get(request.ItemId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 
+        var url = await imageRepository.Save(request.File, request.FileName)
+            ?? throw AppException.BadGateway(ExceptionMessages.BadGateway.Storage);
+
         await imageRepository.Delete(item.ImageUrl);
-
+        
         item.ImageUrl = url;
-
         itemsRepository.Update(item);
 
         await unitOfWork.Save(cancellationToken);
