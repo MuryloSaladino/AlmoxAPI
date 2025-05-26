@@ -1,3 +1,3 @@
 namespace Almox.Application.Features.Orders.RemoveItem;
 
-public sealed record RemoveItemToOrderResponse();
+public sealed record RemoveItemFromOrderResponse();
