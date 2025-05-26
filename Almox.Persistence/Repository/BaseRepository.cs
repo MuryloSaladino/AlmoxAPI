@@ -35,10 +35,16 @@ public class BaseRepository<TEntity>(AlmoxContext AlmoxContext) : IBaseRepositor
             .Where(entity => entity.DeletedAt == null)
             .ToListAsync(cancellationToken);
     
+    public virtual Task<List<TEntity>> GetAll(List<Guid> ids, CancellationToken cancellationToken)
+        => context.Set<TEntity>()
+            .Where(entity => entity.DeletedAt == null)
+            .Where(entity => ids.Contains(entity.Id))
+            .ToListAsync(cancellationToken);
+    
     public virtual Task<bool> Exists(Guid id, CancellationToken cancellationToken)
         => context.Set<TEntity>()
-            .AnyAsync(e => 
-                EF.Property<Guid>(e, "Id") == id && 
-                EF.Property<Guid?>(e, "DeletedAt") == null, 
+            .AnyAsync(e =>
+                EF.Property<Guid>(e, "Id") == id &&
+                EF.Property<Guid?>(e, "DeletedAt") == null,
             cancellationToken);
 }
