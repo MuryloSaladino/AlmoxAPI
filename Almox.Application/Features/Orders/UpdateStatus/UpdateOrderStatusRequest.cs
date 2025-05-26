@@ -4,6 +4,7 @@ using MediatR;
 namespace Almox.Application.Features.Orders.UpdateStatus;
 
 public sealed record UpdateOrderStatusRequest(
-    Guid Id,
-    OrderStatus Status
+    Guid OrderId,
+    OrderStatus Status,
+    string? Observations
 ) : IRequest<UpdateOrderStatusResponse>;
