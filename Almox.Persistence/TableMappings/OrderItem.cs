@@ -15,6 +15,8 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(oi => oi.OrderId)
             .HasColumnName("order_id")
             .IsRequired();
+        builder.Navigation(oi => oi.Item)
+            .AutoInclude();
 
         builder.Property(oi => oi.ItemId)
             .HasColumnName("item_id")
