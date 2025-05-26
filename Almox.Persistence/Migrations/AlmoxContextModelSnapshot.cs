@@ -249,7 +249,7 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("priority");
 
-                    b.Property<short?>("Status")
+                    b.Property<short>("Status")
                         .HasColumnType("smallint")
                         .HasColumnName("status");
 

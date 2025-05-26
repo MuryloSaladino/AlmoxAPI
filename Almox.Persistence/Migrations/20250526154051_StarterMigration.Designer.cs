@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Almox.Persistence.Migrations
 {
     [DbContext(typeof(AlmoxContext))]
-    [Migration("20250526051355_StartMigration")]
-    partial class StartMigration
+    [Migration("20250526154051_StarterMigration")]
+    partial class StarterMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,7 +252,7 @@ namespace Almox.Persistence.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("priority");
 
-                    b.Property<short?>("Status")
+                    b.Property<short>("Status")
                         .HasColumnType("smallint")
                         .HasColumnName("status");
 

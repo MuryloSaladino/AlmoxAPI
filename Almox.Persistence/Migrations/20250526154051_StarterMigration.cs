@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Almox.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class StartMigration : Migration
+    public partial class StarterMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,7 +86,7 @@ namespace Almox.Persistence.Migrations
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     tracking = table.Column<string>(type: "char(16)", nullable: false),
                     priority = table.Column<short>(type: "smallint", nullable: false),
-                    status = table.Column<short>(type: "smallint", nullable: true),
+                    status = table.Column<short>(type: "smallint", nullable: false),
                     observations = table.Column<string>(type: "varchar(255)", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamptz", nullable: false),
