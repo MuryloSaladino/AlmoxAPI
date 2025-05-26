@@ -20,9 +20,10 @@ public class OrderItemsRepository(
             context.Set<OrderItem>().Remove(entity);
     }
 
-    public Task<OrderItem?> Get(Guid itemId, Guid orderId, CancellationToken cancellationToken)
-        => context.Set<OrderItem>()
-            .Where(oi => oi.OrderId == orderId)
-            .Where(oi => oi.ItemId == itemId)
-            .FirstOrDefaultAsync(cancellationToken);
+    public Task<OrderItem?> Get(
+        Guid itemId, Guid orderId, CancellationToken cancellationToken)
+            => context.Set<OrderItem>()
+                .Where(oi => oi.OrderId == orderId)
+                .Where(oi => oi.ItemId == itemId)
+                .FirstOrDefaultAsync(cancellationToken);
 }
