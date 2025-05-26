@@ -17,10 +17,13 @@ public class GetAllOrdersHandler(
     {
         var session = requestSession.GetSessionOrThrow();
 
-        Guid? userIdFilter = session.Role == UserRole.Employee ? session.UserId : null;
-        var filters = new OrderFilters(userIdFilter, request.Status);
-
-        var orders = await ordersRepository.GetAll(filters, cancellationToken);
+        var orders = session.Role switch
+        {
+            UserRole.Employee => await ordersRepository.GetAllByUser(
+                session.UserId, request.Filters, cancellationToken),
+                
+            _ => await ordersRepository.GetAll(request.Filters, cancellationToken),
+        };
 
         return mapper.Map<List<GetAllOrdersResponse>>(orders);
     }

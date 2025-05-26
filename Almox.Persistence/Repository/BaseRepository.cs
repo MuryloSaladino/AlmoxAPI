@@ -64,8 +64,7 @@ public class BaseRepository<TEntity>(
     
     public virtual Task<bool> Exists(Guid id, CancellationToken cancellationToken)
         => context.Set<TEntity>()
-            .AnyAsync(e =>
-                EF.Property<Guid>(e, "Id") == id &&
-                EF.Property<Guid?>(e, "DeletedAt") == null,
-            cancellationToken);
+            .Where(e => e.Id == id)
+            .Where(e => e.DeletedAt == null)
+            .AnyAsync(cancellationToken);
 }

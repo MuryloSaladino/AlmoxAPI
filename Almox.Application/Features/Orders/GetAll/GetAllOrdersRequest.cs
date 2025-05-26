@@ -1,8 +1,8 @@
-using Almox.Domain.Common.Enums;
+using Almox.Application.Repository.Orders;
 using MediatR;
 
 namespace Almox.Application.Features.Orders.GetAll;
 
 public sealed record GetAllOrdersRequest(
-    OrderStatus? Status
+    OrderFilters Filters
 ) : IRequest<List<GetAllOrdersResponse>>;
