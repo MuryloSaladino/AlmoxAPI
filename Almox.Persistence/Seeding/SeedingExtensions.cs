@@ -1,17 +1,22 @@
+using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
-using Almox.Persistence.Config;
 using Almox.Persistence.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Protocols.Configuration;
 
 namespace Almox.Persistence.Seeding;
 
 public static class SeedingExtensions
 {
-    private static readonly string AlmoxName = DotEnv.Get("ALMOX_NAME");
-    private static readonly string AdminUsername = DotEnv.Get("ADMIN_USERNAME");
-    private static readonly string AdminEmail = DotEnv.Get("ADMIN_EMAIL");
-    private static readonly string AdminPassword = DotEnv.Get("ADMIN_PASSWORD");
+    private static readonly string AlmoxName = Environment.GetEnvironmentVariable("ALMOX_NAME")
+        ?? throw new InvalidConfigurationException("The environment needs \"ALMOX_NAME\" variable");
+    private static readonly string AdminUsername = Environment.GetEnvironmentVariable("ADMIN_USERNAME")
+        ?? throw new InvalidConfigurationException("The environment needs \"ADMIN_USERNAME\" variable");
+    private static readonly string AdminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL")
+        ?? throw new InvalidConfigurationException("The environment needs \"ADMIN_EMAIL\" variable");
+    private static readonly string AdminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD")
+        ?? throw new InvalidConfigurationException("The environment needs \"ADMIN_PASSWORD\" variable");
 
     public static async Task SeedData(this AlmoxContext context)
     {
@@ -34,10 +39,11 @@ public static class SeedingExtensions
                 var adminUser = new User()
                 {
                     DepartmentId = almoxDepartment.Id,
+                    Department = almoxDepartment,
                     Username = AdminUsername,
                     Email = AdminEmail,
                     Password = AdminPassword,
-                    IsAdmin = true,
+                    Role = UserRole.Admin,
                 };
 
                 PasswordHasher<User> hasher = new();
