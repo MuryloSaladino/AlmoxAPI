@@ -1,8 +1,7 @@
 using System.Net;
 using Almox.Application.Common.Exceptions;
 using Almox.Application.Repository.Images;
-using Almox.Domain.Common.Messages;
-using Almox.Persistence.Config;
+using Almox.Domain.Common.Exceptions;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 
@@ -10,7 +9,7 @@ namespace Almox.Persistence.Repository.Images;
 
 public class ImagesRepository : IImagesRepository
 {
-    private readonly Cloudinary Cloudinary = new(DotEnv.Get("CLOUDINARY_URL"));
+    private readonly Cloudinary Cloudinary = new(Environment.GetEnvironmentVariable("CLOUDINARY_URL"));
 
     public async Task<string?> Save(Stream file, string fileName)
     {
