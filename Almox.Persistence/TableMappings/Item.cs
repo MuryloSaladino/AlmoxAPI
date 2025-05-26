@@ -12,27 +12,27 @@ public class ItemConfiguration : BaseEntityConfiguration<Item>
 
         builder.ToTable("items");
 
-        builder.Property(e => e.Name)
+        builder.Property(i => i.Name)
             .HasColumnName("name")
             .HasColumnType("varchar(50)")
             .IsRequired();
 
-        builder.Property(e => e.Description)
+        builder.Property(i => i.Description)
             .HasColumnName("description")
             .HasColumnType("varchar(255)")
             .IsRequired();
 
-        builder.Property(e => e.Price)
+        builder.Property(i => i.Price)
             .HasColumnName("price")
             .HasColumnType("decimal(10,2)")
             .IsRequired();
 
-        builder.Property(e => e.Stock)
+        builder.Property(i => i.Stock)
             .HasColumnName("stock")
             .HasColumnType("int")
             .IsRequired();
 
-        builder.Property(e => e.ImageUrl)
+        builder.Property(i => i.ImageUrl)
             .HasColumnName("image_url")
             .HasColumnType("varchar(255)");
             
