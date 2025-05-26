@@ -23,6 +23,7 @@ public static class ExceptionMessages
     {
         public const string Default = "Forbidden.";
         public const string Admin = "You dot not own enough permission. You must be an admin to perform this.";
+        public const string Role = "You dot not own enough permission. You need a higher role to perform this.";
         public const string NotOwnUser = "You must reference a object owned by you to perform this.";
         public const string NotOwnUserNorAdmin = "You must reference a object owned by you or be an admin to perform this.";
     }
