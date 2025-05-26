@@ -5,7 +5,5 @@ public sealed record GetAllCategoriesResponse(
     DateTime CreatedAt,
     DateTime UpdatedAt,
     DateTime? DeletedAt,
-    string Name,
-    string Description,
-    string Color
+    string Name
 );

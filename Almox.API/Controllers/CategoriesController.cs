@@ -21,7 +21,7 @@ public class CategoriesController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<List<GetAllCategoriesResponse>>> GetAll(
-        GetAllCategoriesRequest request, CancellationToken cancellationToken)
+        [FromQuery] GetAllCategoriesRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
