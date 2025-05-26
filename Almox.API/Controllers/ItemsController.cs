@@ -49,7 +49,7 @@ public class ItemsController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut, Route("{itemId}/image")]
-    public async Task<ActionResult<UpdateImageItemResponse>> Save(
+    public async Task<ActionResult<UpdateImageItemResponse>> UpdateImage(
         [FromRoute] Guid itemId,
         [FromForm] IFormFile file,
         CancellationToken cancellationToken)
