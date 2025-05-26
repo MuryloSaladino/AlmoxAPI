@@ -1,10 +1,9 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Orders.AddItem;
 using Almox.Application.Features.Orders.Start;
-using Almox.Application.Features.Orders.Find;
-using Almox.Application.Features.Orders.FindById;
+using Almox.Application.Features.Orders.GetAll;
+using Almox.Application.Features.Orders.Get;
 using Almox.Application.Features.Orders.UpdateStatus;
-using Almox.Application.Repository.Orders;
 using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,71 +18,59 @@ public class OrdersController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<StartOrderResponse>> Start(
-        CancellationToken cancellationToken)
+        StartOrderRequest request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new StartOrderRequest(), cancellationToken);
-        return Created(APIRoutes.Orders, response);
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<FindOrdersResponse>>> Find(
-        [FromQuery] Guid? userId,
-        [FromQuery] OrderStatus? status,
-        CancellationToken cancellationToken)
+    public async Task<ActionResult<List<GetAllOrdersResponse>>> GetAll(
+        [FromQuery] GetAllOrdersRequest request, CancellationToken cancellationToken)
     {
-        var filters = new OrdersQueryFilters(userId, status);
-        var response = await mediator.Send(new FindOrdersRequest(filters), cancellationToken);
+        var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
     [HttpGet, Route("{orderId}")]
-    public async Task<ActionResult<FindOrderByIdResponse>> FindById(
-        [FromRoute] Guid orderId,
-        CancellationToken cancellationToken)
+    public async Task<ActionResult<GetOrderResponse>> Get(
+        [FromRoute] Guid orderId, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new FindOrderByIdRequest(orderId), cancellationToken);
+        var request = new GetOrderRequest(orderId);
+        var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
-    [HttpPost, Route("items/{itemId}")]
-    public async Task<ActionResult<AddItemToOrderResponse>> AddItem(
-        [FromRoute] Guid itemId,
-        [FromBody] AddItemToOrderRequestProps body,
-        CancellationToken cancellationToken)
+    [HttpPut]
+    public async Task<ActionResult<UpdateOrderResponse>> Update(
+        UpdateOrderRequest request, CancellationToken cancellationToken)
     {
-        var request = new AddItemToOrderRequest(itemId, body);
         var response = await mediator.Send(request, cancellationToken);
-        return Created(APIRoutes.Orders + "/items/{itemId}", response);
+        return Ok(response);
+    }
+
+    [HttpPatch]
+    public async Task<ActionResult<UpdateOrderStatusResponse>> UpdateStatus(
+        UpdateOrderStatusRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
+
+    [HttpPost, Route("items")]
+    public async Task<ActionResult<AddItemToOrderResponse>> AddItem(
+        AddItemToOrderRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Created(APIRoutes.Orders + "/items", response);
     }
 
     [HttpDelete, Route("items/{itemId}")]
     public async Task<ActionResult<AddItemToOrderResponse>> RemoveItem(
         [FromRoute] Guid itemId, CancellationToken cancellationToken)
     {
-        var request = new RemoveItemToOrderRequest(itemId);
+        var request = new RemoveItemFromOrderRequest(itemId);
         await mediator.Send(request, cancellationToken);
         return NoContent();
-    }
-
-    [HttpPut, Route("{orderId}")]
-    public async Task<ActionResult<UpdateOrderResponse>> Update(
-        [FromRoute] Guid orderId,
-        UpdateOrderRequestProps body,
-        CancellationToken cancellationToken)
-    {
-        var request = new UpdateOrderRequest(orderId, body);
-        var response = await mediator.Send(request, cancellationToken);
-        return Ok(response);
-    }
-
-    [HttpPost, Route("{orderId}/status/{status}")]
-    public async Task<ActionResult<UpdateOrderStatusResponse>> UpdateStatus(
-        [FromRoute] Guid orderId,
-        [FromRoute] OrderStatus status,
-        CancellationToken cancellationToken)
-    {
-        var request = new UpdateOrderStatusRequest(orderId, status);
-        var response = await mediator.Send(request, cancellationToken);
-        return Ok(response);
     }
 }
