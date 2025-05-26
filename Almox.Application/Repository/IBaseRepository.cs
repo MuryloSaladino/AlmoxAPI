@@ -11,7 +11,7 @@ public interface IBaseRepository<TEntity>
     Task<bool> Exists(Guid id, CancellationToken cancellationToken);
     Task<TEntity?> Get(Guid id, CancellationToken cancellationToken);
     Task<List<TEntity>> GetAll(CancellationToken cancellationToken);
-    Task<List<TEntity>> GetAll(List<Guid> ids, CancellationToken cancellationToken);
+    Task<List<TEntity>> GetAll(IEnumerable<Guid> ids, CancellationToken cancellationToken);
 }
 
 public interface IBaseRepository<TEntity, TFilters> 

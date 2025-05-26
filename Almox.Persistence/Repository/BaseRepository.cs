@@ -35,7 +35,7 @@ public class BaseRepository<TEntity>(AlmoxContext AlmoxContext) : IBaseRepositor
             .Where(entity => entity.DeletedAt == null)
             .ToListAsync(cancellationToken);
     
-    public virtual Task<List<TEntity>> GetAll(List<Guid> ids, CancellationToken cancellationToken)
+    public virtual Task<List<TEntity>> GetAll(IEnumerable<Guid> ids, CancellationToken cancellationToken)
         => context.Set<TEntity>()
             .Where(entity => entity.DeletedAt == null)
             .Where(entity => ids.Contains(entity.Id))
