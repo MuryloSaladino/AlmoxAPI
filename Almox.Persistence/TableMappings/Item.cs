@@ -35,7 +35,7 @@ public class ItemConfiguration : BaseEntityConfiguration<Item>
         builder.Property(i => i.ImageUrl)
             .HasColumnName("image_url")
             .HasColumnType("varchar(255)");
-            
+
         builder.HasMany(i => i.Categories)
             .WithMany()
             .UsingEntity<Dictionary<string, object>>("item_categories",
@@ -50,5 +50,7 @@ public class ItemConfiguration : BaseEntityConfiguration<Item>
                     ic.ToTable("item_categories");
                     ic.HasKey("item_id", "category_id");
                 });
+        builder.Navigation(i => i.Categories)
+            .AutoInclude();
     }
 }
