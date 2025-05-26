@@ -30,8 +30,7 @@ public class UpdateItemHandler(
         item.Price = request.Price;
         item.Description = request.Description;
 
-        var categoryFilters = new CategoryFilters(request.CategoryIds);
-        item.Categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
+        item.Categories = await categoriesRepository.GetAll(request.CategoryIds, cancellationToken);
 
         itemsRepository.Update(item);
 

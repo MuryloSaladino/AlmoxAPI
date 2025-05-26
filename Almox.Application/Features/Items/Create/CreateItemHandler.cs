@@ -23,8 +23,7 @@ public class CreateItemHandler(
 
         var item = mapper.Map<Item>(request);
 
-        var categoryFilters = new CategoryFilters(request.CategoryIds);
-        item.Categories = await categoriesRepository.GetAll(categoryFilters, cancellationToken);
+        item.Categories = await categoriesRepository.GetAll(request.CategoryIds, cancellationToken);
 
         itemsRepository.Create(item);
 
