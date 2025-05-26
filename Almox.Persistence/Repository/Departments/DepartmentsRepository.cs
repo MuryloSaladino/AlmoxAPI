@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Almox.Persistence.Repository.Departments;
 
 public class DepartmentsRepository(
-    AlmoxContext almoxContext
-) : BaseRepository<Department>(almoxContext), IDepartmentRepository
+    AlmoxContext context
+) : BaseRepository<Department>(context), IDepartmentRepository
 {
     public Task<List<Department>> GetAll(DepartmentFilters filters, CancellationToken cancellationToken)
         => context.Set<Department>()
