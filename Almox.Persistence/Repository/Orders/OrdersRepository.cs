@@ -1,4 +1,5 @@
 using Almox.Application.Repository.Orders;
+using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 using Almox.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -6,42 +7,33 @@ using Microsoft.EntityFrameworkCore;
 namespace Almox.Persistence.Repository.Orders;
 
 public class OrdersRepository(
-    AlmoxContext almoxContext
-) : BaseRepository<Order>(almoxContext), IOrdersRepository
+    AlmoxContext context
+) : BaseRepository<Order>(context), IOrdersRepository
 {
-    public async Task<List<Order>> GetWithFilters(
-        OrdersQueryFilters filters, CancellationToken cancellationToken)
+    public Task<List<Order>> GetAll(
+        OrderFilters filters, CancellationToken cancellationToken)
     {
-        var query = dbSet
-            .Where(r => r.DeletedAt == null)
-            .Where(r => r.Status != null)
-            .OrderByDescending(o => o.Priority)
-            .AsQueryable();
+        var query = context.Set<Order>()
+            .AsQueryable()
+            .Where(r => r.DeletedAt == null);
 
-        if (filters.UserId is not null)
-            query = query.Where(r => r.UserId == filters.UserId);
+        if (filters.UserId is Guid userId)
+            query = query.Where(r => r.UserId == userId);
 
-        if (filters.Status is not null)
-            query = query.Where(r => r.Status == filters.Status);
+        if (filters.Status is OrderStatus status)
+            query = query.Where(r => r.Status == status);
+        else
+            query = query.Where(r => r.Status != null);
 
-        return await query.ToListAsync(cancellationToken);
+        query = query.OrderByDescending(o => o.Priority);
+
+        return query.ToListAsync(cancellationToken);
     }
 
-    public async Task<Order?> GetWithItems(Guid id, CancellationToken cancellationToken)
-        => await dbSet
-            .Where(o => o.DeletedAt == null)
-            .Where(o => o.Id == id)
-            .Include(o => o.History)
-            .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Item)
-            .FirstOrDefaultAsync(cancellationToken);
-            
-    public async Task<Order?> GetUserCartOrder(Guid userId, CancellationToken cancellationToken)
-        => await dbSet
+    public Task<Order?> GetUserCartOrder(Guid userId, CancellationToken cancellationToken)
+        => context.Set<Order>()
             .Where(o => o.DeletedAt == null)
             .Where(o => o.UserId == userId)
             .Where(o => o.Status == null)
-            .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Item)
             .FirstOrDefaultAsync(cancellationToken);
 }
