@@ -34,6 +34,7 @@ public static class ExceptionMessages
         public const string Resource = "Resource not found.";
         public const string User = "User not found.";
         public const string Category = "Category not found.";
+        public const string Delivery = "Delivery not found.";
         public const string Department = "Department not found.";
         public const string Item = "Item not found.";
         public const string Image = "Image not found.";
