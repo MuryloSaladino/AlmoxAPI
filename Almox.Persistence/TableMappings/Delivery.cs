@@ -35,9 +35,13 @@ public class DeliveryConfiguration : BaseEntityConfiguration<Delivery>
         builder.HasMany(d => d.DeliveryItems)
             .WithOne()
             .HasForeignKey(di => di.DeliveryId);
+        builder.Navigation(d => d.DeliveryItems)
+            .AutoInclude();
 
         builder.HasMany(d => d.StatusUpdates)
             .WithOne()
             .HasForeignKey(su => su.DeliveryId);
+        builder.Navigation(d => d.StatusUpdates)
+            .AutoInclude();
     }
 }
