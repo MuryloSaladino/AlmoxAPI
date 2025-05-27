@@ -10,7 +10,6 @@ using MediatR;
 namespace Almox.Application.Features.Deliveries.Create;
 
 public class CreateDeliveryHandler(
-    IDeliveryStatusUpdatesRepository statusUpdatesRepository,
     IDeliveriesRepository deliveriesRepository,
     IItemsRepository itemsRepository,
     IRequestSession requestSession,
@@ -41,7 +40,7 @@ public class CreateDeliveryHandler(
 
         deliveriesRepository.Create(delivery);
 
-        statusUpdatesRepository.Create(new()
+        delivery.StatusUpdates.Add(new()
         {
             DeliveryId = delivery.Id,
             UpdatedById = session.UserId,
