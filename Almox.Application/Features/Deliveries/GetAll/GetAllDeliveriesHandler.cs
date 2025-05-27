@@ -16,7 +16,7 @@ public class GetAllDeliveriesHandler(
     {
         requestSession.GetStaffSessionOrThrow();
 
-        var deliveries = await deliveriesRepository.GetAll(request.Filters, cancellationToken);
+        var deliveries = await deliveriesRepository.GetAll(request, cancellationToken);
 
         return mapper.Map<List<GetAllDeliveriesResponse>>(deliveries);
     }
