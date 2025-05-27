@@ -27,6 +27,9 @@ public class CancelOrderHandler(
         if (session.Role.Equals(UserRole.Employee) && order.UserId != session.UserId)
             throw AppException.Forbidden(ExceptionMessages.Forbidden.NotOwnUserNorAdmin);
 
+        if (order.Status.Equals(OrderStatus.Completed))
+            throw AppException.Conflict(ExceptionMessages.Conflict.ResourceState);
+
         order.Status = OrderStatus.Canceled;
         order.StatusUpdates.Add(new()
         {
