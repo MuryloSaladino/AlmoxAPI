@@ -19,6 +19,8 @@ public class DeliveryItemConfiguration : IEntityTypeConfiguration<DeliveryItem>
         builder.Property(di => di.ItemId)
             .HasColumnName("item_id")
             .IsRequired();
+        builder.Navigation(di => di.Item)
+            .AutoInclude();
 
         builder.Property(di => di.Quantity)
             .HasColumnName("quantity")
