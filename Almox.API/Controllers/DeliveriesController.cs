@@ -1,5 +1,6 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Deliveries.Advance;
+using Almox.Application.Features.Deliveries.Cancel;
 using Almox.Application.Features.Deliveries.Create;
 using Almox.Application.Features.Deliveries.GetAll;
 using MediatR;
@@ -32,6 +33,14 @@ public class DeliveriesController(IMediator mediator) : ControllerBase
         AdvanceDeliveryRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
-        return Ok(response);       
+        return Ok(response);
+    }
+    
+    [HttpDelete, Route("status")]
+    public async Task<ActionResult<CancelDeliveryResponse>> Cancel(
+        CancelDeliveryRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 }
