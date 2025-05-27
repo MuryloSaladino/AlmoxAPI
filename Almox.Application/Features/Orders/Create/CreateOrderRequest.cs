@@ -1,5 +1,4 @@
 using Almox.Domain.Common.Enums;
-using Almox.Domain.Entities;
 using MediatR;
 
 namespace Almox.Application.Features.Orders.Create;
