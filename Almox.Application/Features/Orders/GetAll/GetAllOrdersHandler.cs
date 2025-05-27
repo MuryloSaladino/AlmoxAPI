@@ -1,4 +1,5 @@
 using Almox.Application.Common.Session;
+using Almox.Application.Repository;
 using Almox.Application.Repository.Orders;
 using Almox.Domain.Common.Enums;
 using AutoMapper;
@@ -10,9 +11,9 @@ public class GetAllOrdersHandler(
     IOrdersRepository ordersRepository,
     IRequestSession requestSession,
     IMapper mapper
-) : IRequestHandler<GetAllOrdersRequest, List<GetAllOrdersResponse>>
+) : IRequestHandler<GetAllOrdersRequest, PaginatedResult<GetAllOrdersResponse>>
 {
-    public async Task<List<GetAllOrdersResponse>> Handle(
+    public async Task<PaginatedResult<GetAllOrdersResponse>> Handle(
         GetAllOrdersRequest request, CancellationToken cancellationToken)
     {
         var session = requestSession.GetSessionOrThrow();
@@ -25,6 +26,6 @@ public class GetAllOrdersHandler(
             _ => await ordersRepository.GetAll(request, cancellationToken),
         };
 
-        return mapper.Map<List<GetAllOrdersResponse>>(orders);
+        return mapper.Map<PaginatedResult<GetAllOrdersResponse>>(orders);
     }
 }

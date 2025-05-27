@@ -1,4 +1,5 @@
 using Almox.Application.Common.Session;
+using Almox.Application.Repository;
 using Almox.Application.Repository.Deliveries;
 using AutoMapper;
 using MediatR;
@@ -9,15 +10,15 @@ public class GetAllDeliveriesHandler(
     IDeliveriesRepository deliveriesRepository,
     IRequestSession requestSession,
     IMapper mapper
-) : IRequestHandler<GetAllDeliveriesRequest, List<GetAllDeliveriesResponse>>
+) : IRequestHandler<GetAllDeliveriesRequest, PaginatedResult<GetAllDeliveriesResponse>>
 {
-    public async Task<List<GetAllDeliveriesResponse>> Handle(
+    public async Task<PaginatedResult<GetAllDeliveriesResponse>> Handle(
         GetAllDeliveriesRequest request, CancellationToken cancellationToken)
     {
         requestSession.GetStaffSessionOrThrow();
 
         var deliveries = await deliveriesRepository.GetAll(request, cancellationToken);
 
-        return mapper.Map<List<GetAllDeliveriesResponse>>(deliveries);
+        return mapper.Map<PaginatedResult<GetAllDeliveriesResponse>>(deliveries);
     }
 }
