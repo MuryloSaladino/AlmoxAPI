@@ -1,10 +1,11 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Orders.GetAll;
 using Almox.Application.Features.Orders.Get;
-using Almox.Application.Features.Orders.UpdateStatus;
+using Almox.Application.Features.Orders.Advance;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Orders.Create;
+using Almox.Application.Features.Orders.Cancel;
 
 namespace Almox.API.Controllers;
 
@@ -37,11 +38,19 @@ public class OrdersController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpPatch]
-    public async Task<ActionResult<UpdateOrderStatusResponse>> UpdateStatus(
-        UpdateOrderStatusRequest request, CancellationToken cancellationToken)
+    [HttpPost, Route("status")]
+    public async Task<ActionResult<AdvanceOrderResponse>> Advance(
+        AdvanceOrderRequest request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
+    }
+
+    [HttpDelete, Route("status")]
+    public async Task<ActionResult<CancelOrderResponse>> Cancel(
+        CancelOrderRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);       
     }
 }
