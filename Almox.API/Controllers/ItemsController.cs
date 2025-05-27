@@ -1,6 +1,7 @@
 using Almox.API.Enums;
 using Almox.Application.Features.Items.Create;
 using Almox.Application.Features.Items.Delete;
+using Almox.Application.Features.Items.Get;
 using Almox.Application.Features.Items.GetAll;
 using Almox.Application.Features.Items.Update;
 using Almox.Application.Features.Items.UpdateImage;
@@ -28,6 +29,15 @@ public class ItemsController(IMediator mediator) : ControllerBase
         var request = new DeleteItemRequest(itemId);
         await mediator.Send(request, cancellationToken);
         return NoContent();
+    }
+
+    [HttpGet, Route("{itemId}")]
+    public async Task<ActionResult<GetItemResponse>> Get(
+        [FromRoute] Guid itemId, CancellationToken cancellationToken)
+    {
+        var request = new GetItemRequest(itemId);
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);       
     }
 
     [HttpGet]
