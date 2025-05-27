@@ -24,7 +24,7 @@ public class CancelDeliveryHandler(
         var delivery = await deliveriesRepository.Get(request.DeliveryId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Delivery);
 
-        if (delivery.Status.Equals(DeliveryStatus.Received) || delivery.Status.Equals(DeliveryStatus.Canceled))
+        if (delivery.Status.Equals(DeliveryStatus.Received))
             throw AppException.Conflict(ExceptionMessages.Conflict.ResourceState);
 
         delivery.Status = DeliveryStatus.Canceled;
