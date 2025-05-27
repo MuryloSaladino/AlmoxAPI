@@ -3,6 +3,5 @@ using MediatR;
 
 namespace Almox.Application.Features.Users.GetAll;
 
-public sealed record GetAllUsersRequest(
-    UserFilters Filters
-) : IRequest<List<GetAllUsersResponse>>;
+public sealed record GetAllUsersRequest
+    : UserFilters, IRequest<List<GetAllUsersResponse>>;

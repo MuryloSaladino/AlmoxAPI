@@ -4,7 +4,6 @@ using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.Get;
 using Almox.API.Enums;
 using Almox.Application.Features.Users.GetAll;
-using Almox.Application.Repository.Users;
 
 namespace Almox.API.Controllers;
 
@@ -31,9 +30,8 @@ public class UsersController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<List<GetAllUsersResponse>>> GetAll(
-        [FromQuery] UserFilters filters, CancellationToken cancellationToken)
+        [FromQuery] GetAllUsersRequest request, CancellationToken cancellationToken)
     {
-        var request = new GetAllUsersRequest(filters);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }

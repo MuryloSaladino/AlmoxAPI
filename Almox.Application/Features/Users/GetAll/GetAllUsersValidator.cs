@@ -6,12 +6,12 @@ public class GetAllUsersValidator : AbstractValidator<GetAllUsersRequest>
 {
     public GetAllUsersValidator()
     {
-        RuleFor(r => r.Filters.Email)
+        RuleFor(r => r.Email)
             .MaximumLength(255)
-            .When(r => !string.IsNullOrEmpty(r.Filters.Email));
+            .When(r => !string.IsNullOrEmpty(r.Email));
 
-        RuleFor(r => r.Filters.Username)
+        RuleFor(r => r.Username)
             .MaximumLength(255)
-            .When(r => !string.IsNullOrEmpty(r.Filters.Username));
+            .When(r => !string.IsNullOrEmpty(r.Username));
     }
 }

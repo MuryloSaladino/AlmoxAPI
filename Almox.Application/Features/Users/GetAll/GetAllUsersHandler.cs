@@ -16,7 +16,7 @@ public class GetAllUsersHandler(
     {
         requestSession.GetSessionOrThrow();
 
-        var users = await usersRepository.GetAll(request.Filters, cancellationToken);
+        var users = await usersRepository.GetAll(request, cancellationToken);
 
         return mapper.Map<List<GetAllUsersResponse>>(users);
     }
