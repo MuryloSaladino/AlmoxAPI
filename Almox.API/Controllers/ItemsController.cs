@@ -4,7 +4,6 @@ using Almox.Application.Features.Items.Delete;
 using Almox.Application.Features.Items.GetAll;
 using Almox.Application.Features.Items.Update;
 using Almox.Application.Features.Items.UpdateImage;
-using Almox.Application.Repository.Items;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +32,8 @@ public class ItemsController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<List<GetAllItemsResponse>>> GetAll(
-        [FromQuery] ItemFilters filters, CancellationToken cancellationToken)
+        [FromQuery] GetAllItemsRequest request, CancellationToken cancellationToken)
     {
-        var request = new GetAllItemsRequest(filters);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }

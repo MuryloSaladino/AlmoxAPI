@@ -3,6 +3,5 @@ using MediatR;
 
 namespace Almox.Application.Features.Items.GetAll;
 
-public sealed record GetAllItemsRequest(
-    ItemFilters Filters
-) : IRequest<List<GetAllItemsResponse>>;
+public sealed record GetAllItemsRequest
+    : ItemFilters, IRequest<List<GetAllItemsResponse>>;

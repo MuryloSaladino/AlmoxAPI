@@ -6,12 +6,12 @@ public class GetAllItemsValidator : AbstractValidator<GetAllItemsRequest>
 {
     public GetAllItemsValidator()
     {
-        RuleFor(r => r.Filters.Name)
+        RuleFor(r => r.Name)
             .MaximumLength(50)
-            .When(r => !string.IsNullOrEmpty(r.Filters.Name));
+            .When(r => !string.IsNullOrEmpty(r.Name));
 
-        RuleFor(r => r.Filters.CategoryName)
+        RuleFor(r => r.CategoryName)
             .MaximumLength(50)
-            .When(r => !string.IsNullOrEmpty(r.Filters.CategoryName));
+            .When(r => !string.IsNullOrEmpty(r.CategoryName));
     }
 }

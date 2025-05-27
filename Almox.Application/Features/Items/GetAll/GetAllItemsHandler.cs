@@ -16,7 +16,7 @@ public class FindItemsHandler(
     {
         requestSession.GetSessionOrThrow();
 
-        var items = await itemsRepository.GetAll(request.Filters, cancellationToken);
+        var items = await itemsRepository.GetAll(request, cancellationToken);
 
         return mapper.Map<List<GetAllItemsResponse>>(items);
     }
