@@ -1,4 +1,5 @@
 using Almox.Application.Common.Session;
+using Almox.Application.Repository;
 using Almox.Application.Repository.Departments;
 using AutoMapper;
 using MediatR;
@@ -9,15 +10,15 @@ public class GetAllDepartmentsHandler(
     IDepartmentRepository departmentRepository,
     IRequestSession requestSession,
     IMapper mapper
-) : IRequestHandler<GetAllDepartmentsRequest, List<GetAllDepartmentsResponse>>
+) : IRequestHandler<GetAllDepartmentsRequest, PaginatedResult<GetAllDepartmentsResponse>>
 {
-    public async Task<List<GetAllDepartmentsResponse>> Handle(
+    public async Task<PaginatedResult<GetAllDepartmentsResponse>> Handle(
         GetAllDepartmentsRequest request, CancellationToken cancellationToken)
     {
         requestSession.GetStaffSessionOrThrow();
 
-        var departments = await departmentRepository.GetAll(request.Filters, cancellationToken);
+        var departments = await departmentRepository.GetAll(request, cancellationToken);
 
-        return mapper.Map<List<GetAllDepartmentsResponse>>(departments);
+        return mapper.Map<PaginatedResult<GetAllDepartmentsResponse>>(departments);
     }
 }

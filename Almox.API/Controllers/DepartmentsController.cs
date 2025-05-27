@@ -2,7 +2,6 @@ using Almox.API.Enums;
 using Almox.Application.Features.Departments.Create;
 using Almox.Application.Features.Departments.Delete;
 using Almox.Application.Features.Departments.GetAll;
-using Almox.Application.Repository.Departments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +30,8 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<GetAllDepartmentsResponse>> GetAll(
-        [FromQuery] DepartmentFilters filters, CancellationToken cancellationToken)
+        [FromQuery] GetAllDepartmentsRequest request, CancellationToken cancellationToken)
     {
-        var request = new GetAllDepartmentsRequest(filters);
         var response = await mediator.Send(request, cancellationToken);
         return Ok(response);
     }
