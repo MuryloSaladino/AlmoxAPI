@@ -29,6 +29,7 @@ public class ItemsRepository(
         var maxPage = (int)Math.Ceiling(count / (double)filters.PageSize);
 
         var results = await query
+            .OrderByDescending(e => e.CreatedAt)
             .Skip((filters.Page - 1) * filters.PageSize)
             .Take(filters.PageSize)
             .ToListAsync(cancellationToken);

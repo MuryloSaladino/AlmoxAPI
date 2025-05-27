@@ -33,6 +33,7 @@ public class UserRepository(
         var maxPage = (int)Math.Ceiling(count / (double)filters.PageSize);
 
         var results = await query
+            .OrderBy(u => u.Username)
             .Skip((filters.Page - 1) * filters.PageSize)
             .Take(filters.PageSize)
             .ToListAsync(cancellationToken);
