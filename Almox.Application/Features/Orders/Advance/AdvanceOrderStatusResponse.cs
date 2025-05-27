@@ -1,9 +1,9 @@
 using Almox.Domain.Common.Enums;
 using Almox.Domain.Entities;
 
-namespace Almox.Application.Features.Orders.UpdateStatus;
+namespace Almox.Application.Features.Orders.Advance;
 
-public sealed record UpdateOrderStatusResponse(
+public sealed record AdvanceOrderResponse(
     Guid Id,
     DateTime CreatedAt,
     DateTime UpdatedAt,
