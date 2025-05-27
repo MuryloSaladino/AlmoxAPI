@@ -20,9 +20,9 @@ public class GetAllOrdersHandler(
         var orders = session.Role switch
         {
             UserRole.Employee => await ordersRepository.GetAllByUser(
-                session.UserId, request.Filters, cancellationToken),
+                session.UserId, request, cancellationToken),
                 
-            _ => await ordersRepository.GetAll(request.Filters, cancellationToken),
+            _ => await ordersRepository.GetAll(request, cancellationToken),
         };
 
         return mapper.Map<List<GetAllOrdersResponse>>(orders);

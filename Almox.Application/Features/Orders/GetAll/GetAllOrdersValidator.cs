@@ -6,7 +6,7 @@ public class GetAllOrdersValidator : AbstractValidator<GetAllOrdersRequest>
 {
     public GetAllOrdersValidator()
     {
-        RuleFor(r => r.Filters.PageSize)
+        RuleFor(r => r.PageSize)
             .LessThanOrEqualTo(20);
     }
 }
