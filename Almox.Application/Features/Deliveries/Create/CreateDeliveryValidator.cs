@@ -10,6 +10,10 @@ public class CreateDeliveryValidator : AbstractValidator<CreateDeliveryRequest>
             .MaximumLength(35);
 
         RuleFor(r => r.ExpectedDate)
-            .Must(d => d > DateTime.Now);
+            .Must(d => d > DateTime.Now.AddDays(1));
+
+        RuleFor(r => r.Observations)
+            .MaximumLength(255)
+            .When(r => !string.IsNullOrEmpty(r.Observations));
     }
 }

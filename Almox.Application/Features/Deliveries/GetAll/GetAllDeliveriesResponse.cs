@@ -12,5 +12,6 @@ public sealed record GetAllDeliveriesResponse(
     string Tracking,
     DateTime ExpectedDate,
     DeliveryStatus Status,
-    List<DeliveryItem> DeliveryItems
+    List<DeliveryItem> DeliveryItems,
+    List<DeliveryStatusUpdate> StatusUpdates
 );

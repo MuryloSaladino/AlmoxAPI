@@ -1,4 +1,5 @@
 using Almox.Domain.Common.Enums;
+using Almox.Domain.Entities;
 
 namespace Almox.Application.Features.Deliveries.Create;
 
@@ -10,5 +11,7 @@ public sealed record CreateDeliveryResponse(
     string Supplier,
     string Tracking,
     DateTime ExpectedDate,
-    DeliveryStatus Status
+    DeliveryStatus Status,
+    List<DeliveryItem> DeliveryItems,
+    List<DeliveryStatusUpdate> StatusUpdates
 );
