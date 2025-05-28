@@ -6,12 +6,15 @@ using Almox.Application.Repository.Users;
 using Almox.Application.Contracts;
 using Almox.Application.Common.Generators;
 using Almox.Application.Common.Session;
-using Almox.Application.Common.Exceptions;
 using Almox.Domain.Common.Enums;
+using Almox.Application.Repository.Departments;
+using Almox.Application.Common.Exceptions;
+using Almox.Domain.Common.Exceptions;
 
 namespace Almox.Application.Features.Users.Register;
 
 public sealed class RegisterUserHandler(
+    IDepartmentRepository departmentRepository,
     IUsersRepository usersRepository,
     IRequestSession requestSession,
     IPasswordEncrypter encrypter,
@@ -27,7 +30,11 @@ public sealed class RegisterUserHandler(
         else
             requestSession.GetStaffSessionOrThrow();
 
+        var department = await departmentRepository.Get(request.DepartmentId, cancellationToken)
+            ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
+
         var user = mapper.Map<User>(request);
+        user.Department = department;
         user.Password = PasswordGenerator.GenerateStrongPassword();
         user.Password = encrypter.Hash(user);
 
