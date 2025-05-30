@@ -8,6 +8,7 @@ using Almox.Application.Features.Auth.RefreshTokens;
 using Almox.Application.Common.Exceptions;
 using Almox.Domain.Common.Exceptions;
 using Almox.Application.Features.Users.Get;
+using Almox.Application.Features.Auth.GetLoggedUser;
 
 namespace Almox.API.Controllers;
 
@@ -44,6 +45,14 @@ public class AuthController(IMediator mediator) : ControllerBase
         await mediator.Send(request, cancellationToken);
         DeleteTokenCookies();
         return NoContent();
+    }
+
+    [HttpGet, Route("user")]
+    public async Task<ActionResult<GetLoggedUserResponse>> GetLoggedUser(
+        [FromQuery] GetLoggedUserRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);      
     }
 
     private void SetTokenCookies(string accessToken, string refreshToken)
