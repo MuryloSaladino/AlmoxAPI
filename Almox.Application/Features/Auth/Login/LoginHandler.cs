@@ -4,6 +4,7 @@ using Almox.Application.Repository.Users;
 using Almox.Application.Contracts;
 using Almox.Domain.Common.Exceptions;
 using Almox.Application.Repository;
+using AutoMapper;
 
 namespace Almox.Application.Features.Auth.Login;
 
@@ -11,7 +12,8 @@ public sealed class LoginHandler(
     IUsersRepository userRepository,
     IPasswordEncrypter encrypter,
     IAuthenticator authenticator,
-    IUnitOfWork unitOfWork
+    IUnitOfWork unitOfWork,
+    IMapper mapper
 ) : IRequestHandler<LoginRequest, LoginResponse>
 {
     public async Task<LoginResponse> Handle(
@@ -24,7 +26,6 @@ public sealed class LoginHandler(
         if(!encrypter.Matches(user, request.Password)) 
             throw AppException.Unauthorized(ExceptionMessages.Unauthorized.Credentials);
 
-        var expiresAt = DateTime.UtcNow.AddMinutes(15);
         var accessToken = authenticator.GenerateToken(user);
         var refreshToken = Guid.NewGuid().ToString();
 
@@ -32,6 +33,8 @@ public sealed class LoginHandler(
         userRepository.Update(user);
         await unitOfWork.Save(cancellationToken);
 
-        return new LoginResponse(expiresAt, accessToken, refreshToken);
+        var userPresenter = mapper.Map<LoginUserPresenter>(user);
+
+        return new LoginResponse(accessToken, refreshToken, userPresenter);
     }
 }
