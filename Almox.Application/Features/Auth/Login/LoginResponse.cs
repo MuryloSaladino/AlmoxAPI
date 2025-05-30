@@ -1,5 +1,7 @@
 namespace Almox.Application.Features.Auth.Login;
 
 public sealed record LoginResponse(
-    string Token
+    DateTime ExpiresAt,
+    string AccessToken,
+    string RefreshToken
 );

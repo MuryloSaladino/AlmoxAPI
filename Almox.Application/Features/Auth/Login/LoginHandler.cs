@@ -3,13 +3,15 @@ using Almox.Application.Common.Exceptions;
 using Almox.Application.Repository.Users;
 using Almox.Application.Contracts;
 using Almox.Domain.Common.Exceptions;
+using Almox.Application.Repository;
 
 namespace Almox.Application.Features.Auth.Login;
 
 public sealed class LoginHandler(
     IUsersRepository userRepository,
     IPasswordEncrypter encrypter,
-    IAuthenticator authenticator
+    IAuthenticator authenticator,
+    IUnitOfWork unitOfWork
 ) : IRequestHandler<LoginRequest, LoginResponse>
 {
     public async Task<LoginResponse> Handle(
@@ -21,9 +23,15 @@ public sealed class LoginHandler(
         
         if(!encrypter.Matches(user, request.Password)) 
             throw AppException.Unauthorized(ExceptionMessages.Unauthorized.Credentials);
-        
-        var token = authenticator.GenerateUserToken(user);
 
-        return new LoginResponse(token);
+        var expiresAt = DateTime.UtcNow.AddMinutes(15);
+        var accessToken = authenticator.GenerateToken(user);
+        var refreshToken = Guid.NewGuid().ToString();
+
+        user.RefreshToken = refreshToken; 
+        userRepository.Update(user);
+        await unitOfWork.Save(cancellationToken);
+
+        return new LoginResponse(expiresAt, accessToken, refreshToken);
     }
 }
