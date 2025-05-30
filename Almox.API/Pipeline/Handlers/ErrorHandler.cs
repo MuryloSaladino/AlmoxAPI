@@ -2,7 +2,7 @@ using System.Text.Json;
 using Almox.Application.Contracts;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace Almox.API.Middlewares;
+namespace Almox.API.Pipeline.Handlers;
 
 public static class ErrorHandlerExtensions
 {

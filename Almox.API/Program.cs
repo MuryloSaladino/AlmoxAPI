@@ -6,11 +6,11 @@ using Almox.Persistence.Context;
 using Almox.Application.Common.Session;
 using System.Text.Json.Serialization;
 using Almox.Persistence.Seeding;
-using Almox.API.Middlewares;
 using Microsoft.AspNetCore.Http.Features;
 using dotenv.net;
-using Almox.API.Security.Config;
-using Almox.API.Security.Filters;
+using Almox.API.Pipeline.Cors;
+using Almox.API.Pipeline.Filters;
+using Almox.API.Pipeline.Handlers;
 
 DotEnv.Load(options: new DotEnvOptions(envFilePaths: ["../.env"]));
 
