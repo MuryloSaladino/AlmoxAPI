@@ -11,6 +11,7 @@ using dotenv.net;
 using Almox.API.Pipeline.Cors;
 using Almox.API.Pipeline.Filters;
 using Almox.API.Pipeline.Handlers;
+using Almox.API.Pipeline.Middlewares;
 
 DotEnv.Load(options: new DotEnvOptions(envFilePaths: ["../.env"]));
 
@@ -57,6 +58,7 @@ var dataContext = serviceScope.ServiceProvider.GetService<AlmoxContext>()
 dataContext.Database.EnsureCreated();
 await dataContext.SeedData();
 
+app.UseMiddleware<AuthMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors();
