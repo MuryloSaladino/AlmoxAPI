@@ -6,11 +6,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Orders.Create;
 using Almox.Application.Features.Orders.Cancel;
+using Almox.API.Security.Filters;
 
 namespace Almox.API.Controllers;
 
-[ApiController]
-[Route(APIRoutes.Orders)]
+[ApiController, Route(APIRoutes.Orders), Authorize]
 public class OrdersController(IMediator mediator) : ControllerBase
 {
     [HttpPost]

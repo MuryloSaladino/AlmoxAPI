@@ -1,5 +1,4 @@
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Images;
 using Almox.Application.Repository.Items;
@@ -12,7 +11,6 @@ namespace Almox.Application.Features.Items.UpdateImage;
 public class UpdateImageItemHandler(
     IImagesRepository imageRepository,
     IItemsRepository itemsRepository,
-    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<UpdateImageItemRequest, UpdateImageItemResponse>
@@ -20,8 +18,6 @@ public class UpdateImageItemHandler(
     public async Task<UpdateImageItemResponse> Handle(
         UpdateImageItemRequest request, CancellationToken cancellationToken)
     {
-        requestSession.GetStaffSessionOrThrow();
-
         var item = await itemsRepository.Get(request.ItemId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Item);
 

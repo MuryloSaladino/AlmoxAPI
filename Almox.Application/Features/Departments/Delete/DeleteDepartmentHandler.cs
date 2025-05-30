@@ -9,15 +9,12 @@ namespace Almox.Application.Features.Departments.Delete;
 
 public class DeleteDepartmentHandler(
     IDepartmentRepository departmentRepository,
-    IRequestSession requestSession,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteDepartmentRequest, DeleteDepartmentResponse>
 {
     public async Task<DeleteDepartmentResponse> Handle(
         DeleteDepartmentRequest request, CancellationToken cancellationToken)
     {
-        requestSession.GetAdminSessionOrThrow();
-
         var department = await departmentRepository.Get(request.DepartmentId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
 

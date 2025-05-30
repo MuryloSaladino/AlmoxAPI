@@ -1,7 +1,9 @@
 using Almox.API.Enums;
+using Almox.API.Security.Filters;
 using Almox.Application.Features.Categories.Create;
 using Almox.Application.Features.Categories.Delete;
 using Almox.Application.Features.Categories.GetAll;
+using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +13,7 @@ namespace Almox.API.Controllers;
 [Route(APIRoutes.Categories)]
 public class CategoriesController(IMediator mediator) : ControllerBase
 {
-    [HttpPost]
+    [HttpPost, Authorize(UserRole.Staff)]
     public async Task<ActionResult<CreateCategoryResponse>> Create(
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {
@@ -19,7 +21,7 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         return Created(APIRoutes.Categories, response);
     }
 
-    [HttpGet]
+    [HttpGet, Authorize]
     public async Task<ActionResult<List<GetAllCategoriesResponse>>> GetAll(
         [FromQuery] GetAllCategoriesRequest request, CancellationToken cancellationToken)
     {
@@ -27,7 +29,7 @@ public class CategoriesController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete, Route("{categoryId}")]
+    [HttpDelete, Route("{categoryId}"), Authorize(UserRole.Staff)]
     public async Task<ActionResult> Delete(
         Guid categoryId, CancellationToken cancellationToken)
     {

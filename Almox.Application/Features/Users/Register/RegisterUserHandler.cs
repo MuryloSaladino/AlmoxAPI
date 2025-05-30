@@ -5,8 +5,6 @@ using Almox.Application.Repository;
 using Almox.Application.Repository.Users;
 using Almox.Application.Contracts;
 using Almox.Application.Common.Generators;
-using Almox.Application.Common.Session;
-using Almox.Domain.Common.Enums;
 using Almox.Application.Repository.Departments;
 using Almox.Application.Common.Exceptions;
 using Almox.Domain.Common.Exceptions;
@@ -16,7 +14,6 @@ namespace Almox.Application.Features.Users.Register;
 public sealed class RegisterUserHandler(
     IDepartmentRepository departmentRepository,
     IUsersRepository usersRepository,
-    IRequestSession requestSession,
     IPasswordEncrypter encrypter,
     IUnitOfWork unitOfWork,
     IMapper mapper
@@ -25,11 +22,6 @@ public sealed class RegisterUserHandler(
     public async Task<RegisterUserResponse> Handle(
         RegisterUserRequest request, CancellationToken cancellationToken)
     {
-        if (request.Role.Equals(UserRole.Admin))
-            requestSession.GetAdminSessionOrThrow();
-        else
-            requestSession.GetStaffSessionOrThrow();
-
         var department = await departmentRepository.Get(request.DepartmentId, cancellationToken)
             ?? throw AppException.NotFound(ExceptionMessages.NotFound.Department);
 

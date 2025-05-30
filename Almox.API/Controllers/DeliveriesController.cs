@@ -1,15 +1,16 @@
 using Almox.API.Enums;
+using Almox.API.Security.Filters;
 using Almox.Application.Features.Deliveries.Advance;
 using Almox.Application.Features.Deliveries.Cancel;
 using Almox.Application.Features.Deliveries.Create;
 using Almox.Application.Features.Deliveries.GetAll;
+using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Almox.API.Controllers;
 
-[ApiController]
-[Route(APIRoutes.Deliveries)]
+[ApiController, Route(APIRoutes.Deliveries), Authorize(UserRole.Staff)]
 public class DeliveriesController(IMediator mediator) : ControllerBase
 {
     [HttpPost]

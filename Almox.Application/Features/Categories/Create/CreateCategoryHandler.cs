@@ -1,4 +1,3 @@
-using Almox.Application.Common.Session;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Categories;
 using Almox.Domain.Entities;
@@ -9,7 +8,6 @@ namespace Almox.Application.Features.Categories.Create;
 
 public class CreateCategoryHandler(
     ICategoriesRepository categoriesRepository,
-    IRequestSession requestSession,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<CreateCategoryRequest, CreateCategoryResponse>
@@ -17,8 +15,6 @@ public class CreateCategoryHandler(
     public async Task<CreateCategoryResponse> Handle(
         CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        requestSession.GetStaffSessionOrThrow();
-
         var category = mapper.Map<Category>(request);
         
         categoriesRepository.Create(category);
