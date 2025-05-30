@@ -1,5 +1,5 @@
-using Almox.API.Enums;
-using Almox.API.Security.Filters;
+using Almox.API.Constants;
+using Almox.API.Pipeline.Filters;
 using Almox.Application.Features.Categories.Create;
 using Almox.Application.Features.Categories.Delete;
 using Almox.Application.Features.Categories.GetAll;

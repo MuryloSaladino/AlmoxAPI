@@ -2,9 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Users.Register;
 using Almox.Application.Features.Users.Get;
-using Almox.API.Enums;
+using Almox.API.Constants;
 using Almox.Application.Features.Users.GetAll;
-using Almox.API.Security.Filters;
+using Almox.API.Pipeline.Filters;
 using Almox.Domain.Common.Enums;
 
 namespace Almox.API.Controllers;

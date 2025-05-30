@@ -1,4 +1,4 @@
-using Almox.API.Enums;
+using Almox.API.Constants;
 using Almox.Application.Features.Orders.GetAll;
 using Almox.Application.Features.Orders.Get;
 using Almox.Application.Features.Orders.Advance;
@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Almox.Application.Features.Orders.Create;
 using Almox.Application.Features.Orders.Cancel;
-using Almox.API.Security.Filters;
+using Almox.API.Pipeline.Filters;
 
 namespace Almox.API.Controllers;
 
