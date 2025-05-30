@@ -44,5 +44,9 @@ public class UserConfiguration : BaseEntityConfiguration<User>
             .HasColumnName("role")
             .HasColumnType("smallint")
             .IsRequired();
+
+        builder.Property(e => e.RefreshToken)
+            .HasColumnName("refresh_token")
+            .HasColumnType("char(36)");
     }
 }
