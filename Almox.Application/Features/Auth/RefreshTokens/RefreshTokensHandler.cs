@@ -1,5 +1,4 @@
 using Almox.Application.Common.Exceptions;
-using Almox.Application.Common.Session;
 using Almox.Application.Contracts;
 using Almox.Application.Repository;
 using Almox.Application.Repository.Users;
