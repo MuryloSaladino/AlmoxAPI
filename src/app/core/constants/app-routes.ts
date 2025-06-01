@@ -1,14 +1,11 @@
 export enum AppRoutes {
-	ROOT = "",
-	NOT_FOUND = "/not-found",
+	NOT_FOUND = "not-found",
+	LOGIN = "login",
 
-	LOGIN = "/login",
-
-	INVENTORY = "/inventory",
-	DELIVERIES = "/deliveries",
-
-	DASHBOARD = "/dashboard",
-	CATALOG = "/catalog",
-	CART = "/cart",
-	MY_ORDERS = "/my-orders",
+	DASHBOARD = "dashboard",
+	INVENTORY = "inventory",
+	DELIVERIES = "deliveries",
+	ORDERS = "orders",
+	CATALOG = "catalog",
+	CART = "cart",
 }
