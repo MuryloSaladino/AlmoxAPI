@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("./assets/styles/loading.css");
+@import "tailwindcss";
+
+@theme {
+	--color-grey-0: #fff;
+	--color-grey-100: #F9FAFB;
+	--color-grey-200: #F1F5F9;
+	--color-grey-300: #E2E8F0;
+	--color-grey-400: #99A4B3;
+	--color-grey-500: #758398;
+	--color-grey-600: #505a68;
+	--color-grey-700: #333942;
+	--color-grey-800: #14171b;
+	--color-grey-900: #000000;
+
+	--color-blue: #2563EB;
+	--color-blue-dark: #0F172A;
+	--color-blue-light: #DBEAFE;
+
+	--color-green: #16A34A;
+	--color-green-light: #DCFCE7;
+
+	--color-purple: #9333EA;
+	--color-red: #EF4444;
+	--color-yellow: #EAB308;
+
+	--shadow-sm: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	--shadow-md: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	--shadow-lg: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dark:root {
+	--c-grey-0: #000000;
+	--c-grey-100: #14171b;
+	--c-grey-200: #333942;
+	--c-grey-300: #505a68;
+	--c-grey-400: #758398;
+	--c-grey-500: #99A4B3;
+	--c-grey-600: #E2E8F0;
+	--c-grey-700: #F1F5F9;
+	--c-grey-800: #F9FAFB;
+	--c-grey-900: #fff;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+	background-color: var(--c-grey-100);
+}
