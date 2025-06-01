@@ -1,11 +1,14 @@
 import { inject } from '@angular/core';
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { ApiService } from '../services/api/api.service';
+import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../constants/app-routes';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-	const api = inject(ApiService);
+	const auth = inject(AuthService);
+	const router = inject(Router);
 	let isRefreshing = false;
 
 	return next(req).pipe(
@@ -13,15 +16,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 			if (error.status === 401 && !isRefreshing) {
 				isRefreshing = true;
 
-				return api.refresh().pipe(
+				return auth.refresh().pipe(
 					switchMap(() => next(req)),
 					catchError((refreshError) => {
-						api.user.set(null);
+						auth.userSubject.next(null);
+						router.navigate([AppRoutes.LOGIN])
 						return throwError(() => refreshError);
 					})
 				);
 			}
-
 			return throwError(() => error);
 		})
 	);
