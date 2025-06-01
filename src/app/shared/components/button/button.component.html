@@ -1,0 +1,16 @@
+<button
+    [attr.type]="type"
+    [disabled]="disabled"
+    [class]="['button', extraClasses]"
+    (click)="click.emit($event)"
+>
+    @if(leftIcon) {
+		<app-icon name="{{leftIcon}}"/>
+	}
+
+    <ng-content/>
+
+	@if(rightIcon) {
+		<app-icon name="{{rightIcon}}"/>
+	}
+</button>
