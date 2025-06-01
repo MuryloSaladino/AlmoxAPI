@@ -6,7 +6,8 @@ public static class CorsPolicyExtensions
     {
         services.AddCors(opt =>
             opt.AddDefaultPolicy(builder => builder
-                .AllowAnyOrigin()
+                .WithOrigins(Environment.GetEnvironmentVariable("CORS_ORIGIN") ?? "*")
+                .AllowCredentials()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
             )
