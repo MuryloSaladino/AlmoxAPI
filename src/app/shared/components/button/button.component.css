@@ -1,0 +1,19 @@
+.button {
+	width: 100%;
+
+    padding: 4px 12px;
+	background-color: var(--color-blue-dark);
+	border-radius: 4px;
+
+	color: var(--color-grey-0);
+
+	cursor: pointer;
+	transition: .2s;
+}
+.button:hover {
+	background-color: var(--color-blue);
+}
+.button:disabled {
+	background-color: var(--color-grey-500);
+	cursor: not-allowed;
+}
