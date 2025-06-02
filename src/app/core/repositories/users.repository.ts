@@ -1,22 +1,22 @@
 import { inject, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { User, UserCreation } from "../entities/user.entity";
 import { ApiService } from "../services/api/api.service";
+import { Paginated } from "../services/api/api.interfaces";
 
 @Injectable({ providedIn: "root" })
 export class UsersRepository {
 
-	private readonly almoxService = inject(ApiService);
+	private readonly api = inject(ApiService);
 
-	public create(userCreation: UserCreation): Observable<User> {
-		return this.almoxService.post<User>("/users", userCreation);
+	create(userCreation: UserCreation) {
+		return this.api.post<User>("/users", userCreation);
 	}
 
-	public get(userId: string): Observable<User> {
-		return this.almoxService.get<User>("/users/" + userId);
+	get(userId: string) {
+		return this.api.get<User>("/users/" + userId);
 	}
 
-	public getAll(): Observable<User[]> {
-		return this.almoxService.get<User[]>("/users");
+	getAll() {
+		return this.api.get<Paginated<User>>("/users");
 	}
 }
