@@ -27,3 +27,11 @@ export interface Delivery extends BaseEntity {
     deliveryItems: DeliveryItem[];
     statusUpdated: DeliveryStatusUpdate;
 }
+
+
+export interface DeliveryCreation {
+	supplier: string;
+	expectedDate: Date;
+	observations: string | null;
+	items: Omit<DeliveryItem, "item" | "deliveryId">[];
+}
