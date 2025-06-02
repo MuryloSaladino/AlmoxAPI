@@ -1,0 +1,16 @@
+<header class="flex justify-between p-4 shadow-sm rounded-lg">
+	<almox-logo />
+
+	<nav class="flex gap-3">
+		@for (item of items; track item.title) {
+			<a routerLink="{{ item.link }}">
+				<app-button
+					[leftIcon]="item.icon"
+					[variant]="isActiveRoute(item.link) ? 'primary' : 'white'"
+				>
+					{{ item.title }}
+				</app-button>
+			</a>
+		}
+	</nav>
+</header>
