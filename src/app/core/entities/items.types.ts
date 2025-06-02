@@ -18,3 +18,7 @@ export interface ItemCreation {
 	stock: number;
     categoryIds: string[];
 }
+
+export interface ItemUpdate extends ItemCreation {
+	id: string;
+}
