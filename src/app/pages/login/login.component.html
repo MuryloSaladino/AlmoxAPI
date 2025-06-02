@@ -1,0 +1,16 @@
+<div class="w-[95%] max-w-96 mx-auto mt-[20vh] shadow-sm p-4 rounded-lg">
+	<almox-logo/>
+
+	<form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 mt-8">
+		<app-input
+			formControlName="userIdentifier"
+			label="Username or email"
+		/>
+		<app-input
+			formControlName="password"
+			type="password"
+			label="Password"
+		/>
+		<app-button type="submit" [disabled]="form.invalid" rightIcon="login" class="self-end">Login</app-button>
+	</form>
+</div>
