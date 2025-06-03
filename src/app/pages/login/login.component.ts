@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, effect, inject } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ButtonComponent } from "../../shared/components/button/button.component";
 import { Router } from "@angular/router";
@@ -25,9 +25,9 @@ export class LoginComponent {
 	readonly form: FormGroup;
 
 	constructor(private fb: FormBuilder) {
-		this.auth.tryCookiesAuth().subscribe(
-			() => this.router.navigate([AppRoutes.DASHBOARD])
-		);
+		this.auth.tryCookiesAuth();
+		effect(() => this.auth.user() && this.router.navigate([AppRoutes.DASHBOARD]))
+
 		this.form = this.fb.group({
 			userIdentifier: ['', [Validators.required]],
 			password: ['', [Validators.required]],
@@ -35,8 +35,6 @@ export class LoginComponent {
 	}
 
 	async submit() {
-		this.auth.login(this.form.value).subscribe(
-			() => this.router.navigate([AppRoutes.DASHBOARD])
-		);
+		await this.auth.login(this.form.value);
 	}
 }
