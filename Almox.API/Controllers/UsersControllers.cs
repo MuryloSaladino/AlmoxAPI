@@ -6,7 +6,6 @@ using Almox.API.Constants;
 using Almox.Application.Features.Users.GetAll;
 using Almox.API.Pipeline.Filters;
 using Almox.Domain.Common.Enums;
-using Almox.Application.Features.Users.Count;
 
 namespace Almox.API.Controllers;
 
@@ -21,14 +20,6 @@ public class UsersController(IMediator mediator) : ControllerBase
         return Created(APIRoutes.Users, response);
     }
     
-    [HttpGet, Route("count"), Authorize(UserRole.Staff)]
-    public async Task<ActionResult<CountUsersResponse>> Count(
-        [FromQuery] CountUsersRequest request, CancellationToken cancellationToken)
-    {
-        var response = await mediator.Send(request, cancellationToken);
-        return Ok(response);
-    }
-
     [HttpGet, Authorize(UserRole.Employee), Route("{userId}")]
     public async Task<ActionResult<GetUserResponse>> Get(
         [FromRoute] Guid userId, CancellationToken cancellationToken)
