@@ -27,7 +27,7 @@ export class HeaderComponent {
 		{
 			link: AppRoutes.DASHBOARD,
 			title: "Dashboard",
-			icon: "grid_view",
+			icon: "layout-dashboard",
 		},
 		{
 			link: AppRoutes.ORDERS,
@@ -37,12 +37,12 @@ export class HeaderComponent {
 		{
 			link: AppRoutes.CATALOG,
 			title: "Catalog",
-			icon: "full_coverage",
+			icon: "library",
 		},
 		{
 			link: AppRoutes.CART,
 			title: "Cart",
-			icon: "shopping_cart",
+			icon: "shopping-cart",
 		},
 	]
 	readonly adminNavItems: NavItem[] = [
@@ -50,20 +50,20 @@ export class HeaderComponent {
 		{
 			link: AppRoutes.INVENTORY,
 			title: "Inventory",
-			icon: "inventory_2",
+			icon: "box",
 		},
 		{
 			link: AppRoutes.DELIVERIES,
 			title: "Deliveries",
-			icon: "local_shipping",
+			icon: "truck",
 		},
 	]
 
 	protected readonly router = inject(Router);
 	protected readonly auth = inject(AuthService);
-	protected readonly items = !this.auth.userSubject.value
+	protected readonly items = !this.auth.user()
 		? []
-		: this.auth.userSubject.value.role === "Employee"
+		: this.auth.user()!.role === "Employee"
 		? this.navItems
 		: this.adminNavItems;
 

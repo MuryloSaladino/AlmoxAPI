@@ -5,12 +5,12 @@
     (click)="click.emit($event)"
 >
     @if(leftIcon) {
-		<app-icon name="{{leftIcon}}"/>
+		<i-tabler name="{{leftIcon}}"/>
 	}
 
     <ng-content/>
 
 	@if(rightIcon) {
-		<app-icon name="{{rightIcon}}"/>
+		<i-tabler name="{{rightIcon}}" />
 	}
 </button>

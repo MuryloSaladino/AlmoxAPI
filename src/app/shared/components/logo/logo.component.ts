@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { IconComponent } from "../icon/icon.component";
+import { TablerIconComponent } from "angular-tabler-icons";
 
 @Component({
 	selector: "almox-logo",
 	templateUrl: "./logo.component.html",
 	standalone: true,
-	imports: [IconComponent]
+	imports: [TablerIconComponent]
 })
 export class LogoComponent {}

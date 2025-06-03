@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IconComponent } from "../icon/icon.component";
+import { TablerIconComponent } from "angular-tabler-icons";
 
 @Component({
 	selector: "app-button",
 	templateUrl: "./button.component.html",
 	styleUrl: "./button.component.css",
 	standalone: true,
-	imports: [IconComponent]
+	imports: [TablerIconComponent]
 })
 export class ButtonComponent {
 	@Input() type: "button" | "submit" | "reset" = "button";
