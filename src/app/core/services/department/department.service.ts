@@ -10,8 +10,8 @@ export class DepartmentService {
 		return await http.post<Department>("/departments", departmentCreation);
 	}
 
-	async getAll() {
-		return await http.get<Paginated<Department>>("/departments");
+	async getAll(page: number = 1, pageSize: number = 3) {
+		return await http.get<Paginated<Department>>(`/departments/?page=${page}&pageSize=${pageSize}`);
 	}
 
 	async delete(departmentId: string) {
