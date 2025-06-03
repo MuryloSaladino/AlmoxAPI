@@ -14,4 +14,5 @@ public interface IOrdersRepository
     Task<Order?> GetUserCartOrder(Guid userId, CancellationToken cancellationToken);
     Task<PaginatedResult<Order>> GetAllByUser(
         Guid userId, OrderFilters filters, CancellationToken cancellationToken);
+    Task<int> CountActive(CancellationToken cancellationToken);
 }

@@ -61,4 +61,11 @@ public class OrdersRepository(
             .Where(o => o.DeletedAt == null)
             .Where(o => o.UserId == userId)
             .FirstOrDefaultAsync(cancellationToken);
+
+    public Task<int> CountActive(CancellationToken cancellationToken)
+        => context.Set<Order>()
+            .Where(o => o.DeletedAt == null)
+            .Where(o => o.Status != OrderStatus.Completed)
+            .Where(o => o.Status != OrderStatus.Canceled)
+            .CountAsync(cancellationToken);
 }
