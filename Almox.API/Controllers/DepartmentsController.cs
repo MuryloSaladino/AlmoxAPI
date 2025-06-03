@@ -1,5 +1,6 @@
 using Almox.API.Constants;
 using Almox.API.Pipeline.Filters;
+using Almox.Application.Features.Departments.Count;
 using Almox.Application.Features.Departments.Create;
 using Almox.Application.Features.Departments.Delete;
 using Almox.Application.Features.Departments.GetAll;
@@ -27,6 +28,14 @@ public class DepartmentsController(IMediator mediator) : ControllerBase
         var request = new DeleteDepartmentRequest(departmentId);
         await mediator.Send(request, cancellationToken);
         return NoContent();
+    }
+
+    [HttpGet, Route("count"), Authorize(UserRole.Staff)]
+    public async Task<ActionResult<CountDepartmentsResponse>> Count(
+        [FromQuery] CountDepartmentsRequest request, CancellationToken cancellationToken)
+    {
+        var response = await mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 
     [HttpGet, Authorize(UserRole.Staff)]
