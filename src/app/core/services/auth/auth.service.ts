@@ -1,34 +1,37 @@
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, tap } from 'rxjs';
-import { User } from '../../entities/user.entity';
+import { Injectable, signal } from '@angular/core';
+import { User } from '../../interfaces/entities/user.entity';
 import { LoginRequest, LoginResponse } from './auth.interfaces';
-import { ApiService } from '../api/api.service';
+import { StorageKeys } from '../../constants/storage-keys';
+import { http } from '../../http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-	readonly api = inject(ApiService);
-	readonly userSubject = new BehaviorSubject<User | null>(null);
+	readonly user = signal<User | null>(null);
 
-	login(request: LoginRequest) {
-		return this.api.post<LoginResponse>('/auth/login', request).pipe(tap(
-			({ user }) => this.userSubject.next(user)
-		));
+	private saveUser(user: User) {
+		this.user.set(user);
+		localStorage.setItem(StorageKeys.USERID, user.id);
+	}
+
+	async login(request: LoginRequest) {
+		const { user } = await http.post<LoginResponse>('/auth/login', request);
+		this.saveUser(user);
+	}
+
+	async tryCookiesAuth() {
+		try {
+			const user = await http.get<User>('/auth/user');
+			this.saveUser(user);
+			return true;
+		} catch (error) {
+			return false;
+		}
 	}
 
 	logout() {
-		return this.api.delete('/auth/logout').pipe(finalize(() =>
-			this.userSubject.next(null)
-		))
-	}
-
-	tryCookiesAuth() {
-		return this.api.get<User>('/auth/user').pipe(tap(
-			user => this.userSubject.next(user)
-		));
-	}
-
-	refresh() {
-		return this.api.post(`/auth/refresh/${this.userSubject.value?.id}`, {});
+		http.delete('/auth/logout');
+		this.user.set(null);
+		localStorage.removeItem(StorageKeys.USERID);
 	}
 }
