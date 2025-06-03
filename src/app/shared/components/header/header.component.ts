@@ -1,5 +1,5 @@
-import { Component, inject } from "@angular/core";
-import { Router, RouterModule } from "@angular/router";
+import { Component, computed, effect, inject, signal } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { AppRoutes } from "../../../core/constants/app-routes";
 import { AuthService } from "../../../core/services/auth/auth.service";
 import { LogoComponent } from "../logo/logo.component";
@@ -59,15 +59,18 @@ export class HeaderComponent {
 		},
 	]
 
-	protected readonly router = inject(Router);
-	protected readonly auth = inject(AuthService);
-	protected readonly items = !this.auth.user()
-		? []
-		: this.auth.user()!.role === "Employee"
-		? this.navItems
-		: this.adminNavItems;
+	readonly auth = inject(AuthService);
+	readonly menuOpen = signal(false);
+	readonly items = computed(
+		() => !this.auth.user()
+			? []
+			: this.auth.user()!.role === "Employee"
+			? this.navItems
+			: this.adminNavItems
+	)
 
-	isActiveRoute(route: string) {
-		return this.router.url.includes(route);
+	toggle(event: MouseEvent) {
+		event.stopPropagation();
+		this.menuOpen.update(prev => !prev);
 	}
 }

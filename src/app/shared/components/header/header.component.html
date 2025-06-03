@@ -1,16 +1,17 @@
 <header class="flex justify-between p-4 shadow-sm rounded-lg">
 	<almox-logo />
 
-	<nav class="flex gap-3">
-		@for (item of items; track item.title) {
-			<a routerLink="{{ item.link }}">
-				<app-button
-					[leftIcon]="item.icon"
-					[variant]="isActiveRoute(item.link) ? 'primary' : 'white'"
-				>
-					{{ item.title }}
-				</app-button>
-			</a>
-		}
-	</nav>
+	<app-button variant="white" rightIcon="menu-2" (click)="toggle($event)" class="relative">
+
+		<nav class="flex-col absolute hidden z-10 right-0 top-full bg-grey-0 shadow-sm" [class.flex!]="menuOpen()">
+			@for (item of items(); track item.title) {
+				<a routerLink="{{ item.link }}">
+					<app-button [leftIcon]="item.icon" variant="white" class="justify-start!">
+						{{ item.title }}
+					</app-button>
+				</a>
+			}
+		</nav>
+	</app-button>
+
 </header>
