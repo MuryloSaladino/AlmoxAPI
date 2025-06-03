@@ -16,6 +16,7 @@ import { v4 as uuid } from "uuid";
 })
 export class InputComponent implements ControlValueAccessor {
     @Input() id: string = uuid();
+    @Input() placeholder: string = "";
     @Input() label: string = "";
     @Input() helperText: string = "";
     @Input() type: string = "text";
