@@ -1,5 +1,5 @@
-import { OrderPriority } from "../types/order-priority.types";
-import { OrderStatus } from "../types/order-status.types";
+import { OrderPriority } from "../enums/order-priority";
+import { OrderStatus } from "../enums/order-status";
 import { BaseEntity } from "./base.entity";
 import { Item } from "./items.types";
 

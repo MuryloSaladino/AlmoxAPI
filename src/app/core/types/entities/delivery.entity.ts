@@ -1,4 +1,4 @@
-import { DeliveryStatus } from "../types/delivery-status";
+import { DeliveryStatus } from "../enums/delivery-status";
 import { BaseEntity } from "./base.entity";
 import { Item } from "./items.types";
 

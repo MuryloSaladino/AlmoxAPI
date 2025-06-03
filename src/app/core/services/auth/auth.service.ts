@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { User } from '../../interfaces/entities/user.entity';
+import { User } from '../../types/entities/user.entity';
 import { LoginRequest, LoginResponse } from './auth.interfaces';
 import { StorageKeys } from '../../constants/storage-keys';
 import { http } from '../../http';

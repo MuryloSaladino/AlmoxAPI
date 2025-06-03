@@ -1,4 +1,4 @@
-import { UserRole } from "../types/user-role.types";
+import { UserRole } from "../enums/user-role";
 import { BaseEntity } from "./base.entity";
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { User, UserCreation } from "../../interfaces/entities/user.entity";
+import { User, UserCreation } from "../../types/entities/user.entity";
 import { Paginated } from "../../http/interfaces";
 import { http } from "../../http";
 
