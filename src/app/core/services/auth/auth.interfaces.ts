@@ -1,4 +1,4 @@
-import { User } from "../../entities/user.entity";
+import { User } from "../../interfaces/entities/user.entity";
 
 export interface LoginRequest {
     userIdentifier: string;
