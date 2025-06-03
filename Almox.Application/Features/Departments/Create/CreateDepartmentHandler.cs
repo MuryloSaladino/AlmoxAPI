@@ -7,7 +7,7 @@ using MediatR;
 namespace Almox.Application.Features.Departments.Create;
 
 public class CreateDepartmentHandler(
-    IDepartmentRepository departmentRepository,
+    IDepartmentsRepository departmentRepository,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>

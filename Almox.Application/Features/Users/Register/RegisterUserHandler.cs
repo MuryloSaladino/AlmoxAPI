@@ -12,7 +12,7 @@ using Almox.Domain.Common.Exceptions;
 namespace Almox.Application.Features.Users.Register;
 
 public sealed class RegisterUserHandler(
-    IDepartmentRepository departmentRepository,
+    IDepartmentsRepository departmentRepository,
     IUsersRepository usersRepository,
     IPasswordEncrypter encrypter,
     IUnitOfWork unitOfWork,

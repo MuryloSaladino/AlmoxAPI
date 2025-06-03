@@ -39,7 +39,7 @@ public static class ServiceExtensions
         services.AddScoped<IDeliveriesRepository, DeliveriesRepository>();
         services.AddScoped<IDeliveryItemsRepository, DeliveryItemsRepository>();
         services.AddScoped<IDeliveryStatusUpdatesRepository, DeliveryStatusUpdateRepository>();
-        services.AddScoped<IDepartmentRepository, DepartmentsRepository>();
+        services.AddScoped<IDepartmentsRepository, DepartmentsRepository>();
         services.AddScoped<IImagesRepository, ImagesRepository>();
         services.AddScoped<IItemsRepository, ItemsRepository>();
         services.AddScoped<IOrdersRepository, OrdersRepository>();

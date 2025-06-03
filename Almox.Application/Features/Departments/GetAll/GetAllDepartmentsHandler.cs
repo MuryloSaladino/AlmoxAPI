@@ -6,7 +6,7 @@ using MediatR;
 namespace Almox.Application.Features.Departments.GetAll;
 
 public class GetAllDepartmentsHandler(
-    IDepartmentRepository departmentRepository,
+    IDepartmentsRepository departmentRepository,
     IMapper mapper
 ) : IRequestHandler<GetAllDepartmentsRequest, PaginatedResult<GetAllDepartmentsResponse>>
 {

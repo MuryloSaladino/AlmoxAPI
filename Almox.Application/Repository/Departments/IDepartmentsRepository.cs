@@ -7,5 +7,5 @@ public record DepartmentFilters : PaginatedFilter
     public string? Name { get; init; }
 }
 
-public interface IDepartmentRepository
+public interface IDepartmentsRepository
     : IBaseRepository<Department, DepartmentFilters>;

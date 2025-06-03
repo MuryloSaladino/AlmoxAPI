@@ -8,7 +8,7 @@ namespace Almox.Persistence.Repository.Departments;
 
 public class DepartmentsRepository(
     AlmoxContext context
-) : BaseRepository<Department>(context), IDepartmentRepository
+) : BaseRepository<Department>(context), IDepartmentsRepository
 {
     public async Task<PaginatedResult<Department>> GetAll(
         DepartmentFilters filters, CancellationToken cancellationToken)

@@ -8,7 +8,7 @@ using MediatR;
 namespace Almox.Application.Features.Departments.Delete;
 
 public class DeleteDepartmentHandler(
-    IDepartmentRepository departmentRepository,
+    IDepartmentsRepository departmentRepository,
     IUnitOfWork unitOfWork
 ) : IRequestHandler<DeleteDepartmentRequest, DeleteDepartmentResponse>
 {
