@@ -10,8 +10,8 @@ export class OrderService {
 		return await http.post<Order>("/orders", orderCreation);
 	}
 
-	async getAll() {
-		return await http.get<Paginated<Order>>("/orders");
+	async getAll(query?: string) {
+		return await http.get<Paginated<Order>>("/orders" + query);
 	}
 
 	async get(orderId: string) {

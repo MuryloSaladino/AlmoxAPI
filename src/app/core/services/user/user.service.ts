@@ -14,7 +14,7 @@ export class UserService {
 		return await http.get<User>("/users/" + userId);
 	}
 
-	async getAll(page: number = 1, pageSize: number = 5) {
-		return await http.get<Paginated<User>>(`/users/?page=${page}&pageSize=${pageSize}`);
+	async getAll(query?: string) {
+		return await http.get<Paginated<User>>("/users" + query);
 	}
 }

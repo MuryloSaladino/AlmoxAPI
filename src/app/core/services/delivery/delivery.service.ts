@@ -10,8 +10,8 @@ export class DeliveryService {
 		return await http.post<Delivery>("/deliveries", deliveryCreation);
 	}
 
-	async getAll() {
-		return await http.get<Paginated<Delivery>>("/deliveries");
+	async getAll(query?: string) {
+		return await http.get<Paginated<Delivery>>("/deliveries" + query);
 	}
 
 	async advanceStatus(deliveryId: string, observations: string | null) {

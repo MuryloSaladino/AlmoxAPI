@@ -14,8 +14,8 @@ export class ItemService {
 		return await http.get("/items/" + itemId);
 	}
 
-	async getAll() {
-		return await http.get<Paginated<Item>>("/items");
+	async getAll(query?: string) {
+		return await http.get<Paginated<Item>>("/items" + query);
 	}
 
 	async delete(itemId: string) {
