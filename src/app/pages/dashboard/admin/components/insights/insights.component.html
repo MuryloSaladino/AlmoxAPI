@@ -1,0 +1,30 @@
+<div class="grid grid-cols-4 gap-3">
+	<div class="col-span-4 sm:col-span-2 md:col-span-1 shadow-sm py-6 px-4 rounded-md">
+		<div class="flex justify-between items-center">
+			<h4 class="font-semibold">Total Departments</h4>
+			<i-tabler class="text-grey-700" name="buildings"/>
+		</div>
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.departments }}</h3>
+	</div>
+	<div class="col-span-4 sm:col-span-2 md:col-span-1 shadow-sm py-6 px-4 rounded-md">
+		<div class="flex justify-between items-center">
+			<h4 class="font-semibold">Total Users</h4>
+			<i-tabler class="text-grey-700" name="users-group"/>
+		</div>
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.users }}</h3>
+	</div>
+	<div class="col-span-4 sm:col-span-2 md:col-span-1 shadow-sm py-6 px-4 rounded-md">
+		<div class="flex justify-between items-center">
+			<h4 class="font-semibold">Ongoing Orders</h4>
+			<i-tabler class="text-grey-700" name="send"/>
+		</div>
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.ongoingOrders }}</h3>
+	</div>
+	<div class="col-span-4 sm:col-span-2 md:col-span-1 shadow-sm py-6 px-4 rounded-md">
+		<div class="flex justify-between items-center">
+			<h4 class="font-semibold">Pending Deliveries</h4>
+			<i-tabler class="text-grey-700" name="truck"/>
+		</div>
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.pendingDeliveries }}</h3>
+	</div>
+</div>

@@ -2,50 +2,44 @@ import { Component, inject, resource, signal } from "@angular/core";
 import { InputComponent } from "../../../../../shared/components/input/input.component";
 import { ButtonComponent } from "../../../../../shared/components/button/button.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { UserService } from "../../../../../core/services/user/user.service";
 import { DepartmentService } from "../../../../../core/services/department/department.service";
-import { TablerIconComponent } from "angular-tabler-icons";
 
 @Component({
-	selector: "department-management",
-	templateUrl: "./department-management.component.html",
+	selector: "user-management",
+	templateUrl: "./user-management.component.html",
  	imports: [
 		InputComponent,
 		ButtonComponent,
-		TablerIconComponent,
 		ReactiveFormsModule,
 	]
 })
-export class DepartmentManagement {
+export class UserManagementComponent {
 
 	readonly departmentService = inject(DepartmentService);
+	readonly userService = inject(UserService);
 	readonly loading = signal(false);
 	readonly page = signal(1);
 	readonly form: FormGroup;
 
 	readonly departments = resource({
-		loader: async () => await this.departmentService.getAll(this.page()),
+		loader: async () => await this.departmentService.getAll(1, 100)
 	})
 
 	constructor(private fb: FormBuilder) {
 		this.form = this.fb.group({
-			name: ['', [Validators.required, Validators.minLength(3)]],
+			username: ['', [Validators.required, Validators.minLength(3)]],
+			email: ['', [Validators.required, Validators.email]],
+			role: ['', [Validators.required]],
+			departmentId: ['', [Validators.required]],
 		});
 	}
 
 	async submit() {
 		this.loading.set(true);
-		await this.departmentService.create(this.form.value);
-		this.departments.reload();
+		await this.userService.create(this.form.value);
 		this.loading.set(false);
 		this.form.reset();
 	}
-
-	async nextPage() {
-		this.page.update(prev => Math.min(prev+1, this.departments.value()!.maxPage));
-		this.departments.reload();
-	}
-	async prevPage() {
-		this.page.update(prev => Math.max(prev-1, 1));
-		this.departments.reload();
-	}
 }
+

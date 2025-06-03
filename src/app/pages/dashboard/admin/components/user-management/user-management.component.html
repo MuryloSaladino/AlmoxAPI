@@ -1,0 +1,32 @@
+<div class="shadow-sm py-6 px-4 rounded-md flex flex-col gap-8 h-full" [class.loading]="loading()">
+	<div>
+		<h3 class="text-2xl font-semibold">User Management</h3>
+		<p class="text-sm text-grey-400">Add and manage company users</p>
+	</div>
+
+	<form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-2 gap-4">
+		<app-input
+			formControlName="username"
+			label="Username"
+			class="col-span-2 md:col-span-1"
+		/>
+		<app-input
+			formControlName="email"
+			label="Email"
+			class="col-span-2 md:col-span-1"
+		/>
+		<select formControlName="departmentId" class="w-full outline-0 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
+			<option value="">Select department</option>
+			@for (department of departments.value()?.results; track department.id) {
+				<option value="{{department.id}}">{{department.name}}</option>
+			}
+		</select>
+		<select formControlName="role" class="w-full outline-0 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
+			<option value="">Select role</option>
+			<option value="Admin">Admin</option>
+			<option value="Admin">Staff</option>
+			<option value="Admin">Employee</option>
+		</select>
+		<app-button class="col-span-2" rightIcon="user-plus" type="submit">Add user</app-button>
+	</form>
+</div>
