@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Order, OrderCreation } from "../../interfaces/entities/order.entity";
 import { http } from "../../http";
 import { Paginated } from "../../http/interfaces";
+import { Order, OrderCreation } from "../../types/entities/order.entity";
 
 @Injectable({ providedIn: "root" })
 export class OrderService {

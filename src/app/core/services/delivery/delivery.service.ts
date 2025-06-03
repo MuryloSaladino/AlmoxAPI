@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Delivery, DeliveryCreation } from "../../interfaces/entities/delivery.entity";
 import { http } from "../../http";
 import { Paginated } from "../../http/interfaces";
+import { Delivery, DeliveryCreation } from "../../types/entities/delivery.entity";
 
 @Injectable({ providedIn: "root" })
 export class DeliveryService {

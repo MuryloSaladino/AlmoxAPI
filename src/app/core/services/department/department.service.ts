@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Department, DepartmentCreation } from "../../interfaces/entities/department.entity";
 import { Paginated } from "../../http/interfaces";
 import { http } from "../../http";
+import { Department, DepartmentCreation } from "../../types/entities/department.entity";
 
 @Injectable({ providedIn: "root" })
 export class DepartmentService {

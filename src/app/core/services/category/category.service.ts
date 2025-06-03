@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Category, CategoryCreation } from "../../interfaces/entities/category.entity";
 import { http } from "../../http";
+import { Category, CategoryCreation } from "../../types/entities/category.entity";
 
 @Injectable({ providedIn: "root" })
 export class CategoryService {
