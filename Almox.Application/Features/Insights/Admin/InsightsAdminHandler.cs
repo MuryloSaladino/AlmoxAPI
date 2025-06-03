@@ -16,16 +16,11 @@ public class InsightsAdminHandler(
     public async Task<InsightsAdminResponse> Handle(
         InsightsAdminRequest request, CancellationToken cancellationToken)
     {
-        var departments = departmentsRepository.Count(cancellationToken);
-        var users = usersRepository.Count(cancellationToken);
-        var orders = ordersRepository.CountActive(cancellationToken);
-        var deliveries = deliveriesRepository.CountPending(cancellationToken);
+        var departments = await departmentsRepository.Count(cancellationToken);
+        var users = await usersRepository.Count(cancellationToken);
+        var orders = await ordersRepository.CountActive(cancellationToken);
+        var deliveries = await deliveriesRepository.CountPending(cancellationToken);
 
-        return new(
-            await departments, 
-            await users, 
-            await orders, 
-            await deliveries
-        );
+        return new(departments, users, orders, deliveries);
     }
 }
