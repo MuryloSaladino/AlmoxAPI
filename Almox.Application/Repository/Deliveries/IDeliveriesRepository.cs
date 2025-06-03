@@ -11,4 +11,7 @@ public record DeliveryFilters : PaginatedFilter
 }
 
 public interface IDeliveriesRepository
-    : IBaseRepository<Delivery, DeliveryFilters>;
+    : IBaseRepository<Delivery, DeliveryFilters>
+{
+    Task<int> CountPending(CancellationToken cancellationToken);
+}

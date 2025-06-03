@@ -20,7 +20,7 @@ public class DeliveriesRepository(
 
         if (filters.Status is DeliveryStatus statusFilter)
             query = query.Where(d => d.Status == statusFilter);
-            
+
         if (filters.Start is DateTime startDateFilter)
             query = query.Where(d => d.ExpectedDate > startDateFilter);
 
@@ -35,7 +35,13 @@ public class DeliveriesRepository(
             .Skip((filters.Page - 1) * filters.PageSize)
             .Take(filters.PageSize)
             .ToListAsync(cancellationToken);
-        
+
         return new(filters.Page, filters.PageSize, maxPage, results);
     }
+
+    public Task<int> CountPending(CancellationToken cancellationToken)
+        => context.Set<Delivery>()
+            .Where(d => d.DeletedAt == null)
+            .Where(d => d.Status == DeliveryStatus.InTransit)
+            .CountAsync(cancellationToken);
 }
