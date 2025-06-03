@@ -7,8 +7,7 @@ namespace Almox.Persistence.Repository;
 
 public class BaseRepository<TEntity>(
     AlmoxContext context
-) : IBaseRepository<TEntity>
-        where TEntity : BaseEntity
+) : IBaseRepository<TEntity> where TEntity : BaseEntity
 {
     protected readonly AlmoxContext context = context;
 
@@ -20,7 +19,7 @@ public class BaseRepository<TEntity>(
         entity.UpdatedAt = DateTime.UtcNow;
         context.Update(entity);
     }
-    
+
     public void Delete(TEntity entity)
     {
         entity.DeletedAt = DateTime.UtcNow;
@@ -36,7 +35,7 @@ public class BaseRepository<TEntity>(
         => context.Set<TEntity>()
             .Where(entity => entity.DeletedAt == null)
             .ToListAsync(cancellationToken);
-    
+
     public virtual Task<List<TEntity>> GetAll(
         IEnumerable<Guid> ids, CancellationToken cancellationToken)
             => context.Set<TEntity>()
@@ -62,10 +61,13 @@ public class BaseRepository<TEntity>(
 
         return new(filters.Page, filters.PageSize, maxPage, results);
     }
-    
+
     public virtual Task<bool> Exists(Guid id, CancellationToken cancellationToken)
         => context.Set<TEntity>()
             .Where(e => e.Id == id)
             .Where(e => e.DeletedAt == null)
             .AnyAsync(cancellationToken);
+
+    public Task<int> Count(CancellationToken cancellationToken)
+        => context.Set<TEntity>().CountAsync(cancellationToken);
 }
