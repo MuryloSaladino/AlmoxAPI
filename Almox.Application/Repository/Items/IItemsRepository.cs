@@ -9,4 +9,7 @@ public record ItemFilters : PaginatedFilter
 }
 
 public interface IItemsRepository
-    : IBaseRepository<Item, ItemFilters>;
+    : IBaseRepository<Item, ItemFilters>
+{
+    Task<int> CountStock(CancellationToken cancellationToken);
+}

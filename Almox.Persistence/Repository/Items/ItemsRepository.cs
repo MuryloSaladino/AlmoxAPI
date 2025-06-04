@@ -36,4 +36,9 @@ public class ItemsRepository(
 
         return new(filters.Page, filters.PageSize, maxPage, results);
     }
+
+    public Task<int> CountStock(CancellationToken cancellationToken)
+        => context.Set<Item>()
+            .Where(i => i.DeletedAt == null)
+            .SumAsync(i => i.Stock, cancellationToken);
 }
