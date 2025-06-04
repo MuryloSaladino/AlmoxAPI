@@ -1,29 +1,33 @@
-import { Component, effect, inject, resource } from "@angular/core";
-import { DepartmentService } from "../../../core/services/department/department.service";
+import { Component, inject } from "@angular/core";
 import { UserService } from "../../../core/services/user/user.service";
 import { InsightsComponent } from "./components/insights/insights.component";
-import { InsightsService } from "../../../core/services/insights/insights.service";
 import { DepartmentManagement } from "./components/department-management/department-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
-import { UserTableComponent } from "./components/user-table/user-table.component";
+import { ServerTableColumn } from "../../../shared/components/server-table/server-table.types";
+import { User } from "../../../core/types/entities/user.entity";
+import { CardComponent } from "../../../shared/components/card/card.component";
+import { ServerTableComponent } from "../../../shared/components/server-table/server-table.component";
 
 @Component({
 	selector: "admin-dashboard",
-	templateUrl: "admin-dashboard.component.html",
-	styleUrl: "admin-dashboard.component.css",
+	templateUrl: "./admin-dashboard.component.html",
 	standalone: true,
 	imports: [
 		InsightsComponent,
 		DepartmentManagement,
 		UserManagementComponent,
-		UserTableComponent,
+		CardComponent,
+		ServerTableComponent,
 	],
 })
 export class AdminDashboardComponent {
 
 	readonly userService = inject(UserService);
 
-	readonly users = resource({
-		loader: async () => await this.userService.getAll(),
-	})
+	readonly userColumns: ServerTableColumn<User>[] = [
+		{ label: "Username", path: "username" },
+		{ label: "Department", path: "departmentName" },
+		{ label: "Email", path: "email" },
+		{ label: "Role", path: "role" },
+	]
 }

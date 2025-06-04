@@ -1,12 +1,12 @@
 import { Component, inject, resource } from "@angular/core";
-import { TablerIconComponent } from "angular-tabler-icons";
 import { InsightsService } from "../../../../../core/services/insights/insights.service";
+import { CardComponent } from "../../../../../shared/components/card/card.component";
 
 @Component({
 	selector: "insights",
 	templateUrl: "./insights.component.html",
 	standalone: true,
- 	imports: [TablerIconComponent],
+ 	imports: [CardComponent],
 })
 export class InsightsComponent {
 	readonly insightsService = inject(InsightsService);

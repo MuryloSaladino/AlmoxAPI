@@ -1,4 +1,4 @@
-<div class="shadow-sm py-6 px-4 rounded-md flex flex-col gap-4" [class.loading]="loading() || this.departments.isLoading()">
+<div class="shadow-sm py-6 px-4 rounded-md flex flex-col gap-4" [class.loading]="loading()">
 	<div>
 		<h3 class="text-2xl font-semibold">Department Management</h3>
 		<p class="text-sm text-grey-400">Add and manage company departments</p>
@@ -9,25 +9,5 @@
 		<app-button class="w-max" rightIcon="building-plus" type="submit">Add</app-button>
 	</form>
 
-	<table class="table-fixed!">
-		<thead>
-			<tr class="border-b-[1px] border-grey-300">
-				<th class="text-start py-2 px-4 text-sm font-medium text-grey-600">Department</th>
-				<th class="text-start py-2 px-4 text-sm font-medium text-grey-600">Users</th>
-			</tr>
-		</thead>
-		<tbody>
-			@for (department of departments.value()?.results || []; track department.id) {
-				<tr class="text-start text-sm border-b-[1px] border-grey-300">
-					<td class="py-2 px-4 font-normal">{{department.name}}</td>
-					<td class="py-2 px-4 font-normal">{{department.userCount}}</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-
-	<div class="flex items-center gap-3 self-end select-none">
-		<i-tabler name="chevron-left" class="cursor-pointer hover:text-blue" (click)="prevPage()"/>
-		<i-tabler name="chevron-right" class="cursor-pointer hover:text-blue" (click)="nextPage()"/>
-	</div>
+	<server-table [loader]="departmentService.getAll" [columns]="columns"/>
 </div>

@@ -23,7 +23,7 @@ export class UserManagementComponent {
 	readonly form: FormGroup;
 
 	readonly departments = resource({
-		loader: async () => await this.departmentService.getAll(1, 100)
+		loader: async () => await this.departmentService.getAll("?pageSize=100")
 	})
 
 	constructor(private fb: FormBuilder) {

@@ -11,5 +11,7 @@
 		<user-management class="col-span-2 md:col-span-1"/>
 	</div>
 
-	<user-table/>
+	<card title="All Users">
+		<server-table [loader]="userService.getAll" [columns]="userColumns"/>
+	</card>
 </div>

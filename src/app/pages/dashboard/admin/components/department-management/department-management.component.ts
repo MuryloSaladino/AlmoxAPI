@@ -4,6 +4,9 @@ import { ButtonComponent } from "../../../../../shared/components/button/button.
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DepartmentService } from "../../../../../core/services/department/department.service";
 import { TablerIconComponent } from "angular-tabler-icons";
+import { ServerTableComponent } from "../../../../../shared/components/server-table/server-table.component";
+import { ServerTableColumn } from "../../../../../shared/components/server-table/server-table.types";
+import { Department } from "../../../../../core/types/entities/department.entity";
 
 @Component({
 	selector: "department-management",
@@ -11,8 +14,8 @@ import { TablerIconComponent } from "angular-tabler-icons";
  	imports: [
 		InputComponent,
 		ButtonComponent,
-		TablerIconComponent,
 		ReactiveFormsModule,
+		ServerTableComponent,
 	]
 })
 export class DepartmentManagement {
@@ -21,10 +24,6 @@ export class DepartmentManagement {
 	readonly loading = signal(false);
 	readonly page = signal(1);
 	readonly form: FormGroup;
-
-	readonly departments = resource({
-		loader: async () => await this.departmentService.getAll(this.page()),
-	})
 
 	constructor(private fb: FormBuilder) {
 		this.form = this.fb.group({
@@ -35,17 +34,12 @@ export class DepartmentManagement {
 	async submit() {
 		this.loading.set(true);
 		await this.departmentService.create(this.form.value);
-		this.departments.reload();
 		this.loading.set(false);
 		this.form.reset();
 	}
 
-	async nextPage() {
-		this.page.update(prev => Math.min(prev+1, this.departments.value()!.maxPage));
-		this.departments.reload();
-	}
-	async prevPage() {
-		this.page.update(prev => Math.max(prev-1, 1));
-		this.departments.reload();
-	}
+	readonly columns: ServerTableColumn<Department>[] = [
+		{ label: "Name", path: "name" },
+		{ label: "Users", path: "userCount" },
+	]
 }
