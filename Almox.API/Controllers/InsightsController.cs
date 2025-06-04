@@ -1,12 +1,14 @@
 using Almox.API.Constants;
+using Almox.API.Pipeline.Filters;
 using Almox.Application.Features.Insights.Admin;
 using Almox.Application.Features.Insights.Inventory;
+using Almox.Domain.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Almox.API.Controllers;
 
-[ApiController, Route(APIRoutes.Insights)]
+[ApiController, Route(APIRoutes.Insights), Authorize(UserRole.Staff)]
 public class InsightsController(IMediator mediator) : ControllerBase
 {
     [HttpGet, Route("admin")]
