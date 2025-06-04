@@ -1,0 +1,28 @@
+<div class="flex flex-col gap-4">
+	<div class="overflow-x-auto w-full">
+		<table class="w-full">
+			<thead>
+				<tr class="border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+					@for(column of columns; track $index) {
+						<th class="text-start p-3 text-sm font-medium text-grey-600">{{ column.label }}</th>
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@for(row of data.value().results; track $index) {
+					<tr class="text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+						@for(column of columns; track $index) {
+							<td class="p-3 font-normal">{{row[column.path]}}</td>
+						}
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="flex items-center gap-3 self-end select-none">
+		<i-tabler name="chevron-left" class="cursor-pointer hover:text-blue" (click)="prevPage()"/>
+		<span>{{data.value().page}}</span>
+		<i-tabler name="chevron-right" class="cursor-pointer hover:text-blue" (click)="nextPage()"/>
+	</div>
+</div>

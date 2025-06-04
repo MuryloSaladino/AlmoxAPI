@@ -1,0 +1,8 @@
+.table_container {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.table {
+	table-layout: fixed !important;
+}
