@@ -69,5 +69,7 @@ public class BaseRepository<TEntity>(
             .AnyAsync(cancellationToken);
 
     public Task<int> Count(CancellationToken cancellationToken)
-        => context.Set<TEntity>().CountAsync(cancellationToken);
+        => context.Set<TEntity>()
+            .Where(e => e.DeletedAt == null)
+            .CountAsync(cancellationToken);
 }
