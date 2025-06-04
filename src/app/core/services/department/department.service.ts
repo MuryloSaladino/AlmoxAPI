@@ -10,7 +10,7 @@ export class DepartmentService {
 		return await http.post<Department>("/departments", departmentCreation);
 	}
 
-	async getAll(query?: string) {
+	async getAll(query: string = "") {
 		return await http.get<Paginated<Department>>("/departments" + query);
 	}
 

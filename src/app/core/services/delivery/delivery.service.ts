@@ -10,7 +10,7 @@ export class DeliveryService {
 		return await http.post<Delivery>("/deliveries", deliveryCreation);
 	}
 
-	async getAll(query?: string) {
+	async getAll(query: string = "") {
 		return await http.get<Paginated<Delivery>>("/deliveries" + query);
 	}
 

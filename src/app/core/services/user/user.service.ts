@@ -14,7 +14,7 @@ export class UserService {
 		return await http.get<User>("/users/" + userId);
 	}
 
-	async getAll(query?: string) {
+	async getAll(query: string = "") {
 		return await http.get<Paginated<User>>("/users" + query);
 	}
 }
