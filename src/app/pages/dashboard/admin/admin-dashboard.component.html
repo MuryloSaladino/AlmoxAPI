@@ -1,4 +1,31 @@
 <div class="flex flex-col gap-8 mt-8">
+	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+		<navigation-card
+			icon="box"
+			iconColor="#2563EB"
+			title="Inventory Management"
+			description="Manage items and categories"
+			link="/inventory"
+			linkText="Manage Inventory"
+		/>
+		<navigation-card
+			icon="truck"
+			iconColor="#16A34A"
+			title="Deliveries"
+			description="Track incoming deliveries"
+			link="/deliveries"
+			linkText="View Deliveries"
+		/>
+		<navigation-card
+			icon="users-group"
+			iconColor="#9333EA"
+			title="User Management"
+			description="Manage departments and users"
+			linkText="Go to Management"
+			class="hidden lg:block"
+		/>
+	</div>
+
 	<div class="col-span-12">
 		<h1 class="text-3xl font-semibold">Admin Dashboard</h1>
 		<p class="text-sm text-grey-500">Manage departments, users, and warehouse operations</p>
