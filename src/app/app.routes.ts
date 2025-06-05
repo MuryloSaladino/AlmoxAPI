@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PageLayoutComponent } from './shared/components/page-layout/page-layout.component';
 import { authGuard } from './core/guards/auth.guard';
+import { InventoryComponent } from './pages/inventory/inventory.component';
 
 export const routes: Routes = [
 	{
@@ -28,6 +29,10 @@ export const routes: Routes = [
 			{
 				path: AppRoutes.DASHBOARD,
 				component: DashboardComponent,
+			},
+			{
+				path: AppRoutes.INVENTORY,
+				component: InventoryComponent,
 			},
 		]
 	},

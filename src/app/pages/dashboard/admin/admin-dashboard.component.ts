@@ -7,7 +7,7 @@ import { ServerTableColumn } from "../../../shared/components/server-table/serve
 import { User } from "../../../core/types/entities/user.entity";
 import { CardComponent } from "../../../shared/components/card/card.component";
 import { ServerTableComponent } from "../../../shared/components/server-table/server-table.component";
-import { NavigationCardComponent } from "./components/navigation-card/navigation-card.component";
+import { NavigationCardComponent } from "../../../shared/components/navigation-card/navigation-card.component";
 
 @Component({
 	selector: "admin-dashboard",
