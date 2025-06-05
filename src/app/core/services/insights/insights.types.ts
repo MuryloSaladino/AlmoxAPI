@@ -4,3 +4,9 @@ export interface AdminInsights {
 	ongoingOrders: number;
 	pendingDeliveries: number;
 }
+
+export interface InventoryInsights {
+	totalCategories: number;
+	totalItems: number;
+	totalStock: number;
+}
