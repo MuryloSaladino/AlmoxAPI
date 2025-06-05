@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { UserService } from "../../../core/services/user/user.service";
 import { InsightsComponent } from "./components/insights/insights.component";
-import { DepartmentManagement } from "./components/department-management/department-management.component";
+import { DepartmentManagementComponent } from "./components/department-management/department-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { ServerTableColumn } from "../../../shared/components/server-table/server-table.types";
 import { User } from "../../../core/types/entities/user.entity";
@@ -15,7 +15,7 @@ import { NavigationCardComponent } from "../../../shared/components/navigation-c
 	standalone: true,
 	imports: [
 		InsightsComponent,
-		DepartmentManagement,
+		DepartmentManagementComponent,
 		UserManagementComponent,
 		CardComponent,
 		ServerTableComponent,
