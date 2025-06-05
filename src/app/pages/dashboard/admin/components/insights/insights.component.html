@@ -1,37 +1,17 @@
-<div class="grid grid-cols-4 gap-3">
-	<card
-		class="col-span-4 sm:col-span-2 md:col-span-1"
-		title="Total Departments"
-		titleClass="text-md!"
-		icon="buildings"
-	>
+<div class="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
+	<card title="Total Departments" icon="buildings">
 		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.departments }}</h3>
 	</card>
 
-	<card
-		class="col-span-4 sm:col-span-2 md:col-span-1"
-		title="Total Users"
-		titleClass="text-md!"
-		icon="users-group"
-	>
+	<card title="Total Users" icon="users-group">
 		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.users }}</h3>
 	</card>
 
-	<card
-		class="col-span-4 sm:col-span-2 md:col-span-1"
-		title="Ongoing Orders"
-		titleClass="text-md!"
-		icon="send"
-	>
+	<card title="Ongoing Orders" icon="send">
 		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.ongoingOrders }}</h3>
 	</card>
 
-	<card
-		class="col-span-4 sm:col-span-2 md:col-span-1"
-		title="Pending Deliveries"
-		titleClass="text-md!"
-		icon="truck"
-	>
+	<card title="Pending Deliveries" icon="truck">
 		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.pendingDeliveries }}</h3>
 	</card>
 </div>

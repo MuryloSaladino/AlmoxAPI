@@ -1,17 +1,18 @@
-import { Component, inject, resource, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { InputComponent } from "../../../../../shared/components/input/input.component";
 import { ButtonComponent } from "../../../../../shared/components/button/button.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DepartmentService } from "../../../../../core/services/department/department.service";
-import { TablerIconComponent } from "angular-tabler-icons";
 import { ServerTableComponent } from "../../../../../shared/components/server-table/server-table.component";
 import { ServerTableColumn } from "../../../../../shared/components/server-table/server-table.types";
 import { Department } from "../../../../../core/types/entities/department.entity";
+import { CardComponent } from "../../../../../shared/components/card/card.component";
 
 @Component({
 	selector: "department-management",
 	templateUrl: "./department-management.component.html",
  	imports: [
+		CardComponent,
 		InputComponent,
 		ButtonComponent,
 		ReactiveFormsModule,
