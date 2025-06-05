@@ -19,7 +19,7 @@ import { CardComponent } from "../../../../../shared/components/card/card.compon
 		ServerTableComponent,
 	]
 })
-export class DepartmentManagement {
+export class DepartmentManagementComponent {
 
 	readonly departmentService = inject(DepartmentService);
 	readonly loading = signal(false);
