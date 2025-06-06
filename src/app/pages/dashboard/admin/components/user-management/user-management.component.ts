@@ -4,6 +4,7 @@ import { ButtonComponent } from "../../../../../shared/components/button/button.
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { UserService } from "../../../../../core/services/user/user.service";
 import { DepartmentService } from "../../../../../core/services/department/department.service";
+import { CardComponent } from "../../../../../shared/components/card/card.component";
 
 @Component({
 	selector: "user-management",
@@ -12,6 +13,7 @@ import { DepartmentService } from "../../../../../core/services/department/depar
 		InputComponent,
 		ButtonComponent,
 		ReactiveFormsModule,
+		CardComponent,
 	]
 })
 export class UserManagementComponent {

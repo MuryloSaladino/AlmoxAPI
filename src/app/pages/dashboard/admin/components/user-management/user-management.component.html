@@ -1,9 +1,4 @@
-<div class="shadow-sm py-6 px-4 rounded-md flex flex-col gap-8 h-full" [class.loading]="loading()">
-	<div>
-		<h3 class="text-2xl font-semibold">User Management</h3>
-		<p class="text-sm text-grey-400">Add and manage company users</p>
-	</div>
-
+<card title="User Management" helperText="Add and manage company users">
 	<form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-2 gap-4">
 		<app-input
 			formControlName="username"
@@ -29,4 +24,4 @@
 		</select>
 		<app-button class="col-span-2" rightIcon="user-plus" type="submit">Add user</app-button>
 	</form>
-</div>
+</card>
