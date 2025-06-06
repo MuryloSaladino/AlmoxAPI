@@ -1,18 +1,21 @@
-import { FetchError, FetchOptions } from './interfaces';
+import { BodyTypeProcessor, FetchError, FetchOptions } from './interfaces';
 import { environment } from '../../../environments/environment';
 import { StorageKeys } from '../constants/storage-keys';
 
 export async function http<T = never>(
-	url?: string,
-	options?: FetchOptions,
+	url: string,
+	{
+		method = "GET",
+		bodyType = "json",
+	}: FetchOptions,
 	data?: any
 ): Promise<T> {
 
 	const fetchCall = async () => await fetch(environment.apiUrl + url, {
-		headers: { "Content-Type": "application/json" },
+		method,
 		credentials: "include",
-		method: options?.method,
-		body: JSON.stringify(data),
+		headers: BodyTypeProcessor[bodyType].headers,
+		body: BodyTypeProcessor[bodyType].body(data),
 	});
 
 	let response = await fetchCall();

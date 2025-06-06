@@ -26,11 +26,9 @@ export class ItemService {
 		return await http.put<Item>("/items", itemUpdate);
 	}
 
-	// async updateImage(itemId: string, image: Blob) {
-	// 	const formData = new FormData();
-	// 	formData.append("file", image);
-	// 	return http.post<Item>(`/items/${itemId}/image`, formData, {
-	// 		"Content-Type": "multipart/form-data"
-	// 	});
-	// }
+	async updateImage(itemId: string, image: Blob) {
+		return http.put<Item>(`/items/${itemId}/image`, image, {
+			bodyType: "blob"
+		});
+	}
 }
