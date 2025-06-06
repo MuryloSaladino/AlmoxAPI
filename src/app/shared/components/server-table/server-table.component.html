@@ -10,9 +10,24 @@
 			</thead>
 			<tbody>
 				@for(row of data.value().results; track $index) {
-					<tr class="text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+					<tr class="h-12 text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
 						@for(column of columns; track $index) {
-							<td class="p-3 font-normal">{{row[column.path]}}</td>
+							<td class="p-3 font-normal">
+								{{
+									column.format == "date"
+									? (row[column.path] | formatDate)
+									: column.format == "currency"
+									? (row[column.path] | brlCurrency)
+									: row[column.path]
+								}}
+							</td>
+						}
+					</tr>
+				}
+				@for(row of emptyRows(); track $index) {
+					<tr class="h-12 text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+						@for(column of columns; track $index) {
+							<td class="p-3 font-normal"></td>
 						}
 					</tr>
 				}
@@ -21,8 +36,20 @@
 	</div>
 
 	<div class="flex items-center gap-3 self-end select-none">
-		<i-tabler name="chevron-left" class="cursor-pointer hover:text-blue" (click)="prevPage()"/>
+		<i-tabler
+			name="chevron-left"
+			class="cursor-pointer"
+			[class.hover:text-blue]="page() > 1"
+			[class.opacity-40]="page() == 1"
+			(click)="prevPage()"
+		/>
 		<span>{{data.value().page}}</span>
-		<i-tabler name="chevron-right" class="cursor-pointer hover:text-blue" (click)="nextPage()"/>
+		<i-tabler
+			name="chevron-right"
+			class="cursor-pointer"
+			[class.hover:text-blue]="page() < data.value().maxPage"
+			[class.opacity-40]="page() == data.value().maxPage"
+			(click)="nextPage()"
+		/>
 	</div>
 </div>

@@ -1,14 +1,20 @@
-import { Component, effect, Input, resource, signal } from "@angular/core";
+import { Component, computed, effect, Input, resource, signal } from "@angular/core";
 import { Paginated } from "../../../core/http/interfaces";
 import { ServerTableColumn } from "./server-table.types";
 import { TablerIconComponent } from "angular-tabler-icons";
+import { FormatDatePipe } from "../../pipes/format-date.pipe";
+import { BrlCurrencyPipe } from "../../pipes/brl-currency.pipe";
 
 @Component({
 	selector: "server-table",
 	templateUrl: "./server-table.component.html",
 	styleUrl: "./server-table.component.css",
 	standalone: true,
-	imports: [TablerIconComponent],
+	imports: [
+		TablerIconComponent,
+		FormatDatePipe,
+		BrlCurrencyPipe,
+	],
 })
 export class ServerTableComponent<T extends object> {
 
@@ -29,6 +35,9 @@ export class ServerTableComponent<T extends object> {
 			pageSize: this.pageSize.toString(),
 		}).toString()),
 	});
+	readonly emptyRows = computed(() => new Array(
+		this.pageSize - this.data.value().results.length
+	).fill(null))
 
 	constructor() {
 		effect(() => console.log(this.data.value().results))
