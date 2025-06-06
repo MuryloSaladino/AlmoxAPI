@@ -1,9 +1,10 @@
-import { Component, computed, effect, Input, resource, signal } from "@angular/core";
+import { Component, computed, effect, inject, Input, resource, signal } from "@angular/core";
 import { Paginated } from "../../../core/http/interfaces";
 import { ServerTableColumn } from "./server-table.types";
 import { TablerIconComponent } from "angular-tabler-icons";
 import { FormatDatePipe } from "../../pipes/format-date.pipe";
 import { BrlCurrencyPipe } from "../../pipes/brl-currency.pipe";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 @Component({
 	selector: "server-table",
@@ -22,6 +23,8 @@ export class ServerTableComponent<T extends object> {
 	@Input() columns: ServerTableColumn<T>[] = [];
 	@Input() pageSize: number = 3;
 
+	readonly sanitizer = inject(DomSanitizer);
+
 	readonly page = signal(1);
 	readonly data = resource({
 		defaultValue: {
@@ -39,8 +42,13 @@ export class ServerTableComponent<T extends object> {
 		this.pageSize - this.data.value().results.length
 	).fill(null))
 
-	constructor() {
-		effect(() => console.log(this.data.value().results))
+
+	getCellHtml(column: ServerTableColumn<T>, row: T): SafeHtml {
+		if (typeof column.renderCell === "function") {
+			const rawHtml = column.renderCell(row);
+			return this.sanitizer.bypassSecurityTrustHtml(rawHtml);
+		}
+		return "";
 	}
 
 	async nextPage() {

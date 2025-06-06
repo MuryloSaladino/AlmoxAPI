@@ -12,15 +12,19 @@
 				@for(row of data.value().results; track $index) {
 					<tr class="h-12 text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
 						@for(column of columns; track $index) {
-							<td class="p-3 font-normal">
-								{{
-									column.format == "date"
-									? (row[column.path] | formatDate)
-									: column.format == "currency"
-									? (row[column.path] | brlCurrency)
-									: row[column.path]
-								}}
-							</td>
+							@if(column.renderCell) {
+								<td class="p-3 font-normal" [innerHTML]="getCellHtml(column, row)"></td>
+							} @else if(column.path) {
+								<td class="p-3 font-normal">
+									{{
+										column.pipe == "date"
+										? (row[column.path] | formatDate)
+										: column.pipe == "currency"
+										? (row[column.path] | brlCurrency)
+										: row[column.path]
+									}}
+								</td>
+							}
 						}
 					</tr>
 				}
