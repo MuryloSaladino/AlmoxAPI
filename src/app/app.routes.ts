@@ -7,6 +7,9 @@ import { PageLayoutComponent } from './shared/components/page-layout/page-layout
 import { authGuard } from './core/guards/auth.guard';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { DeliveriesComponent } from './pages/deliveries/deliveries.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { CatalogComponent } from './pages/catalog/catalog.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 export const routes: Routes = [
 	{
@@ -38,6 +41,18 @@ export const routes: Routes = [
 			{
 				path: AppRoutes.DELIVERIES,
 				component: DeliveriesComponent,
+			},
+			{
+				path: AppRoutes.CART,
+				component: CartComponent,
+			},
+			{
+				path: AppRoutes.CATALOG,
+				component: CatalogComponent,
+			},
+			{
+				path: AppRoutes.ORDERS,
+				component: OrdersComponent,
 			},
 		]
 	},
