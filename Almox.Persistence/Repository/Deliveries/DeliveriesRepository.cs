@@ -32,6 +32,7 @@ public class DeliveriesRepository(
 
         var results = await query
             .OrderByDescending(e => e.CreatedAt)
+            .Include(d => d.StatusUpdates.OrderBy(su => su.UpdatedAt))
             .Skip((filters.Page - 1) * filters.PageSize)
             .Take(filters.PageSize)
             .ToListAsync(cancellationToken);
@@ -42,6 +43,6 @@ public class DeliveriesRepository(
     public Task<int> CountPending(CancellationToken cancellationToken)
         => context.Set<Delivery>()
             .Where(d => d.DeletedAt == null)
-            .Where(d => d.Status == DeliveryStatus.InTransit)
+            .Where(d => d.Status == DeliveryStatus.InTransit || d.Status == DeliveryStatus.Booked)
             .CountAsync(cancellationToken);
 }
