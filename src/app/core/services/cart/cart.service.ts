@@ -16,7 +16,8 @@ export class CartService {
 		return JSON.parse(cart);
 	}
 
-	addToCart(itemId: string, quantity: number) {
+	addToCart(itemId: string) {
+		const quantity = Number(prompt("How many would you like?")) || 1
 		const cart = this.getCart();
 		cart.push({ itemId, quantity });
 		localStorage.setItem(StorageKeys.CART, JSON.stringify(cart));
