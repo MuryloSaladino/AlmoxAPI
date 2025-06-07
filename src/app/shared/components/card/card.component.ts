@@ -11,6 +11,7 @@ export class CardComponent {
 	@Input() title?: string;
 	@Input() helperText?: string;
 	@Input() icon?: string;
+	@Input() cover: string | null = null;
 
 	@HostBinding("class")
 	get hostClass(): string {
