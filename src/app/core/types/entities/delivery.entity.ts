@@ -7,7 +7,7 @@ export interface DeliveryStatusUpdate {
     deliveryId: string;
     updatedById: string;
     updatedAt: Date;
-    status: DeliveryStatusUpdate;
+    status: DeliveryStatus;
     observations: string | null;
 }
 
@@ -25,13 +25,13 @@ export interface Delivery extends BaseEntity {
 	expectedDate: Date;
 	status: DeliveryStatus;
     deliveryItems: DeliveryItem[];
-    statusUpdated: DeliveryStatusUpdate;
+    statusUpdates: DeliveryStatusUpdate[];
 }
 
 
 export interface DeliveryCreation {
 	supplier: string;
-	expectedDate: Date;
+	expectedDate: string;
 	observations: string | null;
 	items: Omit<DeliveryItem, "item" | "deliveryId">[];
 }
