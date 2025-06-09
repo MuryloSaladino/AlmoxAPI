@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, HostBinding, Input, Output } from "@angular/core";
 import { TablerIconComponent } from "angular-tabler-icons";
 
 @Component({
@@ -11,7 +11,7 @@ import { TablerIconComponent } from "angular-tabler-icons";
 export class ButtonComponent {
 	@Input() type: "button" | "submit" | "reset" = "button";
 	@Input() disabled = false;
-	@Input("class") extraClasses = "";
+	@Input() extraClass = "";
 
 	@Input() variant: "primary" | "white" = "primary"
 	@Input() rightIcon?: string;
