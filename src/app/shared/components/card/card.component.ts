@@ -12,9 +12,4 @@ export class CardComponent {
 	@Input() helperText?: string;
 	@Input() icon?: string;
 	@Input() cover: string | null = null;
-
-	@HostBinding("class")
-	get hostClass(): string {
-		return "";
-	}
 }
