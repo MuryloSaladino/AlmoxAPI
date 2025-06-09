@@ -1,7 +1,7 @@
 <button
     [attr.type]="type"
     [disabled]="disabled"
-    [class]="['button', variant, extraClasses]"
+    [class]="`button ${variant} ${extraClass}`"
     (click)="click.emit($event)"
 >
     @if(leftIcon) {
