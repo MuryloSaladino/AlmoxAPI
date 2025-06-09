@@ -11,7 +11,7 @@ export class ItemService {
 	}
 
 	async get(itemId: string) {
-		return await http.get("/items/" + itemId);
+		return await http.get<Item>("/items/" + itemId);
 	}
 
 	async getAll(query: string = "") {
