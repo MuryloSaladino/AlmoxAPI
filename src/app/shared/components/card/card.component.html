@@ -1,7 +1,7 @@
 <div class="overflow-hidden rounded-md shadow-sm sm:hover:shadow-md transition-all">
 	@if(cover) {
-		<div class="overflow-hidden">
-			<img [src]="cover" class="h-48 w-full object-cover hover:transform-[scale(1.05)] transition-transform">
+		<div class="overflow-hidden w-full aspect-[4/3]">
+			<img [src]="cover" class="w-full object-cover hover:transform-[scale(1.05)] transition-transform">
 		</div>
 	}
 	<div class="relative px-4 py-6">
