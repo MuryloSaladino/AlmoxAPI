@@ -46,4 +46,15 @@ export class CartComponent {
 	getTotal() {
 		return this.items().reduce((acc, curr) => (curr.price * this.cart()[curr.id]) + acc, 0)
 	}
+
+	getOrderedItems() {
+		return this.items().map(item => ({
+			itemId: item.id,
+			quantity: this.cart()[item.id],
+		}));
+	}
+
+	onOrderCreation() {
+		this.cart.set(this.cartService.clear());
+	}
 }
