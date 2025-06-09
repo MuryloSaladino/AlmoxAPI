@@ -27,4 +27,9 @@ export class CartService {
 		delete cart[itemId];
 		localStorage.setItem(StorageKeys.CART, JSON.stringify(cart));
 	}
+
+	clear() {
+		localStorage.setItem(StorageKeys.CART, "{}");
+		return {} as { [key: string]: number };
+	}
 }
