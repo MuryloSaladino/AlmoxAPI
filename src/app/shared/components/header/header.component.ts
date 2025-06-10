@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { AppRoutes } from "../../../core/constants/app-routes";
 import { AuthService } from "../../../core/services/auth/auth.service";
 import { LogoComponent } from "../logo/logo.component";
@@ -60,6 +60,7 @@ export class HeaderComponent {
 	]
 
 	readonly auth = inject(AuthService);
+	readonly router = inject(Router);
 	readonly menuOpen = signal(false);
 	readonly items = computed(
 		() => !this.auth.user()
@@ -72,5 +73,10 @@ export class HeaderComponent {
 	toggle(event: MouseEvent) {
 		event.stopPropagation();
 		this.menuOpen.update(prev => !prev);
+	}
+
+	logout() {
+		this.auth.logout();
+		this.router.navigate([AppRoutes.LOGIN]);
 	}
 }
