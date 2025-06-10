@@ -1,0 +1,20 @@
+<div class="p-3 border-grey-300 border-[1px] rounded-md flex justify-between">
+	<div class="flex gap-3 items-center">
+		<div class="aspect-square w-16 bg-blue-light rounded-full flex justify-center items-center">
+			<i-tabler name="box" class="w-9! h-9! text-blue!"/>
+		</div>
+		<div>
+			<h4 class="font-medium">{{ order.tracking }}</h4>
+			<div class="text-sm font-light text-grey-500 flex items-center gap-3">
+				<span>{{ order.createdAt | formatDate }}</span>
+				<span class="text-lg font-extrabold">•</span>
+				<span>{{ order.orderItems.length }} item{{order.orderItems.length > 1 ? "s" : ""}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="flex flex-col gap-2 items-end">
+		<h4 class="font-medium">{{ getTotalCost() | brlCurrency }}</h4>
+		<span [class]="'text-xs px-3 py-0.5 rounded-full text-grey-0 ' + statusColor[order.status]">{{ order.status }}</span>
+	</div>
+</div>
