@@ -1,7 +1,7 @@
 <header class="flex justify-between p-4 shadow-sm rounded-lg">
 	<almox-logo />
 
-	<app-button variant="white" rightIcon="menu-2" (click)="toggle($event)" class="relative">
+	<app-button variant="white" rightIcon="menu-2" (onClick)="toggle($event)" class="relative">
 
 		<nav class="flex-col absolute hidden z-10 right-0 top-full bg-grey-0 shadow-sm" [class.flex!]="menuOpen()">
 			@for (item of items(); track item.title) {
@@ -11,7 +11,7 @@
 					</app-button>
 				</a>
 			}
-			<app-button (click)="logout()" leftIcon="logout" variant="white">Logout</app-button>
+			<app-button (onClick)="logout()" leftIcon="logout" variant="white">Logout</app-button>
 		</nav>
 	</app-button>
 

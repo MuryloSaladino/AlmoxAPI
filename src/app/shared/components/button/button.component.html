@@ -2,7 +2,7 @@
     [attr.type]="type"
     [disabled]="disabled"
     [class]="`button ${variant} ${extraClass}`"
-    (click)="click.emit($event)"
+    (click)="onClick.emit($event)"
 >
     @if(leftIcon) {
 		<i-tabler name="{{leftIcon}}"/>

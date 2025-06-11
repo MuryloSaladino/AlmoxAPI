@@ -16,5 +16,5 @@ export class ButtonComponent {
 	@Input() variant: "primary" | "white" = "primary"
 	@Input() rightIcon?: string;
 	@Input() leftIcon?: string;
-    @Output() click = new EventEmitter<MouseEvent>();
+    @Output() onClick = new EventEmitter<MouseEvent>();
 }
