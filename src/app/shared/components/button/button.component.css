@@ -20,6 +20,9 @@
 	opacity: 0.5;
 	cursor: default;
 }
+.button:disabled:hover {
+	background-color: var(--color-grey-500);
+}
 
 
 .primary {
