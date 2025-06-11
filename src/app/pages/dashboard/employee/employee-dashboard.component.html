@@ -35,8 +35,10 @@
 	</div>
 
 	<card title="Recent Orders" helperText="Your latest order activity">
-		@for(order of recentOrders.value()?.results; track order.id) {
-			<order-card [order]="order"/>
-		}
+		<div class="flex flex-col gap-3">
+			@for(order of recentOrders.value()?.results; track order.id) {
+				<order-card [order]="order"/>
+			}
+		</div>
 	</card>
 </div>
