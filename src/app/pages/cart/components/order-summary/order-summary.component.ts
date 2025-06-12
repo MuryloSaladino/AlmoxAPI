@@ -32,7 +32,7 @@ export class OrderSummaryComponent {
 
 	constructor(private fb: FormBuilder) {
 		this.form = fb.group({
-			orderPriority: ['Unspecified', [Validators.required]],
+			priority: ['Unspecified', [Validators.required]],
 			observations: [''],
 		});
 	}
