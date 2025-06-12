@@ -31,7 +31,9 @@ export async function http<T = never>(
 		response = await fetchCall();
 	}
 
-	const responseBody = await response.json();
+	const responseBody = response.status != 204
+		? await response.json()
+		: {};
 
 	if(!response.ok)
 		throw new FetchError(responseBody.message || "Error fetching data");
