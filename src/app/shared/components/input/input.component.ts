@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from "@angular/core";
+import { Component, EventEmitter, Input, Output, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { v4 as uuid } from "uuid";
 
@@ -23,6 +23,8 @@ export class InputComponent implements ControlValueAccessor {
     @Input() disabled: boolean = false;
     @Input() className: string = "";
     @Input() error: boolean = false;
+
+	@Output() valueChange = new EventEmitter<string>();
 
     value: string = "";
 
@@ -50,5 +52,6 @@ export class InputComponent implements ControlValueAccessor {
         this.value = value;
         this.onChange(value);
         this.onTouched();
+		this.valueChange.emit(value);
     }
 }
