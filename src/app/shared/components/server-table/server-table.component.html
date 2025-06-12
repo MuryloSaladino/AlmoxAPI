@@ -1,8 +1,8 @@
 <div class="flex flex-col gap-4">
 	<div class="overflow-x-auto w-full">
-		<table class="w-full">
+		<table class="w-full rounded-t-lg overflow-hidden">
 			<thead>
-				<tr class="border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+				<tr class="border-b-[1px] border-grey-300 bg-grey-200 transition-all">
 					@for(column of columns; track $index) {
 						<th class="text-start p-3 text-sm font-medium text-grey-600">{{ column.label }}</th>
 					}
@@ -29,7 +29,7 @@
 					</tr>
 				}
 				@for(row of emptyRows(); track $index) {
-					<tr class="h-12 text-start text-sm border-b-[1px] border-grey-300 hover:bg-blue-light transition-all">
+					<tr class="h-12 text-start text-sm border-b-[1px] border-grey-300">
 						@for(column of columns; track $index) {
 							<td class="p-3 font-normal"></td>
 						}
