@@ -1,7 +1,7 @@
 import { Component, computed, inject, resource, signal } from "@angular/core";
 import { CreateDeliveryComponent } from "./components/create-delivery/create-delivery.component";
 import { DeliveryCardComponent } from "./components/delivery-card/delivery-card.component";
-import { CardComponent } from "../../shared/components/card/card.component";
+import { CardComponent } from "../../shared/components/display/card/card.component";
 import { DeliveryService } from "../../core/services/delivery/delivery.service";
 import { TablerIconComponent } from "angular-tabler-icons";
 

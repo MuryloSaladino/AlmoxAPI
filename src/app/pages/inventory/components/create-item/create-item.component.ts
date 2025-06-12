@@ -1,10 +1,10 @@
 import { Component, computed, inject, resource, signal } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { InputComponent } from "../../../../shared/components/input/input.component";
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { InputComponent } from "../../../../shared/components/controls/input/input.component";
+import { ButtonComponent } from "../../../../shared/components/controls/button/button.component";
 import { CategoryService } from "../../../../core/services/category/category.service";
 import { ItemService } from "../../../../core/services/item/item.service";
-import { CardComponent } from "../../../../shared/components/card/card.component";
+import { CardComponent } from "../../../../shared/components/display/card/card.component";
 
 @Component({
 	selector: "create-item",

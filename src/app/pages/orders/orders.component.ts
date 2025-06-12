@@ -1,5 +1,5 @@
 import { Component, inject, resource, signal } from "@angular/core";
-import { CardComponent } from "../../shared/components/card/card.component";
+import { CardComponent } from "../../shared/components/display/card/card.component";
 import { OrderService } from "../../core/services/order/order.service";
 import { TablerIconComponent } from "angular-tabler-icons";
 import { OrderCardComponent } from "./components/order-card/order-card.component";

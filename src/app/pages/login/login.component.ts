@@ -1,11 +1,11 @@
 import { Component, effect, inject } from "@angular/core";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ButtonComponent } from "../../shared/components/button/button.component";
+import { ButtonComponent } from "../../shared/components/controls/button/button.component";
 import { Router } from "@angular/router";
 import { AuthService } from "../../core/services/auth/auth.service";
 import { AppRoutes } from "../../core/constants/app-routes";
-import { LogoComponent } from "../../shared/components/logo/logo.component";
-import { InputComponent } from "../../shared/components/input/input.component";
+import { LogoComponent } from "../../shared/components/utils/logo/logo.component";
+import { InputComponent } from "../../shared/components/controls/input/input.component";
 
 @Component({
 	selector: "login",

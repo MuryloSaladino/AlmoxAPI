@@ -1,9 +1,9 @@
-import { Component, computed, effect, inject, signal } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
-import { AppRoutes } from "../../../core/constants/app-routes";
-import { AuthService } from "../../../core/services/auth/auth.service";
-import { LogoComponent } from "../logo/logo.component";
-import { ButtonComponent } from "../button/button.component";
+import { AppRoutes } from "../../../../core/constants/app-routes";
+import { AuthService } from "../../../../core/services/auth/auth.service";
+import { LogoComponent } from "../../utils/logo/logo.component";
+import { ButtonComponent } from "../../controls/button/button.component";
 
 interface NavItem {
 	icon: string;

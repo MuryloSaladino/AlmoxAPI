@@ -1,11 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
-import { CardComponent } from "../../../../shared/components/card/card.component";
+import { CardComponent } from "../../../../shared/components/display/card/card.component";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { OrderService } from "../../../../core/services/order/order.service";
 import { BrlCurrencyPipe } from "../../../../shared/pipes/brl-currency.pipe";
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { ButtonComponent } from "../../../../shared/components/controls/button/button.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { InputComponent } from "../../../../shared/components/input/input.component";
+import { InputComponent } from "../../../../shared/components/controls/input/input.component";
 import { OrderCreation } from "../../../../core/types/entities/order.entity";
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject, signal } from "@angular/core";
-import { CardComponent } from "../../shared/components/card/card.component";
+import { CardComponent } from "../../shared/components/display/card/card.component";
 import { CartService } from "../../core/services/cart/cart.service";
 import { CartItemComponent } from "./components/cart-item/cart-item.component";
 import { OrderSummaryComponent } from "./components/order-summary/order-summary.component";
 import { RouterModule } from "@angular/router";
 import { AppRoutes } from "../../core/constants/app-routes";
-import { ButtonComponent } from "../../shared/components/button/button.component";
+import { ButtonComponent } from "../../shared/components/controls/button/button.component";
 import { ItemService } from "../../core/services/item/item.service";
 import { Item } from "../../core/types/entities/items.types";
 

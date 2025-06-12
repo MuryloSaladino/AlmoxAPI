@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AppRoutes } from "../../core/constants/app-routes";
-import { ButtonComponent } from "../../shared/components/button/button.component";
+import { ButtonComponent } from "../../shared/components/controls/button/button.component";
 
 @Component({
 	selector: "not-found",

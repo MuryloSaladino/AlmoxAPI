@@ -1,11 +1,11 @@
 import { Component, inject, signal } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { CardComponent } from "../../../../shared/components/card/card.component";
-import { InputComponent } from "../../../../shared/components/input/input.component";
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
-import { ServerTableComponent } from "../../../../shared/components/server-table/server-table.component";
+import { CardComponent } from "../../../../shared/components/display/card/card.component";
+import { InputComponent } from "../../../../shared/components/controls/input/input.component";
+import { ButtonComponent } from "../../../../shared/components/controls/button/button.component";
+import { ServerTableComponent } from "../../../../shared/components/display/server-table/server-table.component";
 import { CategoryService } from "../../../../core/services/category/category.service";
-import { ServerTableColumn } from "../../../../shared/components/server-table/server-table.types";
+import { ServerTableColumn } from "../../../../shared/components/display/server-table/server-table.types";
 import { Category } from "../../../../core/types/entities/category.entity";
 
 @Component({

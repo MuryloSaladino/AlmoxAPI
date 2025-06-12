@@ -1,10 +1,10 @@
 import { Component, inject, Input } from "@angular/core";
-import { CardComponent } from "../../../../shared/components/card/card.component";
+import { CardComponent } from "../../../../shared/components/display/card/card.component";
 import { CartService } from "../../../../core/services/cart/cart.service";
 import { Item } from "../../../../core/types/entities/items.types";
 import { BrlCurrencyPipe } from "../../../../shared/pipes/brl-currency.pipe";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { ButtonComponent } from "../../../../shared/components/controls/button/button.component";
 
 @Component({
 	selector: "item-card",

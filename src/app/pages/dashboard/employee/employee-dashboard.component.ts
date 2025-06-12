@@ -1,7 +1,7 @@
 import { Component, inject, resource } from "@angular/core";
 import { AuthService } from "../../../core/services/auth/auth.service";
-import { NavigationCardComponent } from "../../../shared/components/navigation-card/navigation-card.component";
-import { CardComponent } from "../../../shared/components/card/card.component";
+import { NavigationCardComponent } from "../../../shared/components/display/navigation-card/navigation-card.component";
+import { CardComponent } from "../../../shared/components/display/card/card.component";
 import { OrderService } from "../../../core/services/order/order.service";
 import { OrderCardComponent } from "./components/order-card/order-card.component";
 

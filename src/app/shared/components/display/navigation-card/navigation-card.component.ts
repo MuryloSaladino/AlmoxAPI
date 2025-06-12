@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { CardComponent } from "../card/card.component";
 import { RouterModule } from "@angular/router";
 import { TablerIconComponent } from "angular-tabler-icons";
-import { ButtonComponent } from "../button/button.component";
+import { ButtonComponent } from "../../controls/button/button.component";
 
 @Component({
 	selector: "navigation-card",

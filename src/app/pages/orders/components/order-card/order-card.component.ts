@@ -1,5 +1,5 @@
 import { Component, inject, Input } from "@angular/core";
-import { CardComponent } from "../../../../shared/components/card/card.component";
+import { CardComponent } from "../../../../shared/components/display/card/card.component";
 import { Order } from "../../../../core/types/entities/order.entity";
 import { FormatDatePipe } from "../../../../shared/pipes/format-date.pipe";
 import { BrlCurrencyPipe } from "../../../../shared/pipes/brl-currency.pipe";

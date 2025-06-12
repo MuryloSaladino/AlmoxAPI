@@ -1,9 +1,9 @@
 import { Component, computed, effect, inject, Input, resource, signal } from "@angular/core";
-import { Paginated } from "../../../core/http/interfaces";
+import { Paginated } from "../../../../core/http/interfaces";
 import { ServerTableColumn } from "./server-table.types";
 import { TablerIconComponent } from "angular-tabler-icons";
-import { FormatDatePipe } from "../../pipes/format-date.pipe";
-import { BrlCurrencyPipe } from "../../pipes/brl-currency.pipe";
+import { FormatDatePipe } from "../../../pipes/format-date.pipe";
+import { BrlCurrencyPipe } from "../../../pipes/brl-currency.pipe";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, inject, resource, signal } from "@angular/core";
-import { CardComponent } from "../../shared/components/card/card.component";
+import { CardComponent } from "../../shared/components/display/card/card.component";
 import { ItemService } from "../../core/services/item/item.service";
 import { CategoryService } from "../../core/services/category/category.service";
-import { InputComponent } from "../../shared/components/input/input.component";
+import { InputComponent } from "../../shared/components/controls/input/input.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { ItemCardComponent } from "./components/item-card/item-card.component";
 

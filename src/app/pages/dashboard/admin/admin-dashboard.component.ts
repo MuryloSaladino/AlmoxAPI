@@ -3,11 +3,11 @@ import { UserService } from "../../../core/services/user/user.service";
 import { InsightsComponent } from "./components/insights/insights.component";
 import { DepartmentManagementComponent } from "./components/department-management/department-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
-import { ServerTableColumn } from "../../../shared/components/server-table/server-table.types";
+import { ServerTableColumn } from "../../../shared/components/display/server-table/server-table.types";
 import { User } from "../../../core/types/entities/user.entity";
-import { CardComponent } from "../../../shared/components/card/card.component";
-import { ServerTableComponent } from "../../../shared/components/server-table/server-table.component";
-import { NavigationCardComponent } from "../../../shared/components/navigation-card/navigation-card.component";
+import { CardComponent } from "../../../shared/components/display/card/card.component";
+import { ServerTableComponent } from "../../../shared/components/display/server-table/server-table.component";
+import { NavigationCardComponent } from "../../../shared/components/display/navigation-card/navigation-card.component";
 
 @Component({
 	selector: "admin-dashboard",

@@ -1,10 +1,10 @@
 import { Component, inject, resource, signal } from "@angular/core";
-import { InputComponent } from "../../../../../shared/components/input/input.component";
-import { ButtonComponent } from "../../../../../shared/components/button/button.component";
+import { InputComponent } from "../../../../../shared/components/controls/input/input.component";
+import { ButtonComponent } from "../../../../../shared/components/controls/button/button.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { UserService } from "../../../../../core/services/user/user.service";
 import { DepartmentService } from "../../../../../core/services/department/department.service";
-import { CardComponent } from "../../../../../shared/components/card/card.component";
+import { CardComponent } from "../../../../../shared/components/display/card/card.component";
 
 @Component({
 	selector: "user-management",
