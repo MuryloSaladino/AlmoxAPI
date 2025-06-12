@@ -21,5 +21,6 @@ export class NavigationCardComponent {
 	@Input() title!: string;
 	@Input() description!: string;
 	@Input() link: string = "";
+	@Input() scrollTo?: string;
 	@Input() linkText!: string;
 }

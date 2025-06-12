@@ -7,8 +7,14 @@
 			<p class="text-sm text-grey-400">{{ description }}</p>
 		</div>
 
-		<a [routerLink]="link" class="w-full">
-			<app-button class="w-full">{{ linkText }}</app-button>
-		</a>
+		@if(scrollTo) {
+			<a [routerLink]="[]" [fragment]="scrollTo" class="w-full">
+				<app-button>{{ linkText }}</app-button>
+			</a>
+		} @else {
+			<a [routerLink]="link" class="w-full">
+				<app-button>{{ linkText }}</app-button>
+			</a>
+		}
 	</div>
 </card>
