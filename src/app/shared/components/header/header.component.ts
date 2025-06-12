@@ -75,8 +75,8 @@ export class HeaderComponent {
 		this.menuOpen.update(prev => !prev);
 	}
 
-	logout() {
-		this.auth.logout();
+	async logout() {
+		await this.auth.logout();
 		this.router.navigate([AppRoutes.LOGIN]);
 	}
 }
