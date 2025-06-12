@@ -1,35 +1,31 @@
-import { Injectable } from "@angular/core";
+import { effect, Injectable, signal } from "@angular/core";
 import { StorageKeys } from "../../constants/storage-keys";
 
 @Injectable({ providedIn: "root" })
 export class CartService {
 
-	getCart(): { [key: string]: number } {
-		let cart = localStorage.getItem(StorageKeys.CART);
+	readonly cart = signal<{ [key: string]: number }>({});
 
-		if(!cart) {
-			localStorage.setItem(StorageKeys.CART, "{}");
-			return {};
+	constructor() {
+		let storageCart = localStorage.getItem(StorageKeys.CART);
+
+		if(storageCart) {
+			this.cart.set(JSON.parse(storageCart))
 		}
 
-		return JSON.parse(cart);
+		effect(() => localStorage.setItem(StorageKeys.CART, JSON.stringify(this.cart())));
 	}
 
 	addToCart(itemId: string) {
 		const quantity = Number(prompt("How many would you like?", "1"))
-		const cart = this.getCart();
-		cart[itemId] = quantity;
-		localStorage.setItem(StorageKeys.CART, JSON.stringify(cart));
+		this.cart.update(prev => ({ ...prev, [itemId]: quantity }));
 	}
 
 	removeItem(itemId: string) {
-		const cart = this.getCart();
-		delete cart[itemId];
-		localStorage.setItem(StorageKeys.CART, JSON.stringify(cart));
+		this.cart.update(({ [itemId]: x, ...rest }) => rest);
 	}
 
 	clear() {
-		localStorage.setItem(StorageKeys.CART, "{}");
-		return {} as { [key: string]: number };
+		this.cart.set({});
 	}
 }

@@ -11,7 +11,7 @@
 					@for(item of items(); track $index) {
 						<cart-item
 							[item]="item"
-							[quantity]="cart()[item.id]"
+							[quantity]="cartService.cart()[item.id]"
 							[onRemove]="removeItem(item.id)"
 						/>
 					}

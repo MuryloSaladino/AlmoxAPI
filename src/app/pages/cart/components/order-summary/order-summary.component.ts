@@ -43,5 +43,6 @@ export class OrderSummaryComponent {
 			orderedItems: this.orderedItems,
 		});
 		this.onSubmit.emit();
+		this.form.reset();
 	}
 }

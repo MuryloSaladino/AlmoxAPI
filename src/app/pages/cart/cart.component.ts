@@ -26,35 +26,31 @@ export class CartComponent {
 	readonly cartService = inject(CartService);
 	readonly itemService = inject(ItemService);
 	readonly catalog = AppRoutes.CATALOG;
-	readonly cart = signal(this.cartService.getCart());
 
 	readonly items = signal<Item[]>([]);
 
 	constructor() {
 		effect(async () => this.items.set(await Promise.all(
-			Object.keys(this.cart()).map(async (itemId) => await this.itemService.get(itemId))
+			Object.keys(this.cartService.cart()).map(async (itemId) => await this.itemService.get(itemId))
 		)));
 	}
 
 	removeItem(itemId: string) {
-		return () => {
-			this.cartService.removeItem(itemId);
-			this.cart.set(this.cartService.getCart());
-		}
+		return () => this.cartService.removeItem(itemId);
 	}
 
 	getTotal() {
-		return this.items().reduce((acc, curr) => (curr.price * this.cart()[curr.id]) + acc, 0)
+		return this.items().reduce((acc, curr) => (curr.price * this.cartService.cart()[curr.id]) + acc, 0)
 	}
 
 	getOrderedItems() {
 		return this.items().map(item => ({
 			itemId: item.id,
-			quantity: this.cart()[item.id],
+			quantity: this.cartService.cart()[item.id],
 		}));
 	}
 
 	onOrderCreation() {
-		this.cart.set(this.cartService.clear());
+		this.cartService.clear();
 	}
 }
