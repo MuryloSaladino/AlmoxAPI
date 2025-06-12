@@ -10,6 +10,7 @@
 				placeholder="Search items..."
 				class="w-full"
 				formControlName="name"
+				(valueChange)="updateItems()"
 			/>
 			<select (change)="updateItems()" formControlName="categoryName" class="outline-0 w-full sm:w-40 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
 				<option value="">All categories</option>
