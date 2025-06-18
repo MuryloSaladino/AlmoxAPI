@@ -1,0 +1,37 @@
+<card title="Order Summary">
+	<form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="submit()">
+
+		<div class="flex flex-col">
+			<label htmlFor="priority" class="text-[0.8rem] font-medium">Order Priority</label>
+			<select id="priority" formControlName="priority" class="w-full outline-0 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
+				<option value="Unspecified">Unspecified</option>
+				<option value="Low">Low</option>
+				<option value="Medium">Medium</option>
+				<option value="High">High</option>
+				<option value="Urgent">Urgent</option>
+			</select>
+		</div>
+
+		<app-input formControlName="observations" label="Notes (optional)" />
+
+		<div class="py-3 flex flex-col gap-2 border-b-[1px] border-grey-400">
+			<div class="flex items-center justify-between">
+				<p class="text-sm text-grey-600">Requester:</p>
+				<p class="text-sm text-grey-600">{{ auth.user()!.username }}</p>
+			</div>
+			<div class="flex items-center justify-between">
+				<p class="text-sm text-grey-600">Tax:</p>
+				<p class="text-sm text-grey-600">{{ 0 | brlCurrency }}</p>
+			</div>
+		</div>
+
+		<div>
+			<div class="flex items-center justify-between">
+				<p class="font-medium">Total:</p>
+				<p class="font-medium">{{ total | brlCurrency }}</p>
+			</div>
+		</div>
+
+		<app-button type="submit">Submit Order</app-button>
+	</form>
+</card>

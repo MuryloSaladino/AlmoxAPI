@@ -1,0 +1,8 @@
+<card title="Category Management" helperText="Add and manage item categories">
+	<form [formGroup]="form" (ngSubmit)="submit()" class="flex gap-2 my-3">
+		<app-input formControlName="name" class="w-full" placeholder="Category Name"/>
+		<app-button class="w-max" rightIcon="category-plus" type="submit">Add</app-button>
+	</form>
+
+	<server-table [loader]="categoryService.getAll" [columns]="columns"/>
+</card>

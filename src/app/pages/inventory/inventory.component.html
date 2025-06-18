@@ -1,0 +1,17 @@
+<div class="flex flex-col gap-8 mt-8">
+	<div class="col-span-12">
+		<h1 class="text-3xl font-semibold">Inventory Management</h1>
+		<p class="text-sm text-grey-500">Manage categories and items in the warehouse</p>
+	</div>
+
+	<insights/>
+
+	<div class="grid md:grid-cols-2 gap-3">
+		<category-management/>
+		<create-item/>
+	</div>
+
+	<card title="All Items">
+		<server-table [loader]="itemService.getAll" [pageSize]="8" [columns]="columns" />
+	</card>
+</div>

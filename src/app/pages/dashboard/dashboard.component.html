@@ -1,0 +1,8 @@
+@if(auth.user()) {
+	@if(auth.user()!.role == "Employee") {
+		<employee-dashboard/>
+	} @else {
+		<admin-dashboard/>
+	}
+}
+

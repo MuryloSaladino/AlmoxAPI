@@ -1,0 +1,17 @@
+<div class="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
+	<card title="Total Departments" icon="buildings">
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.departments }}</h3>
+	</card>
+
+	<card title="Total Users" icon="users-group">
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.users }}</h3>
+	</card>
+
+	<card title="Ongoing Orders" icon="send">
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.ongoingOrders }}</h3>
+	</card>
+
+	<card title="Pending Deliveries" icon="truck">
+		<h3 class="text-3xl font-bold mt-2">{{ insights.value()?.pendingDeliveries }}</h3>
+	</card>
+</div>

@@ -1,0 +1,41 @@
+<card>
+	<div class="flex flex-col gap-8">
+		<div class="flex justify-between">
+			<div>
+				<h4 class="text-lg font-medium">{{ order.tracking }}</h4>
+				<p class="text-sm text-grey-500 font-light">Placed on {{ order.createdAt | formatDate }}</p>
+				<p class="text-sm text-grey-500 font-light">{{ order.priority }} priority</p>
+			</div>
+
+			<div>
+				<span [class]="'px-4 py-1 rounded-full text-grey-0 ' + statusColor[order.status]">{{ order.status }}</span>
+				<h4 class="text-lg font-bold m-1">{{ getTotalCost() | brlCurrency }}</h4>
+			</div>
+		</div>
+
+		<div class="flex justify-center items-center">
+			<div class="flex h-[1px] bg-grey-400 gap-18 items-center ">
+				@for(status of order.statusUpdates; track $index) {
+					<div [class]="'w-3 min-h-3 rounded-full relative ' + statusColor[status.status]">
+						<p class="absolute left-1/2 -translate-x-1/2 bottom-[120%] text-sm">{{ status.status }}</p>
+						<p class="absolute left-1/2 -translate-x-1/2 top-[120%] text-xs text-grey-400">{{ status.updatedAt | formatDate }}</p>
+					</div>
+				}
+				@if(auth.user()!.role != "Employee" && order.status != "Canceled" && order.status != "Completed") {
+					<div (click)="advanceStatus()" title="Advance Status" class="w-5 min-h-5 rounded-full bg-green cursor-pointer text-grey-100 flex items-center justify-center hover:transform-[scale(125%)]">
+						<i-tabler name="chevrons-right" class="text-lg/tight h-full!"/>
+					</div>
+				}
+			</div>
+		</div>
+
+		<ul class="border-t-[1px] border-grey-300">
+			@for(item of order.orderItems; track $index) {
+				<li class="flex justify-between items-center border-b-[1px] border-grey-300 py-2">
+					<h6 class="text-sm font-medium">{{ item.item.name }} <span class="font-light">x{{ item.quantity }}</span></h6>
+					<p class="text-sm font-light">{{ (item.price * item.quantity) | brlCurrency }}</p>
+				</li>
+			}
+		</ul>
+	</div>
+</card>

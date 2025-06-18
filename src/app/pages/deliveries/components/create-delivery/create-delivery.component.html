@@ -1,0 +1,45 @@
+<card title="Create New Delivery" helperText="Add incoming delivery to the system">
+	<div class="flex flex-col gap-6">
+
+		<ol class="list-decimal">
+			<h3 class="text-xl font-semibold border-b-[1px] p-1 border-grey-300">Items: </h3>
+			@for(item of deliveryItems(); track $index) {
+				<li class="text-md flex justify-between border-b-[1px] p-1 border-grey-300">
+					<p>{{$index+1}} - {{ item.item.name }}</p>
+					<p>{{ item.supplierPrice | brlCurrency }} x{{ item.quantity }}</p>
+				</li>
+			}
+		</ol>
+
+		<form [formGroup]="addItemForm" (ngSubmit)="submitItem()" class="flex flex-col gap-2">
+			<select formControlName="itemId" class="w-full outline-0 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
+				<option value="">Select Item</option>
+				@for (item of itemOptions.value()?.results; track item.id) {
+					<option [value]="item.id">{{ item.name }}</option>
+				}
+			</select>
+			<div class="flex gap-2">
+				<app-input class="w-full" type="number" formControlName="supplierPrice" placeholder="Supplier Price (R$)" />
+				<app-input type="number" formControlName="quantity" placeholder="Quantity" />
+				<app-button rightIcon="plus" type="submit"></app-button>
+			</div>
+		</form>
+	</div>
+
+	<form [formGroup]="form" class="flex flex-col gap-4 mt-12" (ngSubmit)="submit()">
+		<app-input
+			formControlName="supplier"
+			label="Supplier"
+		/>
+		<app-input
+			formControlName="expectedDate"
+			label="Expected Date"
+		/>
+		<app-input
+			formControlName="observations"
+			label="Notes (optional)"
+		/>
+
+		<app-button type="submit" class="mt-3" rightIcon="plus">Create Delivery</app-button>
+	</form>
+</card>

@@ -1,0 +1,44 @@
+<div class="flex flex-col gap-8 mt-8">
+	<div class="col-span-12">
+		<h1 class="text-3xl font-semibold">Employee Dashboard</h1>
+		<p class="text-sm text-grey-500">
+			Welcome back <span class="font-medium">{{ auth.user()?.username }}</span>!
+			Manage your orders and browse the catalog.
+		</p>
+	</div>
+
+	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+		<navigation-card
+			icon="box"
+			iconColor="#2563EB"
+			title="Browse Catalog"
+			description="View available items and add to cart"
+			link="/catalog"
+			linkText="View Catalog"
+		/>
+		<navigation-card
+			icon="shopping-cart"
+			iconColor="#16A34A"
+			title="Shopping Cart"
+			description="Review items and place your order"
+			link="/cart"
+			linkText="View Cart"
+		/>
+		<navigation-card
+			icon="list"
+			iconColor="#9333EA"
+			title="My Orders"
+			description="Track your order status and history"
+			link="/orders"
+			linkText="View My Orders"
+		/>
+	</div>
+
+	<card title="Recent Orders" helperText="Your latest order activity">
+		<div class="flex flex-col gap-3">
+			@for(order of recentOrders.value()?.results; track order.id) {
+				<order-card [order]="order"/>
+			}
+		</div>
+	</card>
+</div>

@@ -1,0 +1,18 @@
+<header class="flex justify-between p-4 shadow-sm rounded-lg">
+	<almox-logo />
+
+	<app-button variant="white" rightIcon="menu-2" (onClick)="toggle($event)" class="relative">
+
+		<nav class="flex-col absolute hidden z-10 right-0 top-full bg-grey-0 shadow-sm" [class.flex!]="menuOpen()">
+			@for (item of items(); track item.title) {
+				<a routerLink="{{ item.link }}">
+					<app-button [leftIcon]="item.icon" variant="white" class="justify-start!">
+						{{ item.title }}
+					</app-button>
+				</a>
+			}
+			<app-button (onClick)="logout()" leftIcon="logout" variant="white">Logout</app-button>
+		</nav>
+	</app-button>
+
+</header>

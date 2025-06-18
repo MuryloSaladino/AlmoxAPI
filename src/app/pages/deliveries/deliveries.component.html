@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-8 mt-8">
+	<div class="col-span-12">
+		<h1 class="text-3xl font-semibold">Delivery Management</h1>
+		<p class="text-sm text-grey-500">Track and manage incoming deliveries</p>
+	</div>
+
+	<div class="grid md:grid-cols-3 gap-4">
+		<create-delivery [refresh]="refresh"/>
+
+		<card class="md:col-span-2" title="All Deliveries" helperText="Manage and track delivery status">
+			<div class="flex flex-col gap-4">
+				<div class="flex flex-col gap-2">
+					@for(delivery of deliveries.value().results; track delivery.id) {
+						<delivery-card [delivery]="delivery" [refresh]="refresh"/>
+					}
+				</div>
+				<div class="flex items-center gap-3 self-end select-none">
+					<i-tabler
+						name="chevron-left"
+						class="cursor-pointer"
+						[class.hover:text-blue]="page() > 1"
+						[class.opacity-40]="page() == 1"
+						(click)="prevPage()"
+					/>
+					<span>{{deliveries.value().page}}</span>
+					<i-tabler
+						name="chevron-right"
+						class="cursor-pointer"
+						[class.hover:text-blue]="page() < deliveries.value().maxPage"
+						[class.opacity-40]="page() == deliveries.value().maxPage"
+						(click)="nextPage()"
+					/>
+				</div>
+			</div>
+		</card>
+	</div>
+</div>

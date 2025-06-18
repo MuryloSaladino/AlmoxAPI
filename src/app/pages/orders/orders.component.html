@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-8 mt-8">
+	<div class="col-span-12">
+		<h1 class="text-3xl font-semibold">Orders</h1>
+		<p class="text-sm text-grey-500">Track order status and history</p>
+	</div>
+
+	<card>
+		<div class="flex flex-col">
+			<label class="text-sm font-semibold" for="statusFilter">Filter by status</label>
+			<select (change)="updateStatus($event)" formControlName="categoryName" class="outline-0 w-full sm:w-40 h-[35px] border-[1px] border-grey-300 rounded-sm px-2 text-sm">
+				<option value="">All</option>
+				<option value="Requested">Requested</option>
+				<option value="Accepted">Accepted</option>
+				<option value="Ready">Ready</option>
+				<option value="Completed">Completed</option>
+				<option value="Canceled">Canceled</option>
+			</select>
+		</div>
+	</card>
+
+	<div class="flex flex-col gap-6">
+		@for(order of orders.value().results; track order.id) {
+			<order-card [order]="order" [refresh]="refresh"/>
+		}
+		<div class="flex items-center gap-3 self-end select-none">
+			<i-tabler
+				name="chevron-left"
+				class="cursor-pointer"
+				[class.hover:text-blue]="page() > 1"
+				[class.opacity-40]="page() == 1"
+				(click)="prevPage()"
+			/>
+			<span>{{orders.value().page}}</span>
+			<i-tabler
+				name="chevron-right"
+				class="cursor-pointer"
+				[class.hover:text-blue]="page() < orders.value().maxPage"
+				[class.opacity-40]="page() == orders.value().maxPage"
+				(click)="nextPage()"
+			/>
+		</div>
+	</div>
+</div>

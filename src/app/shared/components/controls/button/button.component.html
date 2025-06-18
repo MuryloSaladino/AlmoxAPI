@@ -1,0 +1,16 @@
+<button
+    [attr.type]="type"
+    [disabled]="disabled"
+    [class]="`button ${variant} ${extraClass}`"
+    (click)="onClick.emit($event)"
+>
+    @if(leftIcon) {
+		<i-tabler name="{{leftIcon}}"/>
+	}
+
+    <ng-content/>
+
+	@if(rightIcon) {
+		<i-tabler name="{{rightIcon}}" />
+	}
+</button>
